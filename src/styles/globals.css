@@ -1,0 +1,236 @@
+/* ============================================================
+   SPIDER-VERSE EXPLORER — GLOBAL DESIGN TOKENS
+   ============================================================
+   Palette logic: the "void between universes" is the resting
+   state — a near-black with a faint violet undertone, so that
+   each universe's own theme color (set per-universe in data)
+   has room to read as a real shift, not just a filter.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ---- Color: the void (default / between-universe state) ---- */
+  --color-void: #08070c;
+  --color-void-soft: #0f0d17;
+  --color-surface: #15121e;
+  --color-web: #f2f0ea;
+  --color-web-dim: #b8b4c4;
+  --color-muted: #6b6478;
+
+  /* Signature accent: dimensional energy, not "Spider-Man red/blue" —
+     this is the in-between color, used for UI chrome, cursor, web lines */
+  --color-rift: #b026ff;
+  --color-rift-soft: #7c2ecf;
+  --color-glitch: #00f0ff;
+
+  /* Per-universe theme colors are injected as CSS custom properties
+     at the section/root level when a universe is active:
+     --universe-primary / --universe-secondary */
+  --universe-primary: var(--color-rift);
+  --universe-secondary: var(--color-glitch);
+
+  /* ---- Type ---- */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --fs-hero: clamp(3rem, 9vw, 8rem);
+  --fs-h1: clamp(2.25rem, 5vw, 4rem);
+  --fs-h2: clamp(1.5rem, 3vw, 2.25rem);
+  --fs-body: 1rem;
+  --fs-small: 0.8125rem;
+  --fs-label: 0.75rem;
+
+  /* ---- Layout ---- */
+  --nav-height: 72px;
+  --edge-padding: clamp(1.25rem, 4vw, 3rem);
+  --radius-sm: 4px;
+  --radius-md: 10px;
+
+  /* ---- Motion ---- */
+  --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.2s;
+  --dur-med: 0.5s;
+  --dur-slow: 1.1s;
+}
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-web);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Visible keyboard focus everywhere — no outline: none without a replacement */
+:focus-visible {
+  outline: 2px solid var(--universe-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Shared utility classes ---- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.canvas-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Desktop-only custom cursor: hides the native cursor everywhere
+   except form controls (which need a visible text/select cursor),
+   and styles the dot/ring/trail elements rendered by CustomCursor.jsx */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-active {
+    cursor: none;
+  }
+  body.custom-cursor-active input,
+  body.custom-cursor-active select,
+  body.custom-cursor-active textarea {
+    cursor: auto;
+  }
+}
+
+.custom-cursor-spider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  filter: drop-shadow(0 0 4px rgba(176, 38, 255, 0.8));
+}
+
+.custom-cursor-ring-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform;
+}
+
+.custom-cursor-ring {
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-rift);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-cursor-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--color-web);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.custom-cursor-trail-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  will-change: transform;
+}
+
+/* Skip-to-content link — visually hidden until keyboard-focused */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  background: var(--color-rift);
+  color: #08070c;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  z-index: 200;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}

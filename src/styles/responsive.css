@@ -1,0 +1,20 @@
+/* ============================================================
+   RESPONSIVE OVERRIDES
+   ------------------------------------------------------------
+   Most layout is already fluid via clamp() typography and
+   auto-fill grids in component styles (established from Phase 1
+   onward). This file covers the handful of adjustments that need
+   a hard breakpoint rather than a smooth scale.
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .character-card {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (max-width: 480px) {
+  nav ul {
+    gap: 0.75rem !important;
+  }
+}
