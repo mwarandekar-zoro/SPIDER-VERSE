@@ -7,10 +7,13 @@ import Button from '../UI/Button';
 
 /**
  * Section 20 layout: about / powers / stats / universe / actions.
- * The character's own 3D model staying visible alongside this
- * panel (as the spec asks) arrives once real character models
- * replace the placeholder core — this phase focuses on the data
- * and information architecture being correct and fully wired.
+ *
+ * Entrance is now a two-part effect: a wide "portal-burst" glow
+ * (see .portal-burst in globals.css) that flashes in behind the
+ * panel and quickly settles, plus the panel itself sliding/fading
+ * up on top of it. Both are keyed by characterId so switching
+ * straight from one character to another (via Relationships) replays
+ * the burst instead of just cross-fading text.
  */
 export default function CharacterProfile({
   characterId,
@@ -32,6 +35,7 @@ export default function CharacterProfile({
       exit={{ opacity: 0, y: -24 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{
+        position: 'relative',
         maxWidth: '720px',
         width: '100%',
         margin: '0 auto',
@@ -43,6 +47,19 @@ export default function CharacterProfile({
         backdropFilter: 'blur(6px)',
       }}
     >
+      {/* Portal-burst: quick radial flash in this character's own
+          suit colors, behind the panel (z-index -1 via .portal-burst),
+          scaling down and fading out over ~0.9s. Purely decorative
+          (aria-hidden) — the panel content below is what's announced. */}
+      <motion.div
+        key={`burst-${characterId}`}
+        className="portal-burst"
+        aria-hidden="true"
+        initial={{ opacity: 0.9, scale: 0.4, rotate: 0 }}
+        animate={{ opacity: 0, scale: 1.4, rotate: 25 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      />
+
       <button
         onClick={onClose}
         aria-label="Close character profile"

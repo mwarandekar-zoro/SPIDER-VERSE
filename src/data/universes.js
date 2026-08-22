@@ -5,6 +5,13 @@
 // (Phase 6) only ever needed position/theme; everything else here
 // is consumed by the Universe Explorer / character profile screens
 // added in this phase, without touching how the map renders.
+//
+// `theme.primary` / `theme.secondary` are also what drive the
+// GLOBAL UI theme now (see useUniverseTheme.js) — when a character
+// from this universe is selected, these two colors get pushed onto
+// the whole document as --universe-primary / --universe-secondary,
+// so the background, nav, buttons, and profile panel all shift
+// together, not just the profile panel.
 // ============================================================
 
 export const universes = [
@@ -67,5 +74,65 @@ export const universes = [
     environment: '/models/environments/earth616.glb',
     theme: { primary: '#e50914', secondary: '#1e90ff' },
     atmosphere: 'Familiar Manhattan skyline, muted and a little worn around the edges.',
+  },
+  {
+    id: 'earth-138',
+    name: 'Earth-138',
+    title: 'Punk Rock Dimension',
+    description:
+      'A reality under an authoritarian crackdown, where Hobie Brown\u2019s Spider-Punk fights the system with feedback and fury.',
+    characterIds: ['hobie-brown'],
+    position: [4.6, -0.6, -1.6],
+    environment: '/models/environments/earth138.glb',
+    theme: { primary: '#ffe600', secondary: '#101010' },
+    atmosphere: 'Torn concert posters, distorted amp static, spray-paint yellow-on-black.',
+  },
+  {
+    id: 'earth-8311',
+    name: 'Earth-8311',
+    title: 'Toonverse',
+    description:
+      'A cartoon reality of squash-and-stretch logic, where Peter Porker swings between gag physics and genuine heart.',
+    characterIds: ['peter-porker'],
+    position: [-4.4, 1.6, -2],
+    environment: '/models/environments/earth8311.glb',
+    theme: { primary: '#ff7a00', secondary: '#ffd400' },
+    atmosphere: 'Bright flat colors, bouncy line-art, exaggerated motion trails.',
+  },
+  {
+    id: 'earth-90214',
+    name: 'Earth-90214',
+    title: 'Noir City',
+    description:
+      'A Depression-era New York rendered almost entirely in shadow, where this Spider-Man works cases the police won\u2019t touch.',
+    characterIds: ['spider-man-noir'],
+    position: [3.8, 2.2, -2.4],
+    environment: '/models/environments/earth90214.glb',
+    theme: { primary: '#c9c9c9', secondary: '#1a1a1a' },
+    atmosphere: 'Rain-slicked streets, harsh streetlamp contrast, drifting cigarette smoke.',
+  },
+  {
+    id: 'earth-51778',
+    name: 'Earth-51778',
+    title: 'Nikko Prefecture',
+    description:
+      'A reality where an alien bracelet grants spider-abilities and command of a colossal robot, Leopardon, to defend the Earth.',
+    characterIds: ['takuya-yamashiro'],
+    position: [-2.4, -2.6, -1.4],
+    environment: '/models/environments/earth51778.glb',
+    theme: { primary: '#ff2e2e', secondary: '#2e2eff' },
+    atmosphere: 'Chrome and neon tokusatsu skyline, roaring engines, giant-scale silhouettes.',
+  },
+  {
+    id: 'earth-15',
+    name: 'Earth-15',
+    title: 'Wartorn Dimension',
+    description:
+      'A battle-scarred reality where Peter survived only by becoming something harder — part man, part machine.',
+    characterIds: ['cyborg-spider-man'],
+    position: [0.6, 3.2, -1.8],
+    environment: '/models/environments/earth15.glb',
+    theme: { primary: '#5b6b7a', secondary: '#ff2d2d' },
+    atmosphere: 'Rust and static, exposed circuitry glow, a city still smoking from the last fight.',
   },
 ];

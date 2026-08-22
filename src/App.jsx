@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from 'react';
 import MultiverseScene from './components/3D/MultiverseScene';
 import TransitionOverlay from './components/UI/TransitionOverlay';
 import SoundToggle from './components/UI/SoundToggle';
@@ -11,6 +11,8 @@ import Hero from './sections/Hero';
 import Multiverse from './sections/Multiverse';
 import { detectDefaultQuality } from './utils/deviceQuality';
 import { useResponsive } from './hooks/useResponsive';
+import { useCharacter } from './hooks/useCharacter';
+import { useUniverseTheme } from './hooks/useUniverseTheme';
 import { playSound, stopSound } from './utils/audio';
 
 // Below-the-fold sections are code-split (section 19: performance /
@@ -57,6 +59,37 @@ export default function App() {
   useEffect(() => {
     setQuality(detectDefaultQuality());
   }, []);
+
+  // Whichever Spider-Person is currently open in the detail view
+  // drives the app-wide theme (see useUniverseTheme) — this is the
+  // single source of truth other pieces of "click a character and
+  // the whole UI reacts" hang off of.
+  const selectedCharacter = useCharacter(selectedCharacterId);
+  const activeTheme = selectedCharacter?.universe?.theme ?? null;
+  useUniverseTheme(activeTheme);
+
+  // Fixed (not re-randomized on every render) set of floating motes —
+  // varied positions/sizes/timings so the field reads as organic
+  // rather than a repeating pattern. A few use the current universe
+  // accent color (subtle nod to the reactive theme system), most
+  // stay neutral so the effect doesn't turn into a color wash.
+  const motes = useMemo(
+    () => [
+      { id: 1, x: 8, y: 15, size: 5, duration: 14, delay: 0, driftX: 30, driftY: -70, usesAccent: true },
+      { id: 2, x: 22, y: 60, size: 4, duration: 11, delay: 1.5, driftX: -20, driftY: -55, usesAccent: false },
+      { id: 3, x: 35, y: 25, size: 6, duration: 16, delay: 3, driftX: 25, driftY: -80, usesAccent: false },
+      { id: 4, x: 48, y: 75, size: 4, duration: 13, delay: 0.8, driftX: -35, driftY: -60, usesAccent: true },
+      { id: 5, x: 60, y: 40, size: 5, duration: 15, delay: 4.2, driftX: 15, driftY: -75, usesAccent: false },
+      { id: 6, x: 72, y: 18, size: 4, duration: 12, delay: 2.1, driftX: -25, driftY: -50, usesAccent: false },
+      { id: 7, x: 85, y: 55, size: 6, duration: 17, delay: 0.4, driftX: 20, driftY: -85, usesAccent: true },
+      { id: 8, x: 15, y: 85, size: 4, duration: 10, delay: 3.6, driftX: -15, driftY: -45, usesAccent: false },
+      { id: 9, x: 90, y: 80, size: 5, duration: 14, delay: 1.2, driftX: -30, driftY: -65, usesAccent: false },
+      { id: 10, x: 5, y: 45, size: 4, duration: 13, delay: 5, driftX: 18, driftY: -55, usesAccent: false },
+      { id: 11, x: 55, y: 8, size: 5, duration: 16, delay: 2.8, driftX: -20, driftY: -70, usesAccent: true },
+      { id: 12, x: 40, y: 92, size: 4, duration: 11, delay: 0.2, driftX: 22, driftY: -50, usesAccent: false },
+    ],
+    []
+  );
 
   const handleSelectCharacter = useCallback((characterId) => {
     setSelectedCharacterId(characterId);
@@ -123,6 +156,38 @@ export default function App() {
         onTransitionMidpoint={handleTransitionMidpoint}
         onTransitionComplete={handleTransitionComplete}
       />
+
+      {/* Ambient reactive background — see globals.css. MultiverseScene's
+          canvas paints a fully opaque clear-color across the whole
+          viewport at z-index 0, so this has to render AFTER it in the
+          DOM (same z-index, later wins the stacking order) to actually
+          be visible — sitting between the 3D layer and the UI content
+          layer (z-index 1) rather than fighting either one. */}
+      {/* Animated background: two drifting starfield layers plus a
+          handful of individually-floating glowing motes (see
+          globals.css). MultiverseScene's canvas clears to an opaque
+          color across the whole viewport every frame, so — same as
+          before — this has to render AFTER it in the DOM to actually
+          be visible on top of it, rather than hidden behind it. */}
+      <div className="stars-far" aria-hidden="true" />
+      <div className="stars-near" aria-hidden="true" />
+      {motes.map((mote) => (
+        <span
+          key={mote.id}
+          className="mote"
+          aria-hidden="true"
+          style={{
+            '--mote-x': `${mote.x}%`,
+            '--mote-y': `${mote.y}%`,
+            '--mote-size': `${mote.size}px`,
+            '--mote-duration': `${mote.duration}s`,
+            '--mote-delay': `${mote.delay}s`,
+            '--mote-drift-x': `${mote.driftX}px`,
+            '--mote-drift-y': `${mote.driftY}px`,
+            '--mote-color': mote.usesAccent ? 'var(--universe-primary)' : 'var(--color-web-dim)',
+          }}
+        />
+      ))}
 
       <Navbar />
       {!isTouch && <CustomCursor />}

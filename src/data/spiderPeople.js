@@ -7,6 +7,13 @@
 //
 // Stats are explicitly project-defined visualization values for
 // this experience, not canonical/official power rankings.
+//
+// `image` paths point into /public/images/characters/ — these
+// files are NOT included here (real character art can't be
+// auto-generated/sourced for you). Drop your own images at these
+// exact paths and CharacterCard/CharacterProfile will pick them up.
+// Until then, components fall back to the generated color-gradient
+// placeholder so nothing breaks with a missing file.
 // ============================================================
 
 export const spiderPeople = [
@@ -74,5 +81,70 @@ export const spiderPeople = [
     stats: { strength: 83, speed: 80, agility: 84, intelligence: 88 },
     model: '/models/characters/peter.glb',
     image: '/images/characters/peter.jpg',
+  },
+  {
+    id: 'hobie-brown',
+    name: 'Hobie Brown',
+    alias: 'Spider-Punk',
+    universeId: 'earth-138',
+    origin: 'London, Earth-138',
+    description:
+      'A guitar-wielding anarchist who fights corrupt authority as hard as he fights the Inheritors — rules are just another thing to smash.',
+    powerIds: ['spider-sense', 'wall-crawling', 'sonic-blast', 'anti-authority-instinct'],
+    stats: { strength: 79, speed: 86, agility: 91, intelligence: 84 },
+    model: '/models/characters/hobie.glb',
+    image: '/images/characters/hobie.jpg',
+  },
+  {
+    id: 'peter-porker',
+    name: 'Peter Porker',
+    alias: 'Spider-Ham',
+    universeId: 'earth-8311',
+    origin: 'Earth-8311',
+    description:
+      "A cartoon world's answer to Spider-Man, where the laws of physics bend to whatever's funniest — and most useful in a fight.",
+    powerIds: ['spider-sense', 'wall-crawling', 'toon-physics', 'slapstick-reflexes'],
+    stats: { strength: 70, speed: 82, agility: 93, intelligence: 75 },
+    model: '/models/characters/peter-porker.glb',
+    image: '/images/characters/peter-porker.jpg',
+  },
+  {
+    id: 'spider-man-noir',
+    name: 'Spider-Man Noir',
+    alias: 'Spider-Man',
+    universeId: 'earth-90214',
+    origin: 'New York City, 1933',
+    description:
+      'A grim, black-and-white detective-hero working a Depression-era New York where the mob is as dangerous as anything from another dimension.',
+    powerIds: ['spider-sense', 'wall-crawling', 'detective-instinct', 'shadow-step'],
+    stats: { strength: 81, speed: 76, agility: 85, intelligence: 89 },
+    model: '/models/characters/noir.glb',
+    image: '/images/characters/noir.jpg',
+  },
+  {
+    id: 'takuya-yamashiro',
+    name: 'Takuya Yamashiro',
+    alias: 'Spider-Man',
+    universeId: 'earth-51778',
+    origin: 'Japan, Earth-51778',
+    description:
+      'A motocross racer bonded with an alien power bracelet, commanding a giant robot alongside his own spider-abilities.',
+    powerIds: ['spider-sense', 'wall-crawling', 'martial-arts', 'giant-mode'],
+    stats: { strength: 88, speed: 84, agility: 87, intelligence: 80 },
+    model: '/models/characters/takuya.glb',
+    image: '/images/characters/takuya.jpg',
+  },
+  {
+    id: 'cyborg-spider-man',
+    name: 'Peter Parker',
+    alias: 'Cyborg-Spider-Man',
+    universeId: 'earth-15',
+    origin: 'Earth-15',
+    description:
+      "A version of Peter fused with cybernetic enhancements after a battle that nearly killed him — colder, harder, and built for a war he never stopped fighting.",
+    powerIds: ['spider-sense', 'wall-crawling', 'cyber-armor', 'systems-override'],
+    stats: { strength: 93, speed: 85, agility: 82, intelligence: 91 },
+    model: '/models/characters/cyborg.glb',
+    image: '/images/characters/cyborg.jpg',
   },
 ];

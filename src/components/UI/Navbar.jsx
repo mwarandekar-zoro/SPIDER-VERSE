@@ -8,7 +8,12 @@ const LINKS = [
 
 /** Section 48: kept minimal — a wordmark and a few section links.
  * The bar itself has pointer-events: none so it never blocks the
- * 3D scene beneath it; only its own children re-enable pointer events. */
+ * 3D scene beneath it; only its own children re-enable pointer events.
+ *
+ * The wordmark's underline glow reads var(--universe-primary), so
+ * when a character is selected in CharacterDetail (which pushes its
+ * universe's colors onto :root via useUniverseTheme), the nav itself
+ * visibly shifts too — not just the profile panel. */
 export default function Navbar() {
   const { setCursor } = useCursor();
 
@@ -36,7 +41,9 @@ export default function Navbar() {
           fontSize: '0.95rem',
           letterSpacing: '0.02em',
           color: 'var(--color-web)',
+          textShadow: '0 0 14px color-mix(in srgb, var(--universe-primary) 55%, transparent)',
           pointerEvents: 'auto',
+          transition: 'text-shadow 1.1s var(--ease-signature)',
         }}
         onPointerEnter={() => setCursor('button', '→')}
         onPointerLeave={() => setCursor('default')}
