@@ -150,6 +150,8 @@ export default function App() {
         onHoverUniverse={setHoveredUniverseId}
         onSelectUniverse={handleEnterUniverse}
         activeUniverseId={activeUniverseId}
+        previewUniverseId={selectedCharacter?.universe?.id ?? null}
+        focusTrigger={selectedCharacterId}
         isTransitioning={isTransitioning}
         targetUniverseId={targetUniverseId}
         overlayEl={overlayRef.current}

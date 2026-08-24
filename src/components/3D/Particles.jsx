@@ -28,12 +28,18 @@ export default function Particles({ quality = 'high' }) {
   useFrame((state, delta) => {
     if (!pointsRef.current) return;
 
-    // Slow ambient drift
-    pointsRef.current.rotation.y += delta * 0.01;
+    // Ambient drift — was 0.01 (a full rotation every ~10 minutes,
+    // effectively imperceptible); bumped up so the field visibly turns.
+    pointsRef.current.rotation.y += delta * 0.035;
+    pointsRef.current.rotation.x += delta * 0.008;
 
-    const intensity = PARALLAX_INTENSITY.particles * 12;
+    // Gentle vertical bob layered on top of the rotation and cursor
+    // parallax, so the field breathes even when the cursor is still.
+    const bob = Math.sin(state.clock.elapsedTime * 0.2) * 0.4;
+
+    const intensity = 1.2;
     pointsRef.current.position.x = -smoothMouse.current.x * intensity;
-    pointsRef.current.position.y = -smoothMouse.current.y * intensity;
+    pointsRef.current.position.y = -smoothMouse.current.y * (intensity * 0.7) + bob;
   });
 
   return (

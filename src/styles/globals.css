@@ -165,7 +165,7 @@ body {
     radial-gradient(1.4px 1.4px at 92% 85%, var(--color-web) 60%, transparent),
     radial-gradient(1px 1px at 52% 45%, var(--color-web-dim) 60%, transparent);
   background-size: 340px 340px;
-  animation: stars-drift-slow 140s linear infinite;
+  animation: stars-drift-slow 70s linear infinite;
 }
 
 .stars-near {
@@ -178,7 +178,7 @@ body {
     radial-gradient(1.8px 1.8px at 55% 15%, var(--color-web) 70%, transparent),
     radial-gradient(1.6px 1.6px at 5% 90%, var(--color-web) 70%, transparent);
   background-size: 220px 220px;
-  animation: stars-drift-fast 70s linear infinite reverse, stars-twinkle 4s ease-in-out infinite alternate;
+  animation: stars-drift-fast 32s linear infinite reverse, stars-twinkle 4s ease-in-out infinite alternate;
 }
 
 @keyframes stars-drift-slow {

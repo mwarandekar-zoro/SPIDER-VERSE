@@ -9,13 +9,25 @@ import { universes } from '../../data/universes';
  * universe's theme colors whenever it changes, tying the whole
  * scene's mood to wherever the user has travelled. Defaults back
  * to the signature void colors when no universe is active.
+ *
+ * `previewUniverseId` is the lighter-weight sibling of
+ * `activeUniverseId`: activeUniverseId only changes after a full
+ * "Explore Universe" transition commits (Environment's city cubes
+ * are gated on it too), but selecting a character in the explorer —
+ * without leaving the multiverse view — should still tint the
+ * lighting toward that character's suit colors. A fully active
+ * universe always wins if both are set.
  */
-export default function Lighting({ activeUniverseId = null }) {
+export default function Lighting({ activeUniverseId = null, previewUniverseId = null }) {
   const keyLightRef = useRef();
   const rimLightRef = useRef();
 
+  const effectiveUniverseId = activeUniverseId ?? previewUniverseId;
+
   useEffect(() => {
-    const universe = activeUniverseId ? universes.find((u) => u.id === activeUniverseId) : null;
+    const universe = effectiveUniverseId
+      ? universes.find((u) => u.id === effectiveUniverseId)
+      : null;
     const keyColor = new THREE.Color(universe ? universe.theme.primary : '#b026ff');
     const rimColor = new THREE.Color(universe ? universe.theme.secondary : '#00f0ff');
 
@@ -37,7 +49,7 @@ export default function Lighting({ activeUniverseId = null }) {
         ease: 'power2.inOut',
       });
     }
-  }, [activeUniverseId]);
+  }, [effectiveUniverseId]);
 
   return (
     <>

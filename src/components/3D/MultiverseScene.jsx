@@ -10,7 +10,6 @@ import UniverseNode from './UniverseNode';
 import Environment from './Environment';
 import TransitionController from './TransitionController';
 import FloatingObjects from './FloatingObjects';
-import Nebula from './Nebula';
 import { universes } from '../../data/universes';
 import { CAMERA_DEFAULTS, QUALITY_SETTINGS } from '../../utils/constants';
 import { scaledPosition } from '../../utils/mapLayout';
@@ -62,6 +61,8 @@ export default function MultiverseScene({
   onHoverUniverse,
   onSelectUniverse,
   activeUniverseId = null,
+  previewUniverseId = null,
+  focusTrigger = null,
   isTransitioning = false,
   targetUniverseId = null,
   overlayEl = null,
@@ -78,12 +79,11 @@ export default function MultiverseScene({
       camera={{ position: CAMERA_DEFAULTS.position, fov: CAMERA_DEFAULTS.fov }}
       gl={{ antialias: true, alpha: false }}
     >
-      <Camera transitionRef={progressRef} />
-      <Lighting activeUniverseId={activeUniverseId} />
+      <Camera transitionRef={progressRef} focusTrigger={focusTrigger} />
+      <Lighting activeUniverseId={activeUniverseId} previewUniverseId={previewUniverseId} />
       <Environment activeUniverseId={activeUniverseId} />
 
       <Suspense fallback={null}>
-        <Nebula />
         <PlaceholderCore />
         <Particles quality={quality} />
         <WebSystem quality={quality} />

@@ -4,6 +4,13 @@ import './styles/globals.css';
 import './styles/responsive.css';
 import App from './App.jsx';
 
+// Filter out harmless THREE.Clock deprecation notice from React Three Fiber
+const originalWarn = console.warn;
+console.warn = (...args) => {
+  if (typeof args[0] === 'string' && args[0].includes('THREE.Clock')) return;
+  originalWarn(...args);
+};
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />

@@ -43,9 +43,9 @@ export default function FloatingObjects({ quality = 'high' }) {
         mesh.rotation.y += delta * obj.rotationSpeed * 0.7;
       }
 
-      const parallax = reducedMotion ? 0 : obj.depthFactor * 1.5;
+      const parallax = reducedMotion ? 0 : obj.depthFactor * 2.0;
       mesh.position.x = obj.position[0] + smoothMouse.current.x * parallax;
-      mesh.position.y = obj.position[1] + smoothMouse.current.y * parallax;
+      mesh.position.y = obj.position[1] + smoothMouse.current.y * (parallax * 0.7);
     });
   });
 
