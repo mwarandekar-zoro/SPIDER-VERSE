@@ -5,14 +5,10 @@
 // UI components. Adding a new Spider-Person later means adding an
 // entry here — no component changes required.
 //
-// Stats are explicitly project-defined visualization values for
-// this experience, not canonical/official power rankings.
-//
 // `suitTheme` drives the whole-app color shift when a character
-// is selected — overrides the universe theme with suit-specific
-// colors so Miles = red/black, Gwen = pink/white, 2099 = blue/red, etc.
+// is selected.
 //
-// `image` paths point into /public/images/characters/
+// `image` paths point to face/suit images in /public/images/characters/
 // ============================================================
 
 export const spiderPeople = [
@@ -69,7 +65,7 @@ export const spiderPeople = [
     powerIds: ['spider-sense', 'wall-crawling', 'web-shooting', 'yoga-agility'],
     stats: { strength: 80, speed: 87, agility: 96, intelligence: 82 },
     model: '/models/characters/pavitr.glb',
-    image: '/images/characters/pavitr.jpg',
+    image: '/images/characters/pavitr.svg',
     suitTheme: { primary: '#ff9500', secondary: '#2222cc', accent: '#ffcc00' },
   },
   {
@@ -83,7 +79,7 @@ export const spiderPeople = [
     powerIds: ['spider-sense', 'wall-crawling', 'web-shooting', 'improvised-tech'],
     stats: { strength: 83, speed: 80, agility: 84, intelligence: 88 },
     model: '/models/characters/peter.glb',
-    image: '/images/characters/peter.jpg',
+    image: '/images/characters/peter.svg',
     suitTheme: { primary: '#cc3300', secondary: '#0033cc', accent: '#ff4422' },
   },
   {
@@ -153,7 +149,7 @@ export const spiderPeople = [
     powerIds: ['spider-sense', 'wall-crawling', 'cyber-armor', 'systems-override'],
     stats: { strength: 93, speed: 85, agility: 82, intelligence: 91 },
     model: '/models/characters/cyborg.glb',
-    image: '/images/characters/cyborg.jpg',
+    image: '/images/characters/cyborg.svg',
     suitTheme: { primary: '#00ccff', secondary: '#cc0000', accent: '#44eeff' },
   },
 ];
