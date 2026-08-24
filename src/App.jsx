@@ -60,12 +60,13 @@ export default function App() {
     setQuality(detectDefaultQuality());
   }, []);
 
-  // Whichever Spider-Person is currently open in the detail view
-  // drives the app-wide theme (see useUniverseTheme) — this is the
-  // single source of truth other pieces of "click a character and
-  // the whole UI reacts" hang off of.
+  // When a Spider-Person is selected, push their SUIT colors onto the
+  // whole document (via useUniverseTheme) so every --universe-primary /
+  // --universe-secondary consumer (nav, buttons, glows, card borders)
+  // shifts to match their specific suit — Miles = red/black, Gwen = pink,
+  // 2099 = electric blue, etc. Falls back to universe theme if no suitTheme.
   const selectedCharacter = useCharacter(selectedCharacterId);
-  const activeTheme = selectedCharacter?.universe?.theme ?? null;
+  const activeTheme = selectedCharacter?.suitTheme ?? selectedCharacter?.universe?.theme ?? null;
   useUniverseTheme(activeTheme);
 
   // Fixed (not re-randomized on every render) set of floating motes —
@@ -152,6 +153,7 @@ export default function App() {
         activeUniverseId={activeUniverseId}
         previewUniverseId={selectedCharacter?.universe?.id ?? null}
         focusTrigger={selectedCharacterId}
+        selectedCharacterSuitTheme={selectedCharacter?.suitTheme ?? null}
         isTransitioning={isTransitioning}
         targetUniverseId={targetUniverseId}
         overlayEl={overlayRef.current}

@@ -8,12 +8,11 @@
 // Stats are explicitly project-defined visualization values for
 // this experience, not canonical/official power rankings.
 //
-// `image` paths point into /public/images/characters/ — these
-// files are NOT included here (real character art can't be
-// auto-generated/sourced for you). Drop your own images at these
-// exact paths and CharacterCard/CharacterProfile will pick them up.
-// Until then, components fall back to the generated color-gradient
-// placeholder so nothing breaks with a missing file.
+// `suitTheme` drives the whole-app color shift when a character
+// is selected — overrides the universe theme with suit-specific
+// colors so Miles = red/black, Gwen = pink/white, 2099 = blue/red, etc.
+//
+// `image` paths point into /public/images/characters/
 // ============================================================
 
 export const spiderPeople = [
@@ -29,6 +28,7 @@ export const spiderPeople = [
     stats: { strength: 85, speed: 90, agility: 95, intelligence: 90 },
     model: '/models/characters/miles.glb',
     image: '/images/characters/miles.jpg',
+    suitTheme: { primary: '#ff2222', secondary: '#111111', accent: '#ff6666' },
   },
   {
     id: 'gwen-stacy',
@@ -42,6 +42,7 @@ export const spiderPeople = [
     stats: { strength: 78, speed: 92, agility: 97, intelligence: 85 },
     model: '/models/characters/gwen.glb',
     image: '/images/characters/gwen.jpg',
+    suitTheme: { primary: '#ff6fd8', secondary: '#e0d0ff', accent: '#ffffff' },
   },
   {
     id: 'miguel-ohara',
@@ -55,6 +56,7 @@ export const spiderPeople = [
     stats: { strength: 90, speed: 88, agility: 89, intelligence: 96 },
     model: '/models/characters/miguel.glb',
     image: '/images/characters/miguel.jpg',
+    suitTheme: { primary: '#003cff', secondary: '#ff2020', accent: '#00aaff' },
   },
   {
     id: 'pavitr-prabhakar',
@@ -68,6 +70,7 @@ export const spiderPeople = [
     stats: { strength: 80, speed: 87, agility: 96, intelligence: 82 },
     model: '/models/characters/pavitr.glb',
     image: '/images/characters/pavitr.jpg',
+    suitTheme: { primary: '#ff9500', secondary: '#2222cc', accent: '#ffcc00' },
   },
   {
     id: 'peter-b-parker',
@@ -81,6 +84,7 @@ export const spiderPeople = [
     stats: { strength: 83, speed: 80, agility: 84, intelligence: 88 },
     model: '/models/characters/peter.glb',
     image: '/images/characters/peter.jpg',
+    suitTheme: { primary: '#cc3300', secondary: '#0033cc', accent: '#ff4422' },
   },
   {
     id: 'hobie-brown',
@@ -94,6 +98,7 @@ export const spiderPeople = [
     stats: { strength: 79, speed: 86, agility: 91, intelligence: 84 },
     model: '/models/characters/hobie.glb',
     image: '/images/characters/hobie.jpg',
+    suitTheme: { primary: '#ffdd00', secondary: '#111111', accent: '#ff4400' },
   },
   {
     id: 'peter-porker',
@@ -107,6 +112,7 @@ export const spiderPeople = [
     stats: { strength: 70, speed: 82, agility: 93, intelligence: 75 },
     model: '/models/characters/peter-porker.glb',
     image: '/images/characters/peter-porker.jpg',
+    suitTheme: { primary: '#ff6644', secondary: '#ffffff', accent: '#ffaa00' },
   },
   {
     id: 'spider-man-noir',
@@ -120,6 +126,7 @@ export const spiderPeople = [
     stats: { strength: 81, speed: 76, agility: 85, intelligence: 89 },
     model: '/models/characters/noir.glb',
     image: '/images/characters/noir.jpg',
+    suitTheme: { primary: '#aaaaaa', secondary: '#333333', accent: '#ffffff' },
   },
   {
     id: 'takuya-yamashiro',
@@ -133,6 +140,7 @@ export const spiderPeople = [
     stats: { strength: 88, speed: 84, agility: 87, intelligence: 80 },
     model: '/models/characters/takuya.glb',
     image: '/images/characters/takuya.jpg',
+    suitTheme: { primary: '#cc0000', secondary: '#ffffff', accent: '#ff4444' },
   },
   {
     id: 'cyborg-spider-man',
@@ -146,5 +154,6 @@ export const spiderPeople = [
     stats: { strength: 93, speed: 85, agility: 82, intelligence: 91 },
     model: '/models/characters/cyborg.glb',
     image: '/images/characters/cyborg.jpg',
+    suitTheme: { primary: '#00ccff', secondary: '#cc0000', accent: '#44eeff' },
   },
 ];

@@ -6,14 +6,12 @@ import CharacterRelationships from './CharacterRelationships';
 import Button from '../UI/Button';
 
 /**
- * Section 20 layout: about / powers / stats / universe / actions.
+ * Section 20 layout: full character detail view with large portrait,
+ * suit-themed UI shift, and entrance animation.
  *
- * Entrance is now a two-part effect: a wide "portal-burst" glow
- * (see .portal-burst in globals.css) that flashes in behind the
- * panel and quickly settles, plus the panel itself sliding/fading
- * up on top of it. Both are keyed by characterId so switching
- * straight from one character to another (via Relationships) replays
- * the burst instead of just cross-fading text.
+ * Two-part entrance: portal-burst glow flash (in character's suit
+ * primary color) + panel sliding up. Both re-trigger when switching
+ * characters so every selection feels like a fresh dimensional arrival.
  */
 export default function CharacterProfile({
   characterId,
@@ -25,130 +23,286 @@ export default function CharacterProfile({
   const character = useCharacter(characterId);
   if (!character) return null;
 
-  const accent = character.universe?.theme?.primary ?? '#b026ff';
+  const primary = character.suitTheme?.primary ?? character.universe?.theme?.primary ?? '#b026ff';
+  const secondary = character.suitTheme?.secondary ?? character.universe?.theme?.secondary ?? '#00f0ff';
+  const accent = character.suitTheme?.accent ?? primary;
+  const hasImage = !!character.image;
 
   return (
     <motion.div
       key={characterId}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 32 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -24 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'relative',
-        maxWidth: '720px',
+        maxWidth: '900px',
         width: '100%',
         margin: '0 auto',
-        background: 'rgba(15, 13, 23, 0.75)',
-        border: `1px solid ${accent}40`,
+        background: `linear-gradient(135deg, ${primary}15 0%, rgba(15,13,23,0.95) 40%, ${secondary}10 100%)`,
+        border: `1px solid ${primary}55`,
         borderRadius: 'var(--radius-md)',
-        padding: 'clamp(1.5rem, 4vw, 2.5rem)',
-        textAlign: 'left',
-        backdropFilter: 'blur(6px)',
+        overflow: 'hidden',
+        backdropFilter: 'blur(12px)',
+        boxShadow: `0 0 60px ${primary}22, 0 0 120px ${secondary}11`,
       }}
     >
-      {/* Portal-burst: quick radial flash in this character's own
-          suit colors, behind the panel (z-index -1 via .portal-burst),
-          scaling down and fading out over ~0.9s. Purely decorative
-          (aria-hidden) — the panel content below is what's announced. */}
+      {/* Suit-burst: cinematic radial flash in the character's primary color */}
       <motion.div
         key={`burst-${characterId}`}
-        className="portal-burst"
         aria-hidden="true"
-        initial={{ opacity: 0.9, scale: 0.4, rotate: 0 }}
-        animate={{ opacity: 0, scale: 1.4, rotate: 25 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0.8, scale: 0.3, rotate: 0 }}
+        animate={{ opacity: 0, scale: 2.0, rotate: 30 }}
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(ellipse at 30% 50%, ${primary}55, ${secondary}22, transparent 70%)`,
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
       />
 
-      <button
-        onClick={onClose}
-        aria-label="Close character profile"
-        style={{ float: 'right', color: 'var(--color-muted)', fontSize: '1.25rem' }}
+      {/* Top border accent line in suit primary */}
+      <div
+        aria-hidden="true"
+        style={{
+          height: '3px',
+          background: `linear-gradient(90deg, ${primary}, ${secondary}, ${primary})`,
+          boxShadow: `0 0 12px ${primary}`,
+        }}
+      />
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: hasImage ? '280px 1fr' : '1fr',
+          gap: 0,
+          position: 'relative',
+          zIndex: 1,
+        }}
       >
-        ✕
-      </button>
+        {/* Portrait column */}
+        {hasImage && (
+          <div style={{ position: 'relative', minHeight: '400px' }}>
+            <img
+              src={character.image}
+              alt={character.name}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'top center',
+                display: 'block',
+              }}
+              onError={(e) => { e.target.parentElement.style.display = 'none'; }}
+            />
+            {/* Gradient fade to content panel */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: `linear-gradient(to right, transparent 50%, rgba(15,13,23,0.95) 100%),
+                             linear-gradient(to top, ${secondary}cc 0%, transparent 60%)`,
+              }}
+            />
+            {/* Suit color tint layer */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: `linear-gradient(160deg, ${primary}22, transparent 60%)`,
+                mixBlendMode: 'screen',
+              }}
+            />
+          </div>
+        )}
 
-      <span className="eyebrow" style={{ color: accent }}>
-        {character.universe?.name}
-      </span>
-      <h2 style={{ fontSize: 'var(--fs-h1)', color: 'var(--color-web)', marginTop: '0.3rem' }}>
-        {character.name}
-      </h2>
-      <p style={{ color: accent, fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>
-        {character.alias}
-      </p>
+        {/* Info column */}
+        <div style={{ padding: 'clamp(1.5rem, 4vw, 2.5rem)' }}>
+          <button
+            onClick={onClose}
+            aria-label="Close character profile"
+            style={{
+              float: 'right',
+              color: primary,
+              fontSize: '1.25rem',
+              opacity: 0.7,
+              transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={(e) => (e.target.style.opacity = 1)}
+            onMouseLeave={(e) => (e.target.style.opacity = 0.7)}
+          >
+            ✕
+          </button>
 
-      <hr style={{ border: 'none', borderTop: '1px solid rgba(242,240,234,0.1)', margin: '1.5rem 0' }} />
+          {/* Universe tag */}
+          <span
+            className="eyebrow"
+            style={{
+              color: primary,
+              background: `${primary}22`,
+              border: `1px solid ${primary}44`,
+              borderRadius: '999px',
+              padding: '0.25rem 0.75rem',
+              fontSize: '0.7rem',
+              display: 'inline-block',
+              marginBottom: '0.75rem',
+            }}
+          >
+            {character.universe?.name}
+          </span>
 
-      <h3 style={sectionHeadingStyle}>About</h3>
-      <p style={{ color: 'var(--color-web-dim)', lineHeight: 1.6 }}>{character.description}</p>
-      <p style={{ color: 'var(--color-muted)', fontSize: 'var(--fs-small)', marginTop: '0.5rem' }}>
-        Origin: {character.origin}
-      </p>
+          <h2
+            style={{
+              fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+              color: '#ffffff',
+              marginTop: '0.2rem',
+              lineHeight: 1,
+              textShadow: `0 0 24px ${primary}88`,
+            }}
+          >
+            {character.name}
+          </h2>
+          <p
+            style={{
+              color: accent,
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.85rem',
+              marginTop: '0.3rem',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+            }}
+          >
+            {character.alias}
+          </p>
 
-      <hr style={dividerStyle} />
-
-      <h3 style={sectionHeadingStyle}>Powers</h3>
-      <CharacterPowers powers={character.powers} accent={accent} />
-
-      <hr style={dividerStyle} />
-
-      <h3 style={sectionHeadingStyle}>Stats</h3>
-      <p style={{ color: 'var(--color-muted)', fontSize: 'var(--fs-small)', marginBottom: '0.75rem' }}>
-        Visualization values for this experience — not official rankings.
-      </p>
-      <CharacterStats stats={character.stats} accent={accent} />
-
-      {character.relationships.length > 0 && (
-        <>
-          <hr style={dividerStyle} />
-          <h3 style={sectionHeadingStyle}>Relationships</h3>
-          <CharacterRelationships
-            relationships={character.relationships}
-            onSelectCharacter={onSelectCharacter}
+          <div
+            style={{
+              height: '1px',
+              background: `linear-gradient(90deg, ${primary}44, transparent)`,
+              margin: '1.25rem 0',
+            }}
           />
-        </>
-      )}
 
-      <hr style={dividerStyle} />
+          <p
+            style={{
+              color: 'var(--color-web-dim)',
+              lineHeight: 1.65,
+              fontSize: '0.95rem',
+            }}
+          >
+            {character.description}
+          </p>
+          <p
+            style={{
+              color: 'var(--color-muted)',
+              fontSize: 'var(--fs-small)',
+              marginTop: '0.5rem',
+            }}
+          >
+            Origin: <span style={{ color: primary }}>{character.origin}</span>
+          </p>
 
-      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-        <Button
-          onClick={() => onExploreUniverse(character.universe?.id)}
-          style={{ ...actionButtonStyle, background: accent, color: '#08070c' }}
-        >
-          Explore Universe →
-        </Button>
-        <Button
-          onClick={() => onCompare(character.id)}
-          style={{ ...actionButtonStyle, background: 'transparent', color: accent, border: `1px solid ${accent}` }}
-        >
-          Compare
-        </Button>
+          <div
+            style={{
+              height: '1px',
+              background: `linear-gradient(90deg, ${primary}44, transparent)`,
+              margin: '1.25rem 0',
+            }}
+          />
+
+          <h3 style={sectionHeadingStyle(primary)}>Powers</h3>
+          <CharacterPowers powers={character.powers} accent={primary} />
+
+          <div
+            style={{
+              height: '1px',
+              background: `linear-gradient(90deg, ${primary}44, transparent)`,
+              margin: '1.25rem 0',
+            }}
+          />
+
+          <h3 style={sectionHeadingStyle(primary)}>Combat Stats</h3>
+          <p style={{ color: 'var(--color-muted)', fontSize: 'var(--fs-small)', marginBottom: '0.75rem' }}>
+            Experience-specific visualization values.
+          </p>
+          <CharacterStats stats={character.stats} accent={primary} />
+
+          {character.relationships.length > 0 && (
+            <>
+              <div
+                style={{
+                  height: '1px',
+                  background: `linear-gradient(90deg, ${primary}44, transparent)`,
+                  margin: '1.25rem 0',
+                }}
+              />
+              <h3 style={sectionHeadingStyle(primary)}>Relationships</h3>
+              <CharacterRelationships
+                relationships={character.relationships}
+                onSelectCharacter={onSelectCharacter}
+              />
+            </>
+          )}
+
+          <div
+            style={{
+              height: '1px',
+              background: `linear-gradient(90deg, ${primary}44, transparent)`,
+              margin: '1.25rem 0',
+            }}
+          />
+
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <Button
+              onClick={() => onExploreUniverse(character.universe?.id)}
+              style={{
+                padding: '0.7rem 1.4rem',
+                borderRadius: '999px',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.8rem',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                background: primary,
+                color: '#08070c',
+                boxShadow: `0 0 16px ${primary}66`,
+              }}
+            >
+              Explore Universe →
+            </Button>
+            <Button
+              onClick={() => onCompare(character.id)}
+              style={{
+                padding: '0.7rem 1.4rem',
+                borderRadius: '999px',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.8rem',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                background: 'transparent',
+                color: primary,
+                border: `1px solid ${primary}`,
+              }}
+            >
+              Compare
+            </Button>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
 }
 
-const sectionHeadingStyle = {
-  fontSize: '0.95rem',
-  textTransform: 'uppercase',
-  letterSpacing: '0.08em',
-  color: 'var(--color-web)',
-  marginBottom: '0.75rem',
-};
-
-const dividerStyle = {
-  border: 'none',
-  borderTop: '1px solid rgba(242,240,234,0.1)',
-  margin: '1.5rem 0',
-};
-
-const actionButtonStyle = {
-  padding: '0.7rem 1.4rem',
-  borderRadius: '999px',
-  fontFamily: 'var(--font-mono)',
-  fontSize: '0.8rem',
-  letterSpacing: '0.04em',
-  textTransform: 'uppercase',
-};
+function sectionHeadingStyle(primary) {
+  return {
+    fontSize: '0.85rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.1em',
+    color: primary,
+    marginBottom: '0.75rem',
+  };
+}

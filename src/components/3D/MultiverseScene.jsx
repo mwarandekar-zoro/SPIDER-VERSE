@@ -10,6 +10,7 @@ import UniverseNode from './UniverseNode';
 import Environment from './Environment';
 import TransitionController from './TransitionController';
 import FloatingObjects from './FloatingObjects';
+import SpiderWebBurst from './SpiderWebBurst';
 import { universes } from '../../data/universes';
 import { CAMERA_DEFAULTS, QUALITY_SETTINGS } from '../../utils/constants';
 import { scaledPosition } from '../../utils/mapLayout';
@@ -63,6 +64,7 @@ export default function MultiverseScene({
   activeUniverseId = null,
   previewUniverseId = null,
   focusTrigger = null,
+  selectedCharacterSuitTheme = null,
   isTransitioning = false,
   targetUniverseId = null,
   overlayEl = null,
@@ -84,6 +86,7 @@ export default function MultiverseScene({
       <Environment activeUniverseId={activeUniverseId} />
 
       <Suspense fallback={null}>
+        <SpiderWebBurst suitTheme={selectedCharacterSuitTheme} trigger={focusTrigger} />
         <PlaceholderCore />
         <Particles quality={quality} />
         <WebSystem quality={quality} />
