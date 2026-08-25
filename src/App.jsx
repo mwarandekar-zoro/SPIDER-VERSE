@@ -9,6 +9,10 @@ import { CursorProvider } from './components/Cursor/CursorContext';
 import CustomCursor from './components/Cursor/CustomCursor';
 import Hero from './sections/Hero';
 import Multiverse from './sections/Multiverse';
+import LoreIntro from './sections/LoreIntro';
+import PowersLeaderboard from './sections/PowersLeaderboard';
+import UniverseTimeline from './sections/UniverseTimeline';
+import Footer from './sections/Footer';
 import { detectDefaultQuality } from './utils/deviceQuality';
 import { useResponsive } from './hooks/useResponsive';
 import { useCharacter } from './hooks/useCharacter';
@@ -200,11 +204,14 @@ export default function App() {
 
       <main className="content-layer">
         <Hero />
+        <LoreIntro />
         <Multiverse
           hoveredUniverseId={hoveredUniverseId}
           selectedUniverseId={selectedUniverseId}
           onSelectUniverse={handleEnterUniverse}
         />
+        <PowersLeaderboard />
+        <UniverseTimeline />
         <Suspense fallback={<SectionFallback />}>
           <CharacterExplorer onSelectCharacter={handleSelectCharacter} />
           <CharacterDetail
@@ -219,6 +226,7 @@ export default function App() {
             onChangeComparison={setComparisonCharacters}
           />
         </Suspense>
+        <Footer />
       </main>
     </CursorProvider>
   );
