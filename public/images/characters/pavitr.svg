@@ -1,65 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 650" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="100%" height="100%">
   <defs>
-    <linearGradient id="bgPavitr" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2a0d00"/>
-      <stop offset="50%" stop-color="#08070c"/>
-      <stop offset="100%" stop-color="#001133"/>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGradPavitr" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#3b1100"/>
+      <stop offset="50%" stop-color="#150500"/>
+      <stop offset="100%" stop-color="#08030b"/>
+    </radialGradient>
+
+    <!-- Suit Saffron & Teal Gradients -->
+    <linearGradient id="saffronSuit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7b00"/>
+      <stop offset="60%" stop-color="#e63900"/>
+      <stop offset="100%" stop-color="#990000"/>
     </linearGradient>
-    <linearGradient id="suitOrange" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ff7700"/>
-      <stop offset="100%" stop-color="#cc3300"/>
+
+    <linearGradient id="tealAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
     </linearGradient>
-    <linearGradient id="pavitrEyeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+
+    <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffe066"/>
+      <stop offset="50%" stop-color="#ffb703"/>
+      <stop offset="100%" stop-color="#fb8500"/>
+    </linearGradient>
+
+    <linearGradient id="eyeGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="60%" stop-color="#ffea9f"/>
-      <stop offset="100%" stop-color="#00ffff"/>
+      <stop offset="40%" stop-color="#e0f7fa"/>
+      <stop offset="100%" stop-color="#80deea"/>
     </linearGradient>
-    <filter id="pavitrGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="10" result="blur"/>
+
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
   </defs>
 
-  <rect width="500" height="650" fill="url(#bgPavitr)"/>
+  <!-- Dark Background -->
+  <rect width="600" height="800" fill="url(#bgGradPavitr)"/>
 
-  <!-- Mandala Web Background Lines -->
-  <g stroke="#ffaa00" stroke-opacity="0.2" stroke-width="1.5" fill="none">
-    <circle cx="250" cy="270" r="80"/>
-    <circle cx="250" cy="270" r="150"/>
-    <circle cx="250" cy="270" r="220"/>
-    {Array.from({length: 12}).map((_, i) => `<line x1="250" y1="270" x2="${250 + Math.cos(i*Math.PI/6)*300}" y2="${270 + Math.sin(i*Math.PI/6)*300}"/>`).join('')}
+  <!-- Ornate Golden Mandala Web in Background -->
+  <g stroke="url(#goldTrim)" stroke-opacity="0.25" stroke-width="1.5" fill="none">
+    <circle cx="300" cy="360" r="90"/>
+    <circle cx="300" cy="360" r="170"/>
+    <circle cx="300" cy="360" r="260"/>
+    <circle cx="300" cy="360" r="350"/>
+    <!-- 16 Radial Strands -->
+    <path d="M 300,10 L 300,710 M 50,360 L 550,360 M 80,140 L 520,580 M 80,580 L 520,140 M 170,40 L 430,680 M 170,680 L 430,40 M 30,230 L 570,490 M 30,490 L 570,230"/>
   </g>
 
-  <!-- Pavitr Head Base (Mask + Hair Silhouette) -->
-  <!-- Long flowing hair outline -->
-  <path d="M 120,200 C 90,280 80,380 130,480 C 140,500 170,440 180,410 C 140,330 150,230 180,180 Z" fill="#1a0d00"/>
-  <path d="M 380,200 C 410,280 420,380 370,480 C 360,500 330,440 320,410 C 360,330 350,230 320,180 Z" fill="#1a0d00"/>
+  <!-- Pavitr Flowing Hair Back Layer -->
+  <path d="M 170,240 C 110,320 100,460 160,600 C 180,640 210,560 210,500 C 160,400 175,300 210,230 Z" fill="#0d0705"/>
+  <path d="M 430,240 C 490,320 500,460 440,600 C 420,640 390,560 390,500 C 440,400 425,300 390,230 Z" fill="#0d0705"/>
 
-  <!-- Mask Base -->
-  <path d="M 250,90 C 160,90 135,170 135,290 C 135,410 190,510 250,535 C 310,510 365,410 365,290 C 365,170 340,90 250,90 Z" fill="url(#suitOrange)" stroke="#992200" stroke-width="4"/>
+  <!-- Hair Highlights -->
+  <path d="M 150,300 Q 120,440 170,570" stroke="#ff7b00" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 450,300 Q 480,440 430,570" stroke="#ff7b00" stroke-width="3" fill="none" opacity="0.6"/>
 
-  <!-- Indian Gold / Peacock Blue Accent Lines & Tilak Ornament -->
-  <path d="M 250,110 L 250,220" stroke="#ffd700" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="250" cy="115" r="7" fill="#ffd700"/>
-  <circle cx="250" cy="135" r="4" fill="#00e5ff"/>
+  <!-- Pavitr Spider-Man Mask Base Shape -->
+  <path d="M 300,140 C 190,140 160,240 160,370 C 160,520 225,640 300,670 C 375,640 440,520 440,370 C 440,240 410,140 300,140 Z" fill="url(#saffronSuit)" stroke="#801a00" stroke-width="5"/>
 
-  <!-- Ornate Peacock / Paisley Web Lines -->
-  <g stroke="#1a0500" stroke-width="2.5" fill="none" opacity="0.8">
-    <path d="M 180,160 Q 250,195 320,160"/>
-    <path d="M 155,225 Q 250,265 345,225"/>
-    <path d="M 155,340 Q 250,385 345,340"/>
-    <path d="M 180,420 Q 250,460 320,420"/>
+  <!-- Dhoti-inspired Blue Collar / Shoulders -->
+  <path d="M 160,550 Q 300,680 440,550 L 480,720 Q 300,820 120,720 Z" fill="url(#tealAccent)"/>
+  <path d="M 160,550 Q 300,680 440,550" stroke="url(#goldTrim)" stroke-width="8" fill="none"/>
+
+  <!-- Forehead Gold Tilak & Ornate Markings -->
+  <path d="M 300,150 L 300,280" stroke="url(#goldTrim)" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="300" cy="165" r="10" fill="#ffe066" filter="url(#neonGlow)"/>
+  <circle cx="300" cy="195" r="6" fill="#00f2fe"/>
+  <circle cx="300" cy="220" r="4" fill="#ffe066"/>
+
+  <!-- Ornate Spider Web Lines on Face -->
+  <g stroke="#260500" stroke-width="3" fill="none" opacity="0.75">
+    <!-- Concentric Curved Loops -->
+    <path d="M 220,220 Q 300,260 380,220"/>
+    <path d="M 190,300 Q 300,350 410,300"/>
+    <path d="M 185,440 Q 300,500 415,440"/>
+    <path d="M 215,530 Q 300,580 385,530"/>
+    <!-- Diagonal Strands -->
+    <line x1="300" y1="360" x2="175" y2="200"/>
+    <line x1="300" y1="360" x2="425" y2="200"/>
+    <line x1="300" y1="360" x2="165" y2="450"/>
+    <line x1="300" y1="360" x2="435" y2="450"/>
   </g>
 
-  <!-- Left Eye Lens -->
-  <path d="M 238,270 C 205,230 150,235 142,280 C 134,325 190,370 234,335 Z" fill="#051026" stroke="#ffd700" stroke-width="5"/>
-  <path d="M 233,273 C 203,238 156,242 150,281 C 144,319 192,360 229,330 Z" fill="url(#pavitrEyeGrad)" filter="url(#pavitrGlow)"/>
+  <!-- Left Eye Lens (Iconic Angular Frame with Gold Outline) -->
+  <path d="M 285,340 C 240,290 175,295 165,350 C 155,410 225,465 280,420 Z" fill="#08070c" stroke="url(#goldTrim)" stroke-width="7"/>
+  <path d="M 278,344 C 238,299 183,303 174,352 C 166,404 227,452 273,414 Z" fill="url(#eyeGlowGrad)" filter="url(#neonGlow)"/>
 
-  <!-- Right Eye Lens -->
-  <path d="M 262,270 C 295,230 350,235 358,280 C 366,325 310,370 266,335 Z" fill="#051026" stroke="#ffd700" stroke-width="5"/>
-  <path d="M 267,273 C 297,238 344,242 350,281 C 356,319 308,360 271,330 Z" fill="url(#pavitrEyeGrad)" filter="url(#pavitrGlow)"/>
+  <!-- Right Eye Lens (Iconic Angular Frame with Gold Outline) -->
+  <path d="M 315,340 C 360,290 425,295 435,350 C 445,410 375,465 320,420 Z" fill="#08070c" stroke="url(#goldTrim)" stroke-width="7"/>
+  <path d="M 322,344 C 362,299 417,303 426,352 C 434,404 373,452 327,414 Z" fill="url(#eyeGlowGrad)" filter="url(#neonGlow)"/>
 
-  <!-- Title Badge -->
-  <text x="250" y="590" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle" letter-spacing="2">PAVITR PRABHAKAR</text>
-  <text x="250" y="615" font-family="monospace" font-size="14" fill="#ffaa00" text-anchor="middle" letter-spacing="4">SPIDER-MAN INDIA (EARTH-50101)</text>
+  <!-- Character Title Banner -->
+  <rect x="100" y="710" width="400" height="55" rx="12" fill="#08070c" stroke="url(#goldTrim)" stroke-width="2"/>
+  <text x="300" y="745" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle" letter-spacing="3">PAVITR PRABHAKAR</text>
+  <text x="300" y="762" font-family="monospace" font-size="12" fill="#ff7b00" text-anchor="middle" letter-spacing="4">SPIDER-MAN INDIA (EARTH-50101)</text>
 </svg>

@@ -1,18 +1,20 @@
-import { useEffect, useRef, useMemo } from 'react';
-import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { initHeroScrollFade } from '../animations/scrollAnimations';
 import { spiderPeople } from '../data/spiderPeople';
 
 // ─────────────────────────────────────────────────────────────
 // Picks one Spider-Person that stays constant for this session.
-// useMemo with an empty dep array gives us session-stable
-// randomness without a ref or state re-render.
+// useState lazy initializer runs ONCE per true mount and is
+// not preserved by React HMR, so every refresh gives a
+// genuinely different Spider-Person.
 // ─────────────────────────────────────────────────────────────
 function useSessionCharacter() {
-  return useMemo(() => {
+  const [character] = useState(() => {
     const idx = Math.floor(Math.random() * spiderPeople.length);
     return spiderPeople[idx];
-  }, []);
+  });
+  return character;
 }
 
 // ─────────────────────────────────────────────────────────────
