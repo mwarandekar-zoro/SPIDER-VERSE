@@ -149,7 +149,7 @@ export const spiderPeople = [
     powerIds: ['spider-sense', 'wall-crawling', 'cyber-armor', 'systems-override'],
     stats: { strength: 93, speed: 85, agility: 82, intelligence: 91 },
     model: '/models/characters/cyborg.glb',
-    image: '/images/characters/cyborg.svg',
+    image: '/images/characters/cyborg.jpg',
     suitTheme: { primary: '#00ccff', secondary: '#cc0000', accent: '#44eeff' },
   },
 ];
