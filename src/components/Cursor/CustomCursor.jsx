@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useCursor } from './CursorContext';
 import { animateCursorVariant } from '../../animations/cursorAnimations';
 import { useResponsive } from '../../hooks/useResponsive';
@@ -11,6 +11,106 @@ const VARIANT_LABELS = {
   button: '→',
 };
 
+// ─────────────────────────────────────────────────────────────
+// Web-shoot particle burst on click.
+// Spawns 8 thin rays radiating outward from the click point,
+// each quickly fading and scaling out — like firing a web.
+// All done in vanilla JS on a single <canvas> overlay so it
+// NEVER touches React state (no re-renders per particle).
+// ─────────────────────────────────────────────────────────────
+function useClickBurst(canvasRef) {
+  const particles = useRef([]);
+  const frameRef = useRef(null);
+  const isRunning = useRef(false);
+
+  const spawnBurst = useCallback((x, y) => {
+    const primary = getComputedStyle(document.documentElement)
+      .getPropertyValue('--universe-primary').trim() || '#b026ff';
+
+    // 8 rays, spread in a full circle + 2 arc strands
+    const count = 10;
+    for (let i = 0; i < count; i++) {
+      const angle = (i * Math.PI * 2) / count + (Math.random() - 0.5) * 0.3;
+      const speed = 3.5 + Math.random() * 4;
+      const length = 18 + Math.random() * 28;
+      particles.current.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        length,
+        life: 1.0,
+        decay: 0.04 + Math.random() * 0.02,
+        color: primary,
+        width: 1.5 + Math.random(),
+      });
+    }
+
+    if (!isRunning.current) {
+      isRunning.current = true;
+      loop();
+    }
+  }, []);
+
+  function loop() {
+    const canvas = canvasRef.current;
+    if (!canvas) { isRunning.current = false; return; }
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.current = particles.current.filter((p) => p.life > 0);
+
+    for (const p of particles.current) {
+      ctx.save();
+      ctx.globalAlpha = p.life * 0.9;
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = p.width * p.life;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 8 * p.life;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(p.x + p.vx * (p.length / 5), p.y + p.vy * (p.length / 5));
+      ctx.stroke();
+      ctx.restore();
+
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.88;
+      p.vy *= 0.88;
+      p.life -= p.decay;
+    }
+
+    if (particles.current.length > 0) {
+      frameRef.current = requestAnimationFrame(loop);
+    } else {
+      isRunning.current = false;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function handleClick(e) {
+      spawnBurst(e.clientX, e.clientY);
+    }
+    window.addEventListener('pointerdown', handleClick);
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('pointerdown', handleClick);
+      cancelAnimationFrame(frameRef.current);
+    };
+  }, [spawnBurst, canvasRef]);
+}
+
 /**
  * Section 13: a small spider crawls with the cursor, orienting
  * toward whatever direction it's moving; an expanded ring + label
@@ -19,6 +119,9 @@ const VARIANT_LABELS = {
  * layer) and smooths it with a manual requestAnimationFrame loop,
  * writing straight to DOM transforms — this updates every frame, so
  * it must never go through React state (section 34).
+ *
+ * Phase 7: on every click, fires a web-shoot particle burst from
+ * the cursor position via a canvas overlay (no React state).
  *
  * Only ever mounted on desktop (see App.jsx) — never rendered on
  * touch devices, per section 13.
@@ -35,6 +138,10 @@ export default function CustomCursor() {
   const spiderRef = useRef(null);
   const ringWrapperRef = useRef(null);
   const ringInnerRef = useRef(null);
+  const burstCanvasRef = useRef(null);
+
+  // Web-shoot burst canvas
+  useClickBurst(burstCanvasRef);
 
   useEffect(() => {
     document.body.classList.add('custom-cursor-active');
@@ -56,16 +163,12 @@ export default function CustomCursor() {
       const prevX = spiderPos.current.x;
       const prevY = spiderPos.current.y;
 
-      // Spider: snappy, near-instant follow
       spiderPos.current.x += (target.current.x - spiderPos.current.x) * 0.35;
       spiderPos.current.y += (target.current.y - spiderPos.current.y) * 0.35;
 
-      // Ring: softer trailing follow
       ringPos.current.x += (target.current.x - ringPos.current.x) * 0.16;
       ringPos.current.y += (target.current.y - ringPos.current.y) * 0.16;
 
-      // Orient the spider toward its direction of travel — only when
-      // actually moving, so it doesn't jitter while sitting still
       const dx = spiderPos.current.x - prevX;
       const dy = spiderPos.current.y - prevY;
       if (dx * dx + dy * dy > 0.4) {
@@ -92,6 +195,18 @@ export default function CustomCursor() {
 
   return (
     <>
+      {/* Web-shoot particle burst canvas */}
+      <canvas
+        ref={burstCanvasRef}
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          pointerEvents: 'none',
+          zIndex: 9998,
+        }}
+      />
+
       {!reducedMotion && <CursorTrail target={target} />}
 
       <div ref={spiderRef} className="custom-cursor-spider" aria-hidden="true">

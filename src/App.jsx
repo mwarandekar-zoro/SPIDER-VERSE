@@ -5,6 +5,7 @@ import SoundToggle from './components/UI/SoundToggle';
 import QualityToggle from './components/UI/QualityToggle';
 import Navbar from './components/UI/Navbar';
 import LoadingScreen from './components/UI/LoadingScreen';
+import IdleManager from './components/UI/IdleManager';
 import { CursorProvider } from './components/Cursor/CursorContext';
 import CustomCursor from './components/Cursor/CustomCursor';
 import Hero from './sections/Hero';
@@ -201,6 +202,7 @@ export default function App() {
       {!isTouch && <CustomCursor />}
       <SoundToggle enabled={soundEnabled} onToggle={handleToggleSound} />
       <QualityToggle quality={quality} onChange={setQuality} />
+      <IdleManager />
 
       <main className="content-layer">
         <Hero />
