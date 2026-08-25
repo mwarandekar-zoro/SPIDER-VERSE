@@ -25,6 +25,10 @@ export const spiderPeople = [
     model: '/models/characters/miles.glb',
     image: '/images/characters/miles.jpg',
     suitTheme: { primary: '#ff2222', secondary: '#111111', accent: '#ff6666' },
+    comic: {
+      title: 'Miles Morales — Essential Reading',
+      url: 'https://www.marvel.com/comics/discover/1454/miles-morales-essential-reading',
+    },
   },
   {
     id: 'gwen-stacy',
@@ -39,6 +43,10 @@ export const spiderPeople = [
     model: '/models/characters/gwen.glb',
     image: '/images/characters/gwen.jpg',
     suitTheme: { primary: '#ff6fd8', secondary: '#e0d0ff', accent: '#ffffff' },
+    comic: {
+      title: 'Gwen Stacy — In Comics',
+      url: 'https://www.marvel.com/characters/gwen-stacy/in-comics',
+    },
   },
   {
     id: 'miguel-ohara',
@@ -53,6 +61,10 @@ export const spiderPeople = [
     model: '/models/characters/miguel.glb',
     image: '/images/characters/miguel.jpg',
     suitTheme: { primary: '#003cff', secondary: '#ff2020', accent: '#00aaff' },
+    comic: {
+      title: 'Spider-Man 2099 — Marvel Comics',
+      url: 'https://www.marvel.com/characters/spider-man-2099-miguel-ohara/in-comics',
+    },
   },
   {
     id: 'pavitr-prabhakar',
@@ -67,6 +79,10 @@ export const spiderPeople = [
     model: '/models/characters/pavitr.glb',
     image: '/images/characters/pavitr.jpg',
     suitTheme: { primary: '#ff9500', secondary: '#2222cc', accent: '#ffcc00' },
+    comic: {
+      title: 'Spider-Man: India (2023)',
+      url: 'https://www.marvel.com/comics/issue/106675/spider-man_india_2023_1',
+    },
   },
   {
     id: 'peter-b-parker',
@@ -81,6 +97,10 @@ export const spiderPeople = [
     model: '/models/characters/peter.glb',
     image: '/images/characters/peter.jpg',
     suitTheme: { primary: '#cc3300', secondary: '#0033cc', accent: '#ff4422' },
+    comic: {
+      title: 'Spider-Man / Peter Parker — Essential Reading',
+      url: 'https://www.marvel.com/comics/discover/1169/spider-man-peter-parker-essential-reading',
+    },
   },
   {
     id: 'hobie-brown',
@@ -95,6 +115,10 @@ export const spiderPeople = [
     model: '/models/characters/hobie.glb',
     image: '/images/characters/hobie.jpg',
     suitTheme: { primary: '#ffdd00', secondary: '#111111', accent: '#ff4400' },
+    comic: {
+      title: 'Spider-Punk (2022)',
+      url: 'https://www.marvel.com/comics/issue/97880/spider-punk_2022_1',
+    },
   },
   {
     id: 'peter-porker',
@@ -109,6 +133,10 @@ export const spiderPeople = [
     model: '/models/characters/peter-porker.glb',
     image: '/images/characters/peter-porker.jpg',
     suitTheme: { primary: '#ff6644', secondary: '#ffffff', accent: '#ffaa00' },
+    comic: {
+      title: 'Spider-Ham — Marvel Comics',
+      url: 'https://www.marvel.com/characters/spider-ham-peter-porker/in-comics',
+    },
   },
   {
     id: 'spider-man-noir',
@@ -123,6 +151,10 @@ export const spiderPeople = [
     model: '/models/characters/noir.glb',
     image: '/images/characters/noir.jpg',
     suitTheme: { primary: '#aaaaaa', secondary: '#333333', accent: '#ffffff' },
+    comic: {
+      title: 'Spider-Man Noir — Comics',
+      url: 'https://www.marvel.com/characters/spider-man-noir-peter-parker/in-comics',
+    },
   },
   {
     id: 'takuya-yamashiro',
@@ -137,6 +169,10 @@ export const spiderPeople = [
     model: '/models/characters/takuya.glb',
     image: '/images/characters/takuya.jpg',
     suitTheme: { primary: '#cc0000', secondary: '#ffffff', accent: '#ff4444' },
+    comic: {
+      title: 'Spider-Verse Heroes — Takuya\'s Debut',
+      url: 'https://www.marvel.com/articles/comics/spider-verse-heroes-japanese-spider-man-takuya-yamashiro',
+    },
   },
   {
     id: 'cyborg-spider-man',
@@ -151,5 +187,9 @@ export const spiderPeople = [
     model: '/models/characters/cyborg.glb',
     image: '/images/characters/cyborg.jpg',
     suitTheme: { primary: '#00ccff', secondary: '#cc0000', accent: '#44eeff' },
+    comic: {
+      title: 'Edge of Spider-Verse (2024) #2',
+      url: 'https://www.marvel.com/comics/issue/114881/edge_of_spider-verse_2024_2',
+    },
   },
 ];

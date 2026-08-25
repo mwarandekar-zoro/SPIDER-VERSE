@@ -320,6 +320,54 @@ export default function CharacterProfile({
             </>
           )}
 
+          {character.comic && (
+            <>
+              <div
+                style={{
+                  height: '1px',
+                  background: `linear-gradient(90deg, ${primary}44, transparent)`,
+                  margin: '1.25rem 0',
+                }}
+              />
+              <h3 style={sectionHeadingStyle(primary)}>Official Marvel Comics</h3>
+              <a
+                href={character.comic.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  padding: '0.65rem 1.25rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: `${primary}18`,
+                  border: `1px solid ${primary}44`,
+                  color: '#ffffff',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.82rem',
+                  textDecoration: 'none',
+                  transition: 'all 0.25s ease',
+                  boxShadow: `0 0 16px ${primary}22`,
+                  marginBottom: '0.5rem',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = `${primary}33`;
+                  e.currentTarget.style.borderColor = primary;
+                  e.currentTarget.style.boxShadow = `0 0 20px ${primary}55`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = `${primary}18`;
+                  e.currentTarget.style.borderColor = `${primary}44`;
+                  e.currentTarget.style.boxShadow = `0 0 16px ${primary}22`;
+                }}
+              >
+                <span>📚</span>
+                <span>{character.comic.title}</span>
+                <span style={{ color: primary, marginLeft: '0.2rem' }}>↗</span>
+              </a>
+            </>
+          )}
+
           <div
             style={{
               height: '1px',
