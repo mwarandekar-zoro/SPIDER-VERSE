@@ -65,7 +65,7 @@ export const spiderPeople = [
     powerIds: ['spider-sense', 'wall-crawling', 'web-shooting', 'yoga-agility'],
     stats: { strength: 80, speed: 87, agility: 96, intelligence: 82 },
     model: '/models/characters/pavitr.glb',
-    image: '/images/characters/pavitr.svg',
+    image: '/images/characters/pavitr.jpg',
     suitTheme: { primary: '#ff9500', secondary: '#2222cc', accent: '#ffcc00' },
   },
   {
@@ -79,7 +79,7 @@ export const spiderPeople = [
     powerIds: ['spider-sense', 'wall-crawling', 'web-shooting', 'improvised-tech'],
     stats: { strength: 83, speed: 80, agility: 84, intelligence: 88 },
     model: '/models/characters/peter.glb',
-    image: '/images/characters/peter.svg',
+    image: '/images/characters/peter.jpg',
     suitTheme: { primary: '#cc3300', secondary: '#0033cc', accent: '#ff4422' },
   },
   {
