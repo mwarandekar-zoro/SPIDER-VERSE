@@ -205,7 +205,7 @@ export default function App() {
       <IdleManager />
 
       <main className="content-layer">
-        <Hero />
+        <Hero onSelectCharacter={handleSelectCharacter} />
         <LoreIntro />
         <Multiverse
           hoveredUniverseId={hoveredUniverseId}

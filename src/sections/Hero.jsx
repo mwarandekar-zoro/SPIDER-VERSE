@@ -436,9 +436,209 @@ function FeaturedCard({ character }) {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Multiverse Radar Beacon — Left-side companion widget for the
+// Hero section. Provides live dimension status metrics, quick
+// dimensional teleport chips, and a random suit-theme shift button.
+// ─────────────────────────────────────────────────────────────
+function MultiverseBeacon({ onSelectCharacter }) {
+  const QUICK_HEROES = [
+    { id: 'miles-morales', name: 'Miles', tag: '1610', icon: '🕷️', color: '#ff2222' },
+    { id: 'gwen-stacy', name: 'Gwen', tag: '65', icon: '🥁', color: '#ff6fd8' },
+    { id: 'miguel-ohara', name: '2099', tag: '928', icon: '🏙️', color: '#003cff' },
+    { id: 'pavitr-prabhakar', name: 'Pavitr', tag: '50101', icon: '🇮🇳', color: '#ff9500' },
+    { id: 'hobie-brown', name: 'Punk', tag: '138', icon: '🎸', color: '#ffdd00' },
+  ];
+
+  const handleShiftGlitch = () => {
+    const randomHero = spiderPeople[Math.floor(Math.random() * spiderPeople.length)];
+    if (onSelectCharacter) {
+      onSelectCharacter(randomHero.id);
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -40, y: 10 }}
+      animate={{ opacity: 1, x: 0, y: 0 }}
+      transition={{ delay: 1.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        position: 'absolute',
+        left: 'clamp(1rem, 4vw, 3rem)',
+        bottom: 'clamp(2rem, 12vh, 6rem)',
+        zIndex: 3,
+        maxWidth: '280px',
+        width: 'calc(100% - 2rem)',
+        pointerEvents: 'auto',
+      }}
+    >
+      <div
+        style={{
+          background: 'rgba(15, 13, 23, 0.78)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+          borderRadius: 'var(--radius-md)',
+          padding: '1rem',
+          textAlign: 'left',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(255, 255, 255, 0.03)',
+        }}
+      >
+        {/* Beacon Header */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.65rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <span
+              style={{
+                width: '7px',
+                height: '7px',
+                borderRadius: '50%',
+                background: '#00ff88',
+                boxShadow: '0 0 10px #00ff88',
+              }}
+            />
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.65rem',
+                color: 'var(--universe-primary)',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                fontWeight: 700,
+              }}
+            >
+              📡 MULTIVERSE RADAR
+            </span>
+          </div>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.6rem',
+              color: 'var(--color-muted)',
+              background: 'rgba(255,255,255,0.05)',
+              padding: '0.15rem 0.45rem',
+              borderRadius: '999px',
+            }}
+          >
+            LIVE
+          </span>
+        </div>
+
+        {/* Live Metrics */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '0.4rem',
+            marginBottom: '0.75rem',
+            padding: '0.5rem',
+            background: 'rgba(0,0,0,0.3)',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid rgba(255,255,255,0.05)',
+          }}
+        >
+          <div>
+            <span style={{ fontSize: '0.58rem', color: 'var(--color-muted)', fontFamily: 'var(--font-mono)', display: 'block' }}>CANON SYNC</span>
+            <span style={{ fontSize: '0.72rem', color: '#00ff88', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>99.9% STABLE</span>
+          </div>
+          <div>
+            <span style={{ fontSize: '0.58rem', color: 'var(--color-muted)', fontFamily: 'var(--font-mono)', display: 'block' }}>SOCIETY HUB</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--universe-primary)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>ACTIVE</span>
+          </div>
+        </div>
+
+        {/* Quick Jump Hero Chips */}
+        <div style={{ marginBottom: '0.75rem' }}>
+          <span
+            style={{
+              fontSize: '0.6rem',
+              fontFamily: 'var(--font-mono)',
+              color: 'var(--color-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              display: 'block',
+              marginBottom: '0.4rem',
+            }}
+          >
+            Dimensional Quick Jump:
+          </span>
+          <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+            {QUICK_HEROES.map((hero) => (
+              <button
+                key={hero.id}
+                onClick={() => onSelectCharacter && onSelectCharacter(hero.id)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  padding: '0.25rem 0.55rem',
+                  borderRadius: '999px',
+                  background: 'rgba(255,255,255,0.04)',
+                  border: `1px solid ${hero.color}44`,
+                  color: '#ffffff',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.65rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = `${hero.color}22`;
+                  e.currentTarget.style.borderColor = hero.color;
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                  e.currentTarget.style.borderColor = `${hero.color}44`;
+                  e.currentTarget.style.transform = 'none';
+                }}
+              >
+                <span>{hero.icon}</span>
+                <span>{hero.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Random Shift Action Button */}
+        <button
+          onClick={handleShiftGlitch}
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.4rem',
+            padding: '0.45rem',
+            borderRadius: 'var(--radius-sm)',
+            background: 'linear-gradient(90deg, var(--universe-primary)22, var(--universe-secondary)22)',
+            border: '1px solid var(--universe-primary)55',
+            color: '#ffffff',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.68rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'linear-gradient(90deg, var(--universe-primary)44, var(--universe-secondary)44)';
+            e.currentTarget.style.borderColor = 'var(--universe-primary)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'linear-gradient(90deg, var(--universe-primary)22, var(--universe-secondary)22)';
+            e.currentTarget.style.borderColor = 'var(--universe-primary)55';
+          }}
+        >
+          <span>🎲</span>
+          <span>Glitch Random Theme Shift</span>
+          <span>⚡</span>
+        </button>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // Hero Section — Phase 3 upgrade
 // ─────────────────────────────────────────────────────────────
-export default function Hero() {
+export default function Hero({ onSelectCharacter }) {
   const heroRef      = useRef(null);
   const featured     = useSessionCharacter();
 
@@ -505,7 +705,10 @@ export default function Hero() {
       {/* ── Stat Ticker ── */}
       <StatTicker />
 
-      {/* ── Featured Character Card ── */}
+      {/* ── Left-side Multiverse Beacon Widget ── */}
+      <MultiverseBeacon onSelectCharacter={onSelectCharacter} />
+
+      {/* ── Right-side Featured Character Card ── */}
       <FeaturedCard character={featured} />
 
       {/* ── Scroll Indicator ── */}
