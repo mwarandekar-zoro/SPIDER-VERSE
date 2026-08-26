@@ -55,7 +55,7 @@ export const spiderPeople = [
     universeId: 'earth-928',
     origin: 'Nueva York, 2099',
     description:
-      'A geneticist-turned-hero leading a society of Spider-People across the multiverse, carrying its weight alone.',
+      'A geneticist-turned-hero leading a society of Spider-People across the multiverse with his AI companion Lyla.',
     powerIds: ['spider-sense', 'wall-crawling', 'fangs-claws', 'neural-interface'],
     stats: { strength: 90, speed: 88, agility: 89, intelligence: 96 },
     model: '/models/characters/miguel.glb',
@@ -152,8 +152,44 @@ export const spiderPeople = [
     image: '/images/characters/ben.jpg',
     suitTheme: { primary: '#e63946', secondary: '#1d3557', accent: '#457b9d' },
     comic: {
-      title: 'Scarlet Spider (Ben Reilly) — Marvel Official',
-      url: 'https://www.marvel.com/characters/scarlet-spider-ben-reilly',
+      title: 'Scarlet Spider (Ben Reilly) — Marvel Guide',
+      url: 'https://www.marvel.com/comics/guides/720/scarlet-spider-ben-reilly',
+    },
+  },
+  {
+    id: 'kaine-parker',
+    name: 'Kaine Parker',
+    alias: 'Scarlet Spider (Clone)',
+    universeId: 'earth-616',
+    origin: 'New York City',
+    description:
+      'A flawed clone of Peter Parker who embraced his darker instincts to become a ferocious protector in a striking black and crimson suit.',
+    powerIds: ['spider-sense', 'wall-crawling', 'fangs-claws', 'camouflage'],
+    stats: { strength: 89, speed: 87, agility: 90, intelligence: 82 },
+    model: '/models/characters/kaine.glb',
+    image: '/images/characters/kaine.jpg',
+    suitTheme: { primary: '#d90429', secondary: '#111111', accent: '#ef233c' },
+    comic: {
+      title: 'Kaine (Scarlet Spider Clone) — Marvel Article',
+      url: 'https://www.marvel.com/articles/comics/kaine-spider-man-clone-history-explained',
+    },
+  },
+  {
+    id: 'web-slinger',
+    name: "Patrick O'Hara",
+    alias: 'Web-Slinger',
+    universeId: 'earth-31913',
+    origin: 'Wild West, Earth-31913',
+    description:
+      'A cowboy gunslinger empowered by spider-abilities who rides across the frontier with his masked spider-steed Widow, firing pressurized web-bullets from dual revolvers.',
+    powerIds: ['trick-revolver', 'equestrian-agility', 'spider-sense', 'wall-crawling'],
+    stats: { strength: 83, speed: 89, agility: 92, intelligence: 84 },
+    model: '/models/characters/webslinger.glb',
+    image: '/images/characters/webslinger.jpg',
+    suitTheme: { primary: '#d4a373', secondary: '#457b9d', accent: '#e63946' },
+    comic: {
+      title: "Web-Slinger (Patrick O'Hara) — Marvel Official",
+      url: 'https://www.marvel.com/characters/web-slinger-patrick-ohara',
     },
   },
   {
@@ -170,8 +206,8 @@ export const spiderPeople = [
     image: '/images/characters/mayday.jpg',
     suitTheme: { primary: '#ee9b00', secondary: '#005f73', accent: '#0a9396' },
     comic: {
-      title: 'Spider-Girl (May Parker) — Marvel Official',
-      url: 'https://www.marvel.com/characters/spider-girl-may-parker',
+      title: 'Spider-Girl (Mayday Parker) — Marvel Official',
+      url: 'https://www.marvel.com/characters/spider-girl-may-mayday-parker',
     },
   },
   {
@@ -188,8 +224,8 @@ export const spiderPeople = [
     image: '/images/characters/superior.jpg',
     suitTheme: { primary: '#9b5de5', secondary: '#212529', accent: '#f15bb5' },
     comic: {
-      title: 'Superior Spider-Man — Marvel Official',
-      url: 'https://www.marvel.com/characters/superior-spider-man-otto-octavius',
+      title: 'Doctor Octopus / Superior Spider-Man — Marvel Comics',
+      url: 'https://www.marvel.com/characters/doctor-octopus-otto-octavius/in-comics',
     },
   },
   {
@@ -332,8 +368,8 @@ export const spiderPeople = [
     image: '/images/characters/anya.jpg',
     suitTheme: { primary: '#fb5607', secondary: '#3a0ca3', accent: '#ff006e' },
     comic: {
-      title: 'Araña (Anya Corazon) — Marvel Official',
-      url: 'https://www.marvel.com/characters/arana-anya-corazon',
+      title: 'Spider-Girl (Anya Corazon) — Marvel Official',
+      url: 'https://www.marvel.com/comics/characters/1009157/spider-girl_anya_corazon',
     },
   },
 ];

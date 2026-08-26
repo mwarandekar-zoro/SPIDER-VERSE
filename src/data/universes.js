@@ -64,8 +64,8 @@ export const universes = [
     name: 'Earth-616',
     title: 'Prime Universe',
     description:
-      'The original reality — home to Peter B. Parker, Jessica Drew, Silk, Ben Reilly, Superior Spider-Man, and Araña.',
-    characterIds: ['peter-b-parker', 'jessica-drew', 'cindy-moon', 'ben-reilly', 'superior-spider-man', 'anya-corazon'],
+      'The original reality — home to Peter B. Parker, Jessica Drew, Silk, Ben Reilly, Superior Spider-Man, Kaine, and Araña.',
+    characterIds: ['peter-b-parker', 'jessica-drew', 'cindy-moon', 'ben-reilly', 'kaine-parker', 'superior-spider-man', 'anya-corazon'],
     position: [1.8, -1.6, -2.2],
     environment: '/models/environments/earth616.glb',
     theme: { primary: '#e50914', secondary: '#1e90ff' },
@@ -175,5 +175,18 @@ export const universes = [
     theme: { primary: '#ffba08', secondary: '#d00000' },
     atmosphere: 'Lush prehistoric jungle, volcanic ash, thunderous dinosaur roars.',
     stats: { danger: 95, tech: 10, tone: 'Jurassic Primal' },
+  },
+  {
+    id: 'earth-31913',
+    name: 'Earth-31913',
+    title: 'Wild West Frontier',
+    description:
+      'An 1800s frontier reality where Patrick O’Hara, the Web-Slinger, rides alongside his masked spider-steed Widow.',
+    characterIds: ['web-slinger'],
+    position: [4.2, -2.8, -1.8],
+    environment: '/models/environments/earth31913.glb',
+    theme: { primary: '#d4a373', secondary: '#457b9d' },
+    atmosphere: 'Dusty desert canyons, wooden saloon storefronts, sunset gold glow.',
+    stats: { danger: 82, tech: 25, tone: 'Wild West Cowboy' },
   },
 ];

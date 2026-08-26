@@ -175,4 +175,16 @@ export const powers = [
     icon: '🧲',
     description: 'Can push objects away by reversing adhesion polarity on contact.',
   },
+  {
+    id: 'trick-revolver',
+    name: 'Web-Shooting Revolvers',
+    icon: '🤠',
+    description: 'Dual custom revolvers that fire pressurized web fluid bullets and lasso lines.',
+  },
+  {
+    id: 'equestrian-agility',
+    name: 'Equestrian Agility & Bond',
+    icon: '🐴',
+    description: 'Telepathic combat bond with his masked spider-steed, Widow.',
+  },
 ];
