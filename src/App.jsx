@@ -17,6 +17,7 @@ import Footer from './sections/Footer';
 import { detectDefaultQuality } from './utils/deviceQuality';
 import { useResponsive } from './hooks/useResponsive';
 import { useCharacter } from './hooks/useCharacter';
+import { useUniverseTheme } from './hooks/useUniverseTheme';
 import { spiderPeople } from './data/spiderPeople';
 import { universes } from './data/universes';
 import { playSound, stopSound, speakVoice } from './utils/audio';
