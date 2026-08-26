@@ -29,6 +29,14 @@ export const spiderPeople = [
       title: 'Miles Morales — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-man-miles-morales',
     },
+    video: {
+      title: 'Marvel 101 — Miles Morales (YouTube Official)',
+      url: 'https://www.youtube.com/watch?v=0Zi00j4Bw_w',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Miles Morales Spider-Man Videos',
+      url: 'https://www.youtube.com/results?search_query=Miles+Morales+Spider-Man+Marvel',
+    },
     movies: [
       {
         title: 'Spider-Man: Into the Spider-Verse (2018)',
@@ -60,6 +68,10 @@ export const spiderPeople = [
     comic: {
       title: 'Ghost-Spider (Gwen Stacy) — Marvel Official',
       url: 'https://www.marvel.com/characters/ghost-spider-gwen-stacy',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Gwen Stacy / Ghost-Spider Videos',
+      url: 'https://www.youtube.com/results?search_query=Gwen+Stacy+Ghost+Spider+Marvel',
     },
     movies: [
       {
@@ -93,6 +105,10 @@ export const spiderPeople = [
       title: "Spider-Man 2099 (Miguel O'Hara) — Marvel Official",
       url: 'https://www.marvel.com/characters/spider-man-2099-miguel-o-hara',
     },
+    youtubeSearch: {
+      title: 'YouTube — Miguel O\'Hara / Spider-Man 2099 Videos',
+      url: 'https://www.youtube.com/results?search_query=Spider-Man+2099+Miguel+OHara+Marvel',
+    },
     movies: [
       {
         title: 'Spider-Man: Across the Spider-Verse (2023)',
@@ -121,6 +137,14 @@ export const spiderPeople = [
       title: 'Meet Pavitr Prabhakar (Spider-Man India)',
       url: 'https://www.marvel.com/articles/comics/meet-pavitr-prabhakar-aka-spider-man-india',
     },
+    video: {
+      title: 'Sony Pictures India — Official Pavitr Prabhakar Featurette',
+      url: 'https://www.youtube.com/results?search_query=Sony+Pictures+India+Pavitr+Prabhakar+Spider-Man',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Pavitr Prabhakar / Spider-Man India Videos',
+      url: 'https://www.youtube.com/results?search_query=Spider-Man+India+Pavitr+Prabhakar',
+    },
     movies: [
       {
         title: 'Spider-Man: Across the Spider-Verse (2023)',
@@ -131,10 +155,6 @@ export const spiderPeople = [
         url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
       },
     ],
-    video: {
-      title: 'Sony Pictures India — Official Pavitr Prabhakar Featurette',
-      url: 'https://www.youtube.com/results?search_query=Sony+Pictures+India+Pavitr+Prabhakar+Spider-Man',
-    },
   },
   {
     id: 'peter-b-parker',
@@ -152,6 +172,10 @@ export const spiderPeople = [
     comic: {
       title: 'Peter Parker (Spider-Man) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-man-peter-parker',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Peter B. Parker Videos',
+      url: 'https://www.youtube.com/results?search_query=Peter+B+Parker+Spider-Man+Spider-Verse',
     },
     movies: [
       {
@@ -185,6 +209,14 @@ export const spiderPeople = [
       title: 'Spider-Woman — Marvel Comics Database',
       url: 'https://www.marvel.com/comics/characters/1009608/spider-woman_jessica_drew',
     },
+    video: {
+      title: 'Marvel 101 — Jessica Drew / Spider-Woman Video',
+      url: 'https://www.marvel.com/characters/spider-woman-jessica-drew',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Jessica Drew / Spider-Woman Videos',
+      url: 'https://www.youtube.com/results?search_query=Jessica+Drew+Spider-Woman+Marvel',
+    },
     movies: [
       {
         title: 'Spider-Man: Across the Spider-Verse (2023)',
@@ -195,10 +227,6 @@ export const spiderPeople = [
         url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
       },
     ],
-    video: {
-      title: 'Marvel 101 — Jessica Drew / Spider-Woman Video',
-      url: 'https://www.marvel.com/characters/spider-woman-jessica-drew',
-    },
   },
   {
     id: 'cindy-moon',
@@ -216,6 +244,14 @@ export const spiderPeople = [
     comic: {
       title: 'Silk — Marvel Comic Reading Guide',
       url: 'https://www.marvel.com/comics/guides/1885/silk',
+    },
+    video: {
+      title: 'Silk — Marvel 101 (YouTube Official)',
+      url: 'https://www.youtube.com/watch?v=su81g0ZzdrE',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Cindy Moon / Silk Videos',
+      url: 'https://www.youtube.com/results?search_query=Silk+Cindy+Moon+Marvel',
     },
   },
   {
@@ -235,6 +271,10 @@ export const spiderPeople = [
       title: 'Ben Reilly — Scarlet Spider Marvel Reading Guide',
       url: 'https://www.marvel.com/comics/guides/720/scarlet-spider-ben',
     },
+    youtubeSearch: {
+      title: 'YouTube — Ben Reilly / Scarlet Spider Videos',
+      url: 'https://www.youtube.com/results?search_query=Ben+Reilly+Scarlet+Spider+Marvel',
+    },
   },
   {
     id: 'kaine-parker',
@@ -252,6 +292,10 @@ export const spiderPeople = [
     comic: {
       title: 'Kaine Parker / Scarlet Spider — Marvel Comics Database',
       url: 'https://www.marvel.com/comics/characters/1011426/scarlet_spider',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Kaine Parker / Scarlet Spider Videos',
+      url: 'https://www.youtube.com/results?search_query=Kaine+Parker+Scarlet+Spider+Marvel',
     },
   },
   {
@@ -271,6 +315,10 @@ export const spiderPeople = [
       title: "Web-Slinger (Patrick O'Hara) — Marvel Official",
       url: 'https://www.marvel.com/characters/web-slinger-patrick-ohara',
     },
+    youtubeSearch: {
+      title: 'YouTube — Web-Slinger Spider-Man Videos',
+      url: 'https://www.youtube.com/results?search_query=Web-Slinger+Spider-Man+Patrick+OHara',
+    },
   },
   {
     id: 'mayday-parker',
@@ -288,6 +336,10 @@ export const spiderPeople = [
     comic: {
       title: 'Spider-Girl (Mayday Parker) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-girl-may-mayday-parker',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Mayday Parker / Spider-Girl Videos',
+      url: 'https://www.youtube.com/results?search_query=Mayday+Parker+Spider-Girl+MC2',
     },
   },
   {
@@ -307,6 +359,10 @@ export const spiderPeople = [
       title: 'Doctor Octopus / Superior Spider-Man — Marvel Comics',
       url: 'https://www.marvel.com/characters/doctor-octopus-otto-octavius/in-comics',
     },
+    youtubeSearch: {
+      title: 'YouTube — Superior Spider-Man Videos',
+      url: 'https://www.youtube.com/results?search_query=Superior+Spider-Man+Otto+Octavius',
+    },
   },
   {
     id: 'margo-kess',
@@ -324,6 +380,10 @@ export const spiderPeople = [
     comic: {
       title: 'Spider-Byte (Margo Kess) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-byte-margo-kess',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Spider-Byte / Margo Kess Videos',
+      url: 'https://www.youtube.com/results?search_query=Spider-Byte+Margo+Kess+Spider-Verse',
     },
     movies: [
       {
@@ -353,6 +413,10 @@ export const spiderPeople = [
       title: 'Spider-Rex — Marvel Official Article',
       url: 'https://www.marvel.com/articles/comics/spider-rex-origin-edge-of-spider-verse-1',
     },
+    youtubeSearch: {
+      title: 'YouTube — Spider-Rex Videos',
+      url: 'https://www.youtube.com/results?search_query=Spider-Rex+Spider-Man+Marvel',
+    },
   },
   {
     id: 'hobie-brown',
@@ -370,6 +434,10 @@ export const spiderPeople = [
     comic: {
       title: 'Spider-Punk (Hobie Brown) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-punk-hobie-brown-earth-138',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Hobie Brown / Spider-Punk Videos',
+      url: 'https://www.youtube.com/results?search_query=Spider-Punk+Hobie+Brown+Marvel',
     },
     movies: [
       {
@@ -403,6 +471,10 @@ export const spiderPeople = [
       title: 'Spider-Ham (Peter Porker) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-ham-peter-porker',
     },
+    youtubeSearch: {
+      title: 'YouTube — Peter Porker / Spider-Ham Videos',
+      url: 'https://www.youtube.com/results?search_query=Spider-Ham+Peter+Porker+Marvel',
+    },
     movies: [
       {
         title: 'Spider-Man: Into the Spider-Verse (2018)',
@@ -426,6 +498,10 @@ export const spiderPeople = [
     comic: {
       title: 'Spider-Man Noir — Marvel Official',
       url: 'https://www.marvel.com/comics/characters/1012295/spiderman_noir',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Spider-Man Noir Videos',
+      url: 'https://www.youtube.com/results?search_query=Spider-Man+Noir+Marvel',
     },
     movies: [
       {
@@ -451,6 +527,10 @@ export const spiderPeople = [
       title: 'Takuya Yamashiro (Japanese Spider-Man)',
       url: 'https://www.marvel.com/comics/characters/1011377/spider-man_takuya_yamashiro',
     },
+    youtubeSearch: {
+      title: 'YouTube — Japanese Spider-Man / Takuya Videos',
+      url: 'https://www.youtube.com/results?search_query=Japanese+Spider-Man+Takuya+Yamashiro+Leopardon',
+    },
   },
   {
     id: 'cyborg-spider-man',
@@ -469,6 +549,10 @@ export const spiderPeople = [
       title: 'Cyborg Spider-Man — Edge of Spider-Verse',
       url: 'https://www.marvel.com/articles/comics/edge-of-spider-verse-2-spooky-man-cyborg-spider-man',
     },
+    youtubeSearch: {
+      title: 'YouTube — Cyborg Spider-Man Videos',
+      url: 'https://www.youtube.com/results?search_query=Cyborg+Spider-Man+Marvel',
+    },
   },
   {
     id: 'anya-corazon',
@@ -486,6 +570,10 @@ export const spiderPeople = [
     comic: {
       title: 'Spider-Girl (Anya Corazon) — Marvel Official',
       url: 'https://www.marvel.com/comics/characters/1009157/spider-girl_anya_corazon',
+    },
+    youtubeSearch: {
+      title: 'YouTube — Anya Corazon / Araña Videos',
+      url: 'https://www.youtube.com/results?search_query=Anya+Corazon+Arana+Spider-Girl',
     },
   },
 ];

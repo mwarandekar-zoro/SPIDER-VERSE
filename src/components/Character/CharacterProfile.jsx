@@ -414,6 +414,57 @@ export default function CharacterProfile({
             </>
           )}
 
+          {character.youtubeSearch && (
+            <>
+              {!character.video && (
+                <div
+                  style={{
+                    height: '1px',
+                    background: `linear-gradient(90deg, ${primary}44, transparent)`,
+                    margin: '1.25rem 0',
+                  }}
+                />
+              )}
+              {!character.video && <h3 style={sectionHeadingStyle(primary)}>▶️ YouTube Video Showcase</h3>}
+              <div style={{ marginTop: character.video ? '0.5rem' : '0' }}>
+                <a
+                  href={character.youtubeSearch.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.6rem',
+                    padding: '0.6rem 1.2rem',
+                    borderRadius: 'var(--radius-sm)',
+                    background: 'rgba(255, 0, 0, 0.12)',
+                    border: '1px solid rgba(255, 0, 0, 0.4)',
+                    color: '#ffffff',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.82rem',
+                    textDecoration: 'none',
+                    transition: 'all 0.25s ease',
+                    boxShadow: '0 0 16px rgba(255, 0, 0, 0.2)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 0, 0, 0.25)';
+                    e.currentTarget.style.borderColor = '#ff2222';
+                    e.currentTarget.style.boxShadow = '0 0 24px rgba(255, 0, 0, 0.5)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 0, 0, 0.12)';
+                    e.currentTarget.style.borderColor = 'rgba(255, 0, 0, 0.4)';
+                    e.currentTarget.style.boxShadow = '0 0 16px rgba(255, 0, 0, 0.2)';
+                  }}
+                >
+                  <span style={{ color: '#ff3333' }}>▶</span>
+                  <span>{character.youtubeSearch.title}</span>
+                  <span style={{ color: '#ff3333', marginLeft: '0.2rem' }}>↗</span>
+                </a>
+              </div>
+            </>
+          )}
+
           {character.behindTheScenes && (
             <>
               <div
