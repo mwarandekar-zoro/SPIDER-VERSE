@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import { useCursor } from './CursorContext';
 import { animateCursorVariant } from '../../animations/cursorAnimations';
 import { useResponsive } from '../../hooks/useResponsive';
+import { playSound } from '../../utils/audio';
 import CursorTrail from './CursorTrail';
 
 const VARIANT_LABELS = {
@@ -15,7 +16,7 @@ const VARIANT_LABELS = {
 // Upgraded Web-shoot particle burst & dynamic silk thread on click.
 // Spawns radiating web strands, expanding shockwave rings,
 // and glowing web-fluid droplets in the active suit primary color.
-// All executed via a single <canvas> overlay with zero React re-renders.
+// Always plays the web-shooting THWIP sound effect on click!
 // ─────────────────────────────────────────────────────────────
 function useClickBurst(canvasRef, targetRef) {
   const particles = useRef([]);
@@ -24,6 +25,9 @@ function useClickBurst(canvasRef, targetRef) {
   const isRunning = useRef(false);
 
   const spawnBurst = useCallback((x, y) => {
+    // Play web shooter THWIP sound effect on every click
+    playSound('web', { volume: 0.45 });
+
     const primary = getComputedStyle(document.documentElement)
       .getPropertyValue('--universe-primary').trim() || '#b026ff';
     const secondary = getComputedStyle(document.documentElement)
