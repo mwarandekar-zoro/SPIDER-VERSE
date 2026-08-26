@@ -122,6 +122,81 @@ export default function Footer() {
         </p>
       </motion.div>
 
+      {/* Behind the Scenes & Animation Craft Showcase */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.05 }}
+        style={{
+          maxWidth: '800px',
+          margin: '0 auto 2.5rem',
+          padding: '1.5rem',
+          borderRadius: 'var(--radius-md)',
+          background: 'linear-gradient(135deg, rgba(162, 89, 255, 0.08) 0%, rgba(0, 240, 255, 0.05) 100%)',
+          border: '1px solid rgba(162, 89, 255, 0.3)',
+          boxShadow: '0 0 30px rgba(162, 89, 255, 0.1)',
+        }}
+      >
+        <span
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.7rem',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: 'var(--universe-primary)',
+            background: 'var(--universe-primary)18',
+            border: '1px solid var(--universe-primary)44',
+            padding: '0.2rem 0.6rem',
+            borderRadius: '999px',
+            display: 'inline-block',
+            marginBottom: '0.6rem',
+          }}
+        >
+          ✨ Official Studio Craft & Behind the Scenes
+        </span>
+        <h4 style={{ color: '#ffffff', fontSize: '1.1rem', marginBottom: '0.4rem' }}>
+          Sony Pictures Imageworks — Animation & VFX Breakdown
+        </h4>
+        <p style={{ color: 'var(--color-web-dim)', fontSize: '0.83rem', lineHeight: 1.6, maxWidth: '60ch', margin: '0 auto 1.2rem' }}>
+          Explore the official VFX breakdowns, Spider-Punk 2D/3D frame-rate innovation, multiverse lighting & compositing, and Mumbattan environment design directly from the creators.
+        </p>
+
+        <a
+          href="https://www.imageworks.com/index.php/our-craft/feature-animation/movies/spider-man-across-spider-verse"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.6rem',
+            padding: '0.6rem 1.4rem',
+            borderRadius: '999px',
+            background: 'linear-gradient(90deg, #a259ff, #00f0ff)',
+            color: '#08070c',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.8rem',
+            fontWeight: 700,
+            textDecoration: 'none',
+            letterSpacing: '0.04em',
+            boxShadow: '0 0 20px rgba(162, 89, 255, 0.4)',
+            transition: 'transform 0.2s ease, boxShadow 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.03)';
+            e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 240, 255, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'none';
+            e.currentTarget.style.boxShadow = '0 0 20px rgba(162, 89, 255, 0.4)';
+          }}
+        >
+          <span>🎨</span>
+          <span>Watch Sony Imageworks Animation Breakdown</span>
+          <span>↗</span>
+        </a>
+      </motion.div>
+
       {/* Tech Stack Badges */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}

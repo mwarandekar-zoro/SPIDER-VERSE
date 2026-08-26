@@ -182,8 +182,8 @@ export const spiderPeople = [
     image: '/images/characters/jessica.jpg',
     suitTheme: { primary: '#e63946', secondary: '#ffb703', accent: '#ffffff' },
     comic: {
-      title: 'Spider-Woman (Jessica Drew) — Marvel Official',
-      url: 'https://www.marvel.com/characters/spider-woman-jessica-drew',
+      title: 'Spider-Woman — Marvel Comics Database',
+      url: 'https://www.marvel.com/comics/characters/1009608/spider-woman_jessica_drew',
     },
     movies: [
       {
@@ -214,8 +214,8 @@ export const spiderPeople = [
     image: '/images/characters/silk.jpg',
     suitTheme: { primary: '#f8f9fa', secondary: '#e63946', accent: '#457b9d' },
     comic: {
-      title: 'Silk (Cindy Moon) — Marvel Official',
-      url: 'https://www.marvel.com/characters/silk-cindy-moon',
+      title: 'Silk — Marvel Comic Reading Guide',
+      url: 'https://www.marvel.com/comics/guides/1885/silk',
     },
   },
   {
@@ -232,8 +232,8 @@ export const spiderPeople = [
     image: '/images/characters/ben.jpg',
     suitTheme: { primary: '#e63946', secondary: '#1d3557', accent: '#457b9d' },
     comic: {
-      title: 'Scarlet Spider (Ben Reilly) — Marvel Guide',
-      url: 'https://www.marvel.com/comics/guides/720/scarlet-spider-ben-reilly',
+      title: 'Ben Reilly — Scarlet Spider Marvel Reading Guide',
+      url: 'https://www.marvel.com/comics/guides/720/scarlet-spider-ben',
     },
   },
   {
@@ -250,8 +250,8 @@ export const spiderPeople = [
     image: '/images/characters/kaine.jpg',
     suitTheme: { primary: '#d90429', secondary: '#111111', accent: '#ef233c' },
     comic: {
-      title: 'Kaine (Scarlet Spider Clone) — Marvel Article',
-      url: 'https://www.marvel.com/articles/comics/kaine-spider-man-clone-history-explained',
+      title: 'Kaine Parker / Scarlet Spider — Marvel Comics Database',
+      url: 'https://www.marvel.com/comics/characters/1011426/scarlet_spider',
     },
   },
   {
