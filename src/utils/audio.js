@@ -110,18 +110,34 @@ export function playSound(key, { volume = 0.5, loop = false } = {}) {
     const gain = ctx.createGain();
 
     if (key === 'web' || key === 'click') {
-      // Web shooter "thwip!" frequency sweep (800Hz -> 120Hz)
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(750, now);
-      osc.frequency.exponentialRampToValueAtTime(120, now + 0.12);
+      // Primary web-shooter "thwip!" frequency sweep (950Hz -> 110Hz)
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(950, now);
+      osc.frequency.exponentialRampToValueAtTime(110, now + 0.14);
 
-      gain.gain.setValueAtTime(volume * 0.4, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      // High-frequency air whip noise layer (1600Hz -> 300Hz)
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(1600, now);
+      osc2.frequency.exponentialRampToValueAtTime(300, now + 0.08);
+
+      gain.gain.setValueAtTime(volume * 0.45, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+      gain2.gain.setValueAtTime(volume * 0.25, now);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+
       osc.start(now);
-      osc.stop(now + 0.12);
+      osc2.start(now);
+      osc.stop(now + 0.14);
+      osc2.stop(now + 0.08);
+      return;
     } else if (key === 'portal' || key === 'transition') {
       // Portal warp sub-bass drop (320Hz -> 45Hz)
       osc.type = 'sawtooth';

@@ -76,6 +76,20 @@ export default function App() {
   const activeTheme = selectedCharacter?.suitTheme ?? selectedCharacter?.universe?.theme ?? null;
   useUniverseTheme(activeTheme);
 
+  // Global button & interactive element click listener — fires synthesized
+  // web-shooting "THWIP!" SFX whenever any button or link is clicked
+  useEffect(() => {
+    function handleGlobalButtonClick(e) {
+      const target = e.target.closest('button, a, [role="button"], input, select');
+      if (target && soundEnabled) {
+        playSound('web', { volume: 0.5 });
+      }
+    }
+
+    window.addEventListener('pointerdown', handleGlobalButtonClick);
+    return () => window.removeEventListener('pointerdown', handleGlobalButtonClick);
+  }, [soundEnabled]);
+
   // Fixed (not re-randomized on every render) set of floating motes —
   // varied positions/sizes/timings so the field reads as organic
   // rather than a repeating pattern. A few use the current universe
