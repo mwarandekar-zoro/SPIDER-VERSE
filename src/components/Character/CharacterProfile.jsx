@@ -320,6 +320,145 @@ export default function CharacterProfile({
             </>
           )}
 
+          {character.movies && character.movies.length > 0 && (
+            <>
+              <div
+                style={{
+                  height: '1px',
+                  background: `linear-gradient(90deg, ${primary}44, transparent)`,
+                  margin: '1.25rem 0',
+                }}
+              />
+              <h3 style={sectionHeadingStyle(primary)}>🎬 Feature Film Appearances</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                {character.movies.map((movie, idx) => (
+                  <a
+                    key={idx}
+                    href={movie.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.6rem',
+                      padding: '0.55rem 1.1rem',
+                      borderRadius: 'var(--radius-sm)',
+                      background: 'rgba(255,255,255,0.03)',
+                      border: `1px solid ${primary}33`,
+                      color: '#ffffff',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.8rem',
+                      textDecoration: 'none',
+                      transition: 'all 0.25s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = `${primary}22`;
+                      e.currentTarget.style.borderColor = primary;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                      e.currentTarget.style.borderColor = `${primary}33`;
+                    }}
+                  >
+                    <span>🎬</span>
+                    <span>{movie.title}</span>
+                    <span style={{ color: primary, marginLeft: 'auto' }}>↗</span>
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
+
+          {character.video && (
+            <>
+              <div
+                style={{
+                  height: '1px',
+                  background: `linear-gradient(90deg, ${primary}44, transparent)`,
+                  margin: '1.25rem 0',
+                }}
+              />
+              <h3 style={sectionHeadingStyle(primary)}>▶️ Featured Video & Showcase</h3>
+              <a
+                href={character.video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  padding: '0.6rem 1.2rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: `${secondary}18`,
+                  border: `1px solid ${secondary}55`,
+                  color: '#ffffff',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.82rem',
+                  textDecoration: 'none',
+                  transition: 'all 0.25s ease',
+                  boxShadow: `0 0 16px ${secondary}22`,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = `${secondary}33`;
+                  e.currentTarget.style.borderColor = secondary;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = `${secondary}18`;
+                  e.currentTarget.style.borderColor = `${secondary}55`;
+                }}
+              >
+                <span>🎥</span>
+                <span>{character.video.title}</span>
+                <span style={{ color: secondary, marginLeft: '0.2rem' }}>↗</span>
+              </a>
+            </>
+          )}
+
+          {character.behindTheScenes && (
+            <>
+              <div
+                style={{
+                  height: '1px',
+                  background: `linear-gradient(90deg, ${primary}44, transparent)`,
+                  margin: '1.25rem 0',
+                }}
+              />
+              <h3 style={sectionHeadingStyle(primary)}>✨ Behind the Scenes & VFX Craft</h3>
+              <a
+                href={character.behindTheScenes.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  padding: '0.65rem 1.25rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: `linear-gradient(90deg, ${primary}22, ${secondary}22)`,
+                  border: `1px solid ${primary}`,
+                  color: '#ffffff',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.82rem',
+                  textDecoration: 'none',
+                  transition: 'all 0.25s ease',
+                  boxShadow: `0 0 20px ${primary}44`,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = `0 0 28px ${primary}88`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.boxShadow = `0 0 20px ${primary}44`;
+                }}
+              >
+                <span>🎨</span>
+                <span>{character.behindTheScenes.title}</span>
+                <span style={{ color: primary, marginLeft: '0.2rem' }}>↗</span>
+              </a>
+            </>
+          )}
+
           {character.comic && (
             <>
               <div

@@ -29,6 +29,20 @@ export const spiderPeople = [
       title: 'Miles Morales — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-man-miles-morales',
     },
+    movies: [
+      {
+        title: 'Spider-Man: Into the Spider-Verse (2018)',
+        url: 'https://www.sonypictures.com/movies/spidermanintothespiderverse',
+      },
+      {
+        title: 'Spider-Man: Across the Spider-Verse (2023)',
+        url: 'https://www.sonypictures.com/movies/spidermanacrossthespiderverse',
+      },
+      {
+        title: 'Spider-Man: Beyond the Spider-Verse (June 18, 2027)',
+        url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
+      },
+    ],
   },
   {
     id: 'gwen-stacy',
@@ -47,6 +61,20 @@ export const spiderPeople = [
       title: 'Ghost-Spider (Gwen Stacy) — Marvel Official',
       url: 'https://www.marvel.com/characters/ghost-spider-gwen-stacy',
     },
+    movies: [
+      {
+        title: 'Spider-Man: Into the Spider-Verse (2018)',
+        url: 'https://www.sonypictures.com/movies/spidermanintothespiderverse',
+      },
+      {
+        title: 'Spider-Man: Across the Spider-Verse (2023)',
+        url: 'https://www.sonypictures.com/movies/spidermanacrossthespiderverse',
+      },
+      {
+        title: 'Spider-Man: Beyond the Spider-Verse (Upcoming)',
+        url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
+      },
+    ],
   },
   {
     id: 'miguel-ohara',
@@ -65,6 +93,16 @@ export const spiderPeople = [
       title: "Spider-Man 2099 (Miguel O'Hara) — Marvel Official",
       url: 'https://www.marvel.com/characters/spider-man-2099-miguel-o-hara',
     },
+    movies: [
+      {
+        title: 'Spider-Man: Across the Spider-Verse (2023)',
+        url: 'https://www.sonypictures.com/movies/spidermanacrossthespiderverse',
+      },
+      {
+        title: 'Spider-Man: Beyond the Spider-Verse (Upcoming)',
+        url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
+      },
+    ],
   },
   {
     id: 'pavitr-prabhakar',
@@ -82,6 +120,20 @@ export const spiderPeople = [
     comic: {
       title: 'Meet Pavitr Prabhakar (Spider-Man India)',
       url: 'https://www.marvel.com/articles/comics/meet-pavitr-prabhakar-aka-spider-man-india',
+    },
+    movies: [
+      {
+        title: 'Spider-Man: Across the Spider-Verse (2023)',
+        url: 'https://www.sonypictures.com/movies/spidermanacrossthespiderverse',
+      },
+      {
+        title: 'Spider-Man: Beyond the Spider-Verse (Upcoming)',
+        url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
+      },
+    ],
+    video: {
+      title: 'Sony Pictures India — Official Pavitr Prabhakar Featurette',
+      url: 'https://www.youtube.com/results?search_query=Sony+Pictures+India+Pavitr+Prabhakar+Spider-Man',
     },
   },
   {
@@ -101,6 +153,20 @@ export const spiderPeople = [
       title: 'Peter Parker (Spider-Man) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-man-peter-parker',
     },
+    movies: [
+      {
+        title: 'Spider-Man: Into the Spider-Verse (2018)',
+        url: 'https://www.sonypictures.com/movies/spidermanintothespiderverse',
+      },
+      {
+        title: 'Spider-Man: Across the Spider-Verse (2023)',
+        url: 'https://www.sonypictures.com/movies/spidermanacrossthespiderverse',
+      },
+      {
+        title: 'Spider-Man: Beyond the Spider-Verse (Upcoming)',
+        url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
+      },
+    ],
   },
   {
     id: 'jessica-drew',
@@ -117,6 +183,20 @@ export const spiderPeople = [
     suitTheme: { primary: '#e63946', secondary: '#ffb703', accent: '#ffffff' },
     comic: {
       title: 'Spider-Woman (Jessica Drew) — Marvel Official',
+      url: 'https://www.marvel.com/characters/spider-woman-jessica-drew',
+    },
+    movies: [
+      {
+        title: 'Spider-Man: Across the Spider-Verse (2023)',
+        url: 'https://www.sonypictures.com/movies/spidermanacrossthespiderverse',
+      },
+      {
+        title: 'Spider-Man: Beyond the Spider-Verse (Upcoming)',
+        url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
+      },
+    ],
+    video: {
+      title: 'Marvel 101 — Jessica Drew / Spider-Woman Video',
       url: 'https://www.marvel.com/characters/spider-woman-jessica-drew',
     },
   },
@@ -245,6 +325,16 @@ export const spiderPeople = [
       title: 'Spider-Byte (Margo Kess) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-byte-margo-kess',
     },
+    movies: [
+      {
+        title: 'Spider-Man: Across the Spider-Verse (2023)',
+        url: 'https://www.sonypictures.com/movies/spidermanacrossthespiderverse',
+      },
+      {
+        title: 'Spider-Man: Beyond the Spider-Verse (Upcoming)',
+        url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
+      },
+    ],
   },
   {
     id: 'spider-rex',
@@ -281,6 +371,20 @@ export const spiderPeople = [
       title: 'Spider-Punk (Hobie Brown) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-punk-hobie-brown-earth-138',
     },
+    movies: [
+      {
+        title: 'Spider-Man: Across the Spider-Verse (2023)',
+        url: 'https://www.sonypictures.com/movies/spidermanacrossthespiderverse',
+      },
+      {
+        title: 'Spider-Man: Beyond the Spider-Verse (Upcoming)',
+        url: 'https://www.sonypicturesanimation.com/projects/films/spider-man-beyond-spider-verse',
+      },
+    ],
+    behindTheScenes: {
+      title: 'Sony Pictures Imageworks — Spider-Punk Animation & VFX Breakdown',
+      url: 'https://www.imageworks.com/index.php/our-craft/feature-animation/movies/spider-man-across-spider-verse',
+    },
   },
   {
     id: 'peter-porker',
@@ -299,6 +403,12 @@ export const spiderPeople = [
       title: 'Spider-Ham (Peter Porker) — Marvel Official',
       url: 'https://www.marvel.com/characters/spider-ham-peter-porker',
     },
+    movies: [
+      {
+        title: 'Spider-Man: Into the Spider-Verse (2018)',
+        url: 'https://www.sonypictures.com/movies/spidermanintothespiderverse',
+      },
+    ],
   },
   {
     id: 'spider-man-noir',
@@ -317,6 +427,12 @@ export const spiderPeople = [
       title: 'Spider-Man Noir — Marvel Official',
       url: 'https://www.marvel.com/comics/characters/1012295/spiderman_noir',
     },
+    movies: [
+      {
+        title: 'Spider-Man: Into the Spider-Verse (2018)',
+        url: 'https://www.sonypictures.com/movies/spidermanintothespiderverse',
+      },
+    ],
   },
   {
     id: 'takuya-yamashiro',
