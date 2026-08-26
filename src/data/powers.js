@@ -127,4 +127,52 @@ export const powers = [
     icon: '💻',
     description: 'Can hack and override nearby networked or robotic systems on contact.',
   },
+  {
+    id: 'bio-gliding',
+    name: 'Bio-Electric Gliding',
+    icon: '🦇',
+    description: 'Glide effortlessly through air currents using bio-mesh wings.',
+  },
+  {
+    id: 'silk-sense',
+    name: 'Hyper Silk-Sense',
+    icon: '💫',
+    description: 'Precognitive danger awareness so acute it perceives threats before they occur.',
+  },
+  {
+    id: 'organic-webbing',
+    name: 'Fingertip Organic Webbing',
+    icon: '🧶',
+    description: 'Spins durable, soft, and razor-sharp silk directly from fingertips.',
+  },
+  {
+    id: 'impact-webbing',
+    name: 'Impact Web-Pellets',
+    icon: '💥',
+    description: 'High-density web balls that expand on impact to entangle foes instantly.',
+  },
+  {
+    id: 'mechanical-arms',
+    name: 'Nano Spider-Legs',
+    icon: '🦾',
+    description: 'Four articulated carbon-nano legs extending from suit for mobility and offense.',
+  },
+  {
+    id: 'cyber-avatar',
+    name: 'Virtual Avatar Projection',
+    icon: '🌐',
+    description: 'Operates in digital and physical realms simultaneously via code avatar.',
+  },
+  {
+    id: 'dino-strength',
+    name: 'Jurassic T-Rex Might',
+    icon: '🦖',
+    description: 'Raw prehistoric dinosaur strength combined with spider-proportional power.',
+  },
+  {
+    id: 'repulsion-shove',
+    name: 'Bio-Magnetic Repulsion',
+    icon: '🧲',
+    description: 'Can push objects away by reversing adhesion polarity on contact.',
+  },
 ];

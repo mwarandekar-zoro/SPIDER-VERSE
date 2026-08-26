@@ -105,7 +105,7 @@ function CornerWebs() {
 // loops a subtle pulse-glow to stay alive without being
 // distracting.
 // ─────────────────────────────────────────────────────────────
-const STATS = ['10 Spider-People', '10 Universes', '∞ Possibilities'];
+const STATS = ['18 Spider-People', '13 Universes', '∞ Possibilities'];
 
 function StatTicker() {
   const shouldReduce = useReducedMotion();
