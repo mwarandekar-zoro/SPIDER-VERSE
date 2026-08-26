@@ -24,6 +24,19 @@ function getAudioContext() {
   return audioCtx;
 }
 
+// Global unlock on pointerdown to bypass browser autoplay restrictions
+if (typeof window !== 'undefined') {
+  const unlock = () => {
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    if ('speechSynthesis' in window && window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    }
+  };
+  window.addEventListener('pointerdown', unlock, { passive: true });
+}
+
 /**
  * Starts a smooth ambient cosmic drone using dual Web Audio oscillators
  */
@@ -36,7 +49,7 @@ function startAmbientSynth() {
   try {
     ambientGain = ctx.createGain();
     ambientGain.gain.setValueAtTime(0.01, ctx.currentTime);
-    ambientGain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 1.5);
+    ambientGain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 1.2);
 
     // Deep sub drone (55Hz A1)
     ambientOsc1 = ctx.createOscillator();
@@ -51,7 +64,7 @@ function startAmbientSynth() {
     // Lowpass filter for smooth cosmic warmth
     const filter = ctx.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(240, ctx.currentTime);
+    filter.frequency.setValueAtTime(280, ctx.currentTime);
 
     ambientOsc1.connect(ambientGain);
     ambientOsc2.connect(ambientGain);
@@ -68,7 +81,7 @@ function startAmbientSynth() {
 function stopAmbientSynth() {
   if (ambientGain && audioCtx) {
     try {
-      ambientGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
+      ambientGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
       setTimeout(() => {
         ambientOsc1?.stop();
         ambientOsc2?.stop();
@@ -78,7 +91,7 @@ function stopAmbientSynth() {
         ambientOsc1 = null;
         ambientOsc2 = null;
         ambientGain = null;
-      }, 400);
+      }, 300);
     } catch {
       ambientOsc1 = null;
       ambientOsc2 = null;
@@ -88,9 +101,9 @@ function stopAmbientSynth() {
 }
 
 /**
- * Plays clean synthesized SFX effects (single organic web-shoot thwip, portal drop)
+ * Plays clean synthesized SFX effects (web-shoot thwip, portal drop)
  */
-export function playSound(key, { volume = 0.4 } = {}) {
+export function playSound(key, { volume = 0.6 } = {}) {
   const ctx = getAudioContext();
 
   if (key === 'ambience') {
@@ -106,34 +119,34 @@ export function playSound(key, { volume = 0.4 } = {}) {
     const gain = ctx.createGain();
 
     if (key === 'web' || key === 'click') {
-      // Single clean organic web-shooter "thwip!" (650Hz -> 90Hz)
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(650, now);
-      osc.frequency.exponentialRampToValueAtTime(90, now + 0.09);
+      // Crisp organic web-shooter "THWIP!" frequency sweep (850Hz -> 100Hz)
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(850, now);
+      osc.frequency.exponentialRampToValueAtTime(100, now + 0.12);
 
-      gain.gain.setValueAtTime(volume * 0.3, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      gain.gain.setValueAtTime(volume * 0.7, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
-      osc.stop(now + 0.09);
+      osc.stop(now + 0.12);
     } else if (key === 'portal' || key === 'transition') {
-      // Clean portal warp sub-bass drop (240Hz -> 45Hz)
+      // Clean portal warp sub-bass drop (280Hz -> 40Hz)
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(240, now);
-      osc.frequency.exponentialRampToValueAtTime(45, now + 0.4);
+      osc.frequency.setValueAtTime(280, now);
+      osc.frequency.exponentialRampToValueAtTime(40, now + 0.5);
 
-      gain.gain.setValueAtTime(volume * 0.3, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+      gain.gain.setValueAtTime(volume * 0.6, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
-      osc.stop(now + 0.4);
+      osc.stop(now + 0.5);
     }
-  } catch {
-    /* no-op */
+  } catch (err) {
+    console.warn('Sound play error:', err);
   }
 }
 
@@ -144,26 +157,53 @@ export function stopSound(key) {
 }
 
 /**
- * Single-Voice Web Speech Synthesis: speaks text cleanly without voice overlap
+ * Web Speech Synthesis: speaks text using browser speech engine
  */
 export function speakVoice(text) {
-  if (!('speechSynthesis' in window)) return;
-  try {
-    window.speechSynthesis.cancel(); // Stop any previous speech immediately
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1.05;
-    utterance.pitch = 1.0;
-    utterance.volume = 0.9;
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
-    const voices = window.speechSynthesis.getVoices();
-    // Pick a single clear natural English voice
-    const preferredVoice = voices.find((v) => 
-      v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('David') || v.name.includes('Mark') || v.name.includes('George'))
-    ) || voices.find((v) => v.lang.startsWith('en'));
+  const performSpeak = () => {
+    try {
+      window.speechSynthesis.cancel(); // Stop any pending speech
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
 
-    if (preferredVoice) utterance.voice = preferredVoice;
-    window.speechSynthesis.speak(utterance);
-  } catch (err) {
-    console.warn('Speech synthesis error:', err);
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        const preferredVoice =
+          voices.find(
+            (v) =>
+              v.lang.startsWith('en') &&
+              (v.name.includes('Natural') ||
+                v.name.includes('Google') ||
+                v.name.includes('David') ||
+                v.name.includes('Mark') ||
+                v.name.includes('George') ||
+                v.name.includes('Zira'))
+          ) || voices.find((v) => v.lang.startsWith('en'));
+
+        if (preferredVoice) utterance.voice = preferredVoice;
+      }
+
+      window.speechSynthesis.speak(utterance);
+    } catch (err) {
+      console.warn('Speech synthesis error:', err);
+    }
+  };
+
+  // If voices haven't loaded yet in Chrome, trigger once ready
+  if (window.speechSynthesis.getVoices().length === 0) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      performSpeak();
+      window.speechSynthesis.onvoiceschanged = null;
+    };
+  } else {
+    performSpeak();
   }
 }
