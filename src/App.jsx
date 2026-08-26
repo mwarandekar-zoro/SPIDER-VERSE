@@ -17,8 +17,9 @@ import Footer from './sections/Footer';
 import { detectDefaultQuality } from './utils/deviceQuality';
 import { useResponsive } from './hooks/useResponsive';
 import { useCharacter } from './hooks/useCharacter';
-import { useUniverseTheme } from './hooks/useUniverseTheme';
-import { playSound, stopSound } from './utils/audio';
+import { spiderPeople } from './data/spiderPeople';
+import { universes } from './data/universes';
+import { playSound, stopSound, speakVoice } from './utils/audio';
 
 // Below-the-fold sections are code-split (section 19: performance /
 // bundle size) — none of them are needed for the first paint of the
@@ -97,9 +98,19 @@ export default function App() {
     []
   );
 
-  const handleSelectCharacter = useCallback((characterId) => {
-    setSelectedCharacterId(characterId);
-  }, []);
+  const handleSelectCharacter = useCallback(
+    (characterId) => {
+      setSelectedCharacterId(characterId);
+      if (soundEnabled && characterId) {
+        playSound('web', { volume: 0.5 });
+        const char = spiderPeople.find((c) => c.id === characterId);
+        if (char) {
+          speakVoice(`${char.name}, ${char.alias}`);
+        }
+      }
+    },
+    [soundEnabled]
+  );
 
   const handleEnterUniverse = useCallback(
     (id) => {
@@ -107,7 +118,13 @@ export default function App() {
       setTargetUniverseId(id);
       setIsTransitioning(true);
       setSelectedUniverseId(id);
-      if (soundEnabled) playSound('portal', { volume: 0.4 });
+      if (soundEnabled) {
+        playSound('portal', { volume: 0.5 });
+        const uni = universes.find((u) => u.id === id);
+        if (uni) {
+          speakVoice(`Entering ${uni.name}, ${uni.title}`);
+        }
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     [isTransitioning, activeUniverseId, soundEnabled]
@@ -131,8 +148,13 @@ export default function App() {
   function handleToggleSound() {
     setSoundEnabled((prev) => {
       const next = !prev;
-      if (next) playSound('ambience', { volume: 0.25, loop: true });
-      else stopSound('ambience');
+      if (next) {
+        playSound('ambience', { volume: 0.25, loop: true });
+        speakVoice('Spider-Verse Audio and Voice System Activated');
+      } else {
+        stopSound('ambience');
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      }
       return next;
     });
   }
