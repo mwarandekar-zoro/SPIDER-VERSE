@@ -1,17 +1,15 @@
 // ============================================================
 // AUDIO & SPEECH UTILITY (WEB AUDIO API + SPEECH SYNTHESIS)
 // ------------------------------------------------------------
-// Built-in Web Audio API synthesizer for sci-fi dimensional hums,
-// web-shooting sweeps, and portal transitions — zero external audio
-// files required!
-// Includes Web Speech Synthesis for character & universe voice readouts.
+// Built-in Web Audio API synthesizer for sci-fi dimensional hums
+// and clean web-shooting SFX.
+// Includes single-voice Speech Synthesis for character readouts.
 // ============================================================
 
 let audioCtx = null;
 let ambientOsc1 = null;
 let ambientOsc2 = null;
 let ambientGain = null;
-let isAudioActive = false;
 
 function getAudioContext() {
   if (!audioCtx) {
@@ -38,7 +36,7 @@ function startAmbientSynth() {
   try {
     ambientGain = ctx.createGain();
     ambientGain.gain.setValueAtTime(0.01, ctx.currentTime);
-    ambientGain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 1.5);
+    ambientGain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 1.5);
 
     // Deep sub drone (55Hz A1)
     ambientOsc1 = ctx.createOscillator();
@@ -53,7 +51,7 @@ function startAmbientSynth() {
     // Lowpass filter for smooth cosmic warmth
     const filter = ctx.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(280, ctx.currentTime);
+    filter.frequency.setValueAtTime(240, ctx.currentTime);
 
     ambientOsc1.connect(ambientGain);
     ambientOsc2.connect(ambientGain);
@@ -62,7 +60,6 @@ function startAmbientSynth() {
 
     ambientOsc1.start();
     ambientOsc2.start();
-    isAudioActive = true;
   } catch (err) {
     console.warn('Ambient synth error:', err);
   }
@@ -71,7 +68,7 @@ function startAmbientSynth() {
 function stopAmbientSynth() {
   if (ambientGain && audioCtx) {
     try {
-      ambientGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
+      ambientGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
       setTimeout(() => {
         ambientOsc1?.stop();
         ambientOsc2?.stop();
@@ -81,20 +78,19 @@ function stopAmbientSynth() {
         ambientOsc1 = null;
         ambientOsc2 = null;
         ambientGain = null;
-      }, 500);
+      }, 400);
     } catch {
       ambientOsc1 = null;
       ambientOsc2 = null;
       ambientGain = null;
     }
   }
-  isAudioActive = false;
 }
 
 /**
- * Plays synthesized SFX effects (web-shoot, portal warp, click blip)
+ * Plays clean synthesized SFX effects (single organic web-shoot thwip, portal drop)
  */
-export function playSound(key, { volume = 0.5, loop = false } = {}) {
+export function playSound(key, { volume = 0.4 } = {}) {
   const ctx = getAudioContext();
 
   if (key === 'ambience') {
@@ -110,56 +106,34 @@ export function playSound(key, { volume = 0.5, loop = false } = {}) {
     const gain = ctx.createGain();
 
     if (key === 'web' || key === 'click') {
-      // Primary web-shooter "thwip!" frequency sweep (950Hz -> 110Hz)
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(950, now);
-      osc.frequency.exponentialRampToValueAtTime(110, now + 0.14);
+      // Single clean organic web-shooter "thwip!" (650Hz -> 90Hz)
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(650, now);
+      osc.frequency.exponentialRampToValueAtTime(90, now + 0.09);
 
-      // High-frequency air whip noise layer (1600Hz -> 300Hz)
-      const osc2 = ctx.createOscillator();
-      const gain2 = ctx.createGain();
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(1600, now);
-      osc2.frequency.exponentialRampToValueAtTime(300, now + 0.08);
-
-      gain.gain.setValueAtTime(volume * 0.45, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
-
-      gain2.gain.setValueAtTime(volume * 0.25, now);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      gain.gain.setValueAtTime(volume * 0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
-      osc2.connect(gain2);
-      gain2.connect(ctx.destination);
-
       osc.start(now);
-      osc2.start(now);
-      osc.stop(now + 0.14);
-      osc2.stop(now + 0.08);
-      return;
+      osc.stop(now + 0.09);
     } else if (key === 'portal' || key === 'transition') {
-      // Portal warp sub-bass drop (320Hz -> 45Hz)
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(320, now);
-      osc.frequency.exponentialRampToValueAtTime(45, now + 0.6);
+      // Clean portal warp sub-bass drop (240Hz -> 45Hz)
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(240, now);
+      osc.frequency.exponentialRampToValueAtTime(45, now + 0.4);
 
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(600, now);
-      filter.frequency.exponentialRampToValueAtTime(100, now + 0.6);
+      gain.gain.setValueAtTime(volume * 0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
 
-      gain.gain.setValueAtTime(volume * 0.35, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-
-      osc.connect(filter);
-      filter.connect(gain);
+      osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
-      osc.stop(now + 0.6);
+      osc.stop(now + 0.4);
     }
-  } catch (err) {
-    console.warn('Sound play error:', err);
+  } catch {
+    /* no-op */
   }
 }
 
@@ -170,22 +144,24 @@ export function stopSound(key) {
 }
 
 /**
- * Web Speech Synthesis: speaks text using browser text-to-speech
+ * Single-Voice Web Speech Synthesis: speaks text cleanly without voice overlap
  */
 export function speakVoice(text) {
   if (!('speechSynthesis' in window)) return;
   try {
-    window.speechSynthesis.cancel(); // Cancel ongoing speech
+    window.speechSynthesis.cancel(); // Stop any previous speech immediately
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1.0;
-    utterance.pitch = 0.95;
-    utterance.volume = 0.8;
+    utterance.rate = 1.05;
+    utterance.pitch = 1.0;
+    utterance.volume = 0.9;
 
-    // Pick an English voice if available
     const voices = window.speechSynthesis.getVoices();
-    const engVoice = voices.find((v) => v.lang.startsWith('en'));
-    if (engVoice) utterance.voice = engVoice;
+    // Pick a single clear natural English voice
+    const preferredVoice = voices.find((v) => 
+      v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('David') || v.name.includes('Mark') || v.name.includes('George'))
+    ) || voices.find((v) => v.lang.startsWith('en'));
 
+    if (preferredVoice) utterance.voice = preferredVoice;
     window.speechSynthesis.speak(utterance);
   } catch (err) {
     console.warn('Speech synthesis error:', err);

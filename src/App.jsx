@@ -165,7 +165,6 @@ export default function App() {
       const next = !prev;
       if (next) {
         playSound('ambience', { volume: 0.25, loop: true });
-        speakVoice('Spider-Verse Audio and Voice System Activated');
       } else {
         stopSound('ambience');
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
