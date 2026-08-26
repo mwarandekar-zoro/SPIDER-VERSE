@@ -26,8 +26,8 @@ export const spiderPeople = [
     image: '/images/characters/miles.jpg',
     suitTheme: { primary: '#ff2222', secondary: '#111111', accent: '#ff6666' },
     comic: {
-      title: 'Miles Morales — Essential Reading',
-      url: 'https://www.marvel.com/comics/discover/1454/miles-morales-essential-reading',
+      title: 'Miles Morales — Marvel Official',
+      url: 'https://www.marvel.com/characters/spider-man-miles-morales',
     },
   },
   {
@@ -44,8 +44,8 @@ export const spiderPeople = [
     image: '/images/characters/gwen.jpg',
     suitTheme: { primary: '#ff6fd8', secondary: '#e0d0ff', accent: '#ffffff' },
     comic: {
-      title: 'Gwen Stacy — In Comics',
-      url: 'https://www.marvel.com/characters/gwen-stacy/in-comics',
+      title: 'Ghost-Spider (Gwen Stacy) — Marvel Official',
+      url: 'https://www.marvel.com/characters/ghost-spider-gwen-stacy',
     },
   },
   {
@@ -62,8 +62,8 @@ export const spiderPeople = [
     image: '/images/characters/miguel.jpg',
     suitTheme: { primary: '#003cff', secondary: '#ff2020', accent: '#00aaff' },
     comic: {
-      title: 'Spider-Man 2099 — Marvel Comics',
-      url: 'https://www.marvel.com/characters/spider-man-2099-miguel-ohara/in-comics',
+      title: "Spider-Man 2099 (Miguel O'Hara) — Marvel Official",
+      url: 'https://www.marvel.com/characters/spider-man-2099-miguel-o-hara',
     },
   },
   {
@@ -80,8 +80,8 @@ export const spiderPeople = [
     image: '/images/characters/pavitr.jpg',
     suitTheme: { primary: '#ff9500', secondary: '#2222cc', accent: '#ffcc00' },
     comic: {
-      title: 'Spider-Man: India (2023)',
-      url: 'https://www.marvel.com/comics/issue/106675/spider-man_india_2023_1',
+      title: 'Meet Pavitr Prabhakar (Spider-Man India)',
+      url: 'https://www.marvel.com/articles/comics/meet-pavitr-prabhakar-aka-spider-man-india',
     },
   },
   {
@@ -98,8 +98,8 @@ export const spiderPeople = [
     image: '/images/characters/peter.jpg',
     suitTheme: { primary: '#cc3300', secondary: '#0033cc', accent: '#ff4422' },
     comic: {
-      title: 'Spider-Man / Peter Parker — Essential Reading',
-      url: 'https://www.marvel.com/comics/discover/1169/spider-man-peter-parker-essential-reading',
+      title: 'Peter Parker (Spider-Man) — Marvel Official',
+      url: 'https://www.marvel.com/characters/spider-man-peter-parker',
     },
   },
   {
@@ -116,8 +116,8 @@ export const spiderPeople = [
     image: '/images/characters/hobie.jpg',
     suitTheme: { primary: '#ffdd00', secondary: '#111111', accent: '#ff4400' },
     comic: {
-      title: 'Spider-Punk (2022)',
-      url: 'https://www.marvel.com/comics/issue/97880/spider-punk_2022_1',
+      title: 'Spider-Punk (Hobie Brown) — Marvel Official',
+      url: 'https://www.marvel.com/characters/spider-punk-hobie-brown-earth-138',
     },
   },
   {
@@ -134,8 +134,8 @@ export const spiderPeople = [
     image: '/images/characters/peter-porker.jpg',
     suitTheme: { primary: '#ff6644', secondary: '#ffffff', accent: '#ffaa00' },
     comic: {
-      title: 'Spider-Ham — Marvel Comics',
-      url: 'https://www.marvel.com/characters/spider-ham-peter-porker/in-comics',
+      title: 'Spider-Ham (Peter Porker) — Marvel Official',
+      url: 'https://www.marvel.com/characters/spider-ham-peter-porker',
     },
   },
   {
@@ -152,8 +152,8 @@ export const spiderPeople = [
     image: '/images/characters/noir.jpg',
     suitTheme: { primary: '#aaaaaa', secondary: '#333333', accent: '#ffffff' },
     comic: {
-      title: 'Spider-Man Noir — Comics',
-      url: 'https://www.marvel.com/characters/spider-man-noir-peter-parker/in-comics',
+      title: 'Spider-Man Noir — Marvel Official',
+      url: 'https://www.marvel.com/comics/characters/1012295/spiderman_noir',
     },
   },
   {
@@ -170,8 +170,8 @@ export const spiderPeople = [
     image: '/images/characters/takuya.jpg',
     suitTheme: { primary: '#cc0000', secondary: '#ffffff', accent: '#ff4444' },
     comic: {
-      title: 'Spider-Verse Heroes — Takuya\'s Debut',
-      url: 'https://www.marvel.com/articles/comics/spider-verse-heroes-japanese-spider-man-takuya-yamashiro',
+      title: 'Takuya Yamashiro (Japanese Spider-Man)',
+      url: 'https://www.marvel.com/comics/characters/1011377/spider-man_takuya_yamashiro',
     },
   },
   {
@@ -188,8 +188,8 @@ export const spiderPeople = [
     image: '/images/characters/cyborg.jpg',
     suitTheme: { primary: '#00ccff', secondary: '#cc0000', accent: '#44eeff' },
     comic: {
-      title: 'Edge of Spider-Verse (2024) #2',
-      url: 'https://www.marvel.com/comics/issue/114881/edge_of_spider-verse_2024_2',
+      title: 'Cyborg Spider-Man — Edge of Spider-Verse',
+      url: 'https://www.marvel.com/articles/comics/edge-of-spider-verse-2-spooky-man-cyborg-spider-man',
     },
   },
 ];
