@@ -289,13 +289,29 @@ button {
   position: fixed;
   top: 0;
   left: 0;
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
   pointer-events: none;
   z-index: 9999;
   will-change: transform;
-  filter: drop-shadow(0 0 4px rgba(176, 38, 255, 0.8));
+  filter: drop-shadow(0 0 6px var(--universe-primary));
+  transition: filter 0.3s ease;
+}
+
+.custom-cursor-spider-sense {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.custom-cursor-spider-sense.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
 }
 
 .custom-cursor-ring-wrapper {
@@ -314,32 +330,39 @@ button {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid var(--color-rift);
+  border: 1.5px solid var(--universe-primary);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 12px var(--universe-primary);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .custom-cursor-label {
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  letter-spacing: 0.06em;
-  color: var(--color-web);
+  letter-spacing: 0.08em;
+  color: #ffffff;
   text-transform: uppercase;
   white-space: nowrap;
+  font-weight: 700;
+  text-shadow: 0 0 8px var(--universe-primary);
 }
 
 .custom-cursor-trail-dot {
   position: fixed;
   top: 0;
   left: 0;
-  width: 7px;
-  height: 7px;
-  margin: -3.5px 0 0 -3.5px;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
   border-radius: 50%;
+  background: var(--universe-primary);
+  box-shadow: 0 0 8px var(--universe-primary);
   pointer-events: none;
   z-index: 9997;
   will-change: transform;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Skip-to-content link — visually hidden until keyboard-focused */

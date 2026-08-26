@@ -12,36 +12,48 @@ const VARIANT_LABELS = {
 };
 
 // ─────────────────────────────────────────────────────────────
-// Web-shoot particle burst on click.
-// Spawns 8 thin rays radiating outward from the click point,
-// each quickly fading and scaling out — like firing a web.
-// All done in vanilla JS on a single <canvas> overlay so it
-// NEVER touches React state (no re-renders per particle).
+// Upgraded Web-shoot particle burst & dynamic silk thread on click.
+// Spawns radiating web strands, expanding shockwave rings,
+// and glowing web-fluid droplets in the active suit primary color.
+// All executed via a single <canvas> overlay with zero React re-renders.
 // ─────────────────────────────────────────────────────────────
-function useClickBurst(canvasRef) {
+function useClickBurst(canvasRef, targetRef) {
   const particles = useRef([]);
+  const rings = useRef([]);
   const frameRef = useRef(null);
   const isRunning = useRef(false);
 
   const spawnBurst = useCallback((x, y) => {
     const primary = getComputedStyle(document.documentElement)
       .getPropertyValue('--universe-primary').trim() || '#b026ff';
+    const secondary = getComputedStyle(document.documentElement)
+      .getPropertyValue('--universe-secondary').trim() || '#00f0ff';
 
-    // 8 rays, spread in a full circle + 2 arc strands
-    const count = 10;
+    // Expanding shockwave web ring
+    rings.current.push({
+      x, y,
+      radius: 4,
+      maxRadius: 42 + Math.random() * 15,
+      life: 1.0,
+      decay: 0.04,
+      color: primary,
+    });
+
+    // 12 radiating web rays + droplets
+    const count = 12;
     for (let i = 0; i < count; i++) {
-      const angle = (i * Math.PI * 2) / count + (Math.random() - 0.5) * 0.3;
-      const speed = 3.5 + Math.random() * 4;
-      const length = 18 + Math.random() * 28;
+      const angle = (i * Math.PI * 2) / count + (Math.random() - 0.5) * 0.25;
+      const speed = 4 + Math.random() * 5;
+      const length = 20 + Math.random() * 30;
       particles.current.push({
         x, y,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
         length,
         life: 1.0,
-        decay: 0.04 + Math.random() * 0.02,
-        color: primary,
-        width: 1.5 + Math.random(),
+        decay: 0.035 + Math.random() * 0.02,
+        color: i % 2 === 0 ? primary : secondary,
+        width: 1.5 + Math.random() * 1.5,
       });
     }
 
@@ -57,19 +69,43 @@ function useClickBurst(canvasRef) {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    particles.current = particles.current.filter((p) => p.life > 0);
+    // Update & draw shockwave rings
+    rings.current = rings.current.filter((r) => r.life > 0);
+    for (const r of rings.current) {
+      ctx.save();
+      ctx.globalAlpha = r.life * 0.8;
+      ctx.strokeStyle = r.color;
+      ctx.lineWidth = 1.8 * r.life;
+      ctx.shadowColor = r.color;
+      ctx.shadowBlur = 10 * r.life;
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
 
+      r.radius += (r.maxRadius - r.radius) * 0.18;
+      r.life -= r.decay;
+    }
+
+    // Update & draw web strands
+    particles.current = particles.current.filter((p) => p.life > 0);
     for (const p of particles.current) {
       ctx.save();
       ctx.globalAlpha = p.life * 0.9;
       ctx.strokeStyle = p.color;
       ctx.lineWidth = p.width * p.life;
       ctx.shadowColor = p.color;
-      ctx.shadowBlur = 8 * p.life;
+      ctx.shadowBlur = 10 * p.life;
       ctx.beginPath();
       ctx.moveTo(p.x, p.y);
       ctx.lineTo(p.x + p.vx * (p.length / 5), p.y + p.vy * (p.length / 5));
       ctx.stroke();
+
+      // Web fluid droplet dot at head
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x + p.vx * (p.length / 5), p.y + p.vy * (p.length / 5), p.width * p.life * 0.9, 0, Math.PI * 2);
+      ctx.fill();
       ctx.restore();
 
       p.x += p.vx;
@@ -79,7 +115,7 @@ function useClickBurst(canvasRef) {
       p.life -= p.decay;
     }
 
-    if (particles.current.length > 0) {
+    if (particles.current.length > 0 || rings.current.length > 0) {
       frameRef.current = requestAnimationFrame(loop);
     } else {
       isRunning.current = false;
@@ -111,21 +147,6 @@ function useClickBurst(canvasRef) {
   }, [spawnBurst, canvasRef]);
 }
 
-/**
- * Section 13: a small spider crawls with the cursor, orienting
- * toward whatever direction it's moving; an expanded ring + label
- * appears on hover of interactive elements. Tracks raw pointer
- * position itself (not the normalized -1..1 hooks used by the 3D
- * layer) and smooths it with a manual requestAnimationFrame loop,
- * writing straight to DOM transforms — this updates every frame, so
- * it must never go through React state (section 34).
- *
- * Phase 7: on every click, fires a web-shoot particle burst from
- * the cursor position via a canvas overlay (no React state).
- *
- * Only ever mounted on desktop (see App.jsx) — never rendered on
- * touch devices, per section 13.
- */
 export default function CustomCursor() {
   const { variant, label } = useCursor();
   const { reducedMotion } = useResponsive();
@@ -141,7 +162,7 @@ export default function CustomCursor() {
   const burstCanvasRef = useRef(null);
 
   // Web-shoot burst canvas
-  useClickBurst(burstCanvasRef);
+  useClickBurst(burstCanvasRef, target);
 
   useEffect(() => {
     document.body.classList.add('custom-cursor-active');
@@ -163,11 +184,11 @@ export default function CustomCursor() {
       const prevX = spiderPos.current.x;
       const prevY = spiderPos.current.y;
 
-      spiderPos.current.x += (target.current.x - spiderPos.current.x) * 0.35;
-      spiderPos.current.y += (target.current.y - spiderPos.current.y) * 0.35;
+      spiderPos.current.x += (target.current.x - spiderPos.current.x) * 0.38;
+      spiderPos.current.y += (target.current.y - spiderPos.current.y) * 0.38;
 
-      ringPos.current.x += (target.current.x - ringPos.current.x) * 0.16;
-      ringPos.current.y += (target.current.y - ringPos.current.y) * 0.16;
+      ringPos.current.x += (target.current.x - ringPos.current.x) * 0.18;
+      ringPos.current.y += (target.current.y - ringPos.current.y) * 0.18;
 
       const dx = spiderPos.current.x - prevX;
       const dy = spiderPos.current.y - prevY;
@@ -192,6 +213,7 @@ export default function CustomCursor() {
   }, [variant]);
 
   const displayLabel = label || VARIANT_LABELS[variant] || '';
+  const isInteractive = variant !== 'default';
 
   return (
     <>
@@ -209,19 +231,38 @@ export default function CustomCursor() {
 
       {!reducedMotion && <CursorTrail target={target} />}
 
+      {/* Custom Spider Cursor with Spider-Sense Warning Arcs */}
       <div ref={spiderRef} className="custom-cursor-spider" aria-hidden="true">
-        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-          <ellipse cx="13" cy="15" rx="3.2" ry="4.2" fill="var(--color-rift)" />
-          <circle cx="13" cy="8.5" r="2.3" fill="var(--color-rift)" />
-          <g stroke="var(--color-rift)" strokeWidth="1.1" strokeLinecap="round">
-            <path d="M10.5 12 L3 8" />
-            <path d="M10.5 14 L2 13" />
-            <path d="M10.5 16.5 L3 18" />
-            <path d="M10.5 18.5 L4.5 22.5" />
-            <path d="M15.5 12 L23 8" />
-            <path d="M15.5 14 L24 13" />
-            <path d="M15.5 16.5 L23 18" />
-            <path d="M15.5 18.5 L21.5 22.5" />
+        {/* Spider-Sense Warning Arcs (triggers on hover of interactive targets) */}
+        <div className={`custom-cursor-spider-sense ${isInteractive ? 'active' : ''}`}>
+          <svg width="22" height="10" viewBox="0 0 22 10" fill="none">
+            <path d="M 2 8 Q 11 0 20 8" stroke="#ffe600" strokeWidth="1.8" strokeLinecap="round" opacity="0.9" />
+            <path d="M 5 9 Q 11 3 17 9" stroke="#ff2222" strokeWidth="1.4" strokeLinecap="round" opacity="0.8" />
+          </svg>
+        </div>
+
+        {/* Upgraded Spider SVG with glowing Spider-Lenses */}
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          {/* Main Abdomen */}
+          <ellipse cx="15" cy="18" rx="4" ry="5.2" fill="var(--universe-primary)" />
+          {/* Cephalothorax (Head) */}
+          <circle cx="15" cy="10" r="3" fill="var(--universe-primary)" />
+          
+          {/* Glowing Spider-Man Eye Lenses */}
+          <ellipse cx="13.8" cy="9.5" rx="0.9" ry="1.4" fill="#ffffff" transform="rotate(-15 13.8 9.5)" />
+          <ellipse cx="16.2" cy="9.5" rx="0.9" ry="1.4" fill="#ffffff" transform="rotate(15 16.2 9.5)" />
+
+          {/* 8 Articulated Spider Legs */}
+          <g stroke="var(--universe-primary)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 14 Q6 10 3 6" />
+            <path d="M12 16.5 Q5 15 2 12" />
+            <path d="M12 19.5 Q6 21 3 24" />
+            <path d="M12 21 Q7 25 4 28" />
+
+            <path d="M18 14 Q24 10 27 6" />
+            <path d="M18 16.5 Q25 15 28 12" />
+            <path d="M18 19.5 Q24 21 27 24" />
+            <path d="M18 21 Q23 25 26 28" />
           </g>
         </svg>
       </div>
