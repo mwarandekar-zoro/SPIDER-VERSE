@@ -1,40 +1,37 @@
 /**
- * Section 39: SOUND & VOICE control.
- * Toggles Web Audio API synthesizer (cosmic drone, web thwip SFX, portal warps)
- * and Web Speech Synthesis (character & universe voice readouts).
+ * Section 39: SOUND & VOICE control button.
+ * Restored to clean, circular 44px floating glass icon button (🔊 / 🔇).
+ * Glows in suit primary color when audio & voice are enabled!
  */
 export default function SoundToggle({ enabled, onToggle }) {
   return (
     <button
       onClick={onToggle}
-      aria-label={enabled ? 'Mute audio and character voice' : 'Enable web audio and voice system'}
+      aria-label={enabled ? 'Mute sound and voice' : 'Enable audio and voice system'}
       aria-pressed={enabled}
-      title={enabled ? 'Mute Audio & Voice' : 'Enable Web Audio Synth & Character Voice Readouts'}
+      title={enabled ? 'Sound & Voice ON (Click to Mute)' : 'Sound & Voice OFF (Click to Enable)'}
       style={{
         position: 'fixed',
         bottom: '1.25rem',
         right: '1.25rem',
         zIndex: 40,
-        padding: '0.5rem 0.9rem',
-        borderRadius: '999px',
-        border: enabled ? '1px solid var(--universe-primary)' : '1px solid rgba(255, 255, 255, 0.2)',
-        background: enabled ? 'rgba(15, 13, 23, 0.88)' : 'rgba(21, 18, 30, 0.7)',
-        color: '#ffffff',
-        fontSize: '0.8rem',
-        fontFamily: 'var(--font-mono)',
+        width: '44px',
+        height: '44px',
+        borderRadius: '50%',
+        border: enabled ? '1.5px solid var(--universe-primary)' : '1px solid rgba(242, 240, 234, 0.2)',
+        background: enabled ? 'rgba(15, 13, 23, 0.85)' : 'rgba(21, 18, 30, 0.7)',
+        color: 'var(--color-web)',
+        fontSize: '1.25rem',
         backdropFilter: 'blur(8px)',
         display: 'flex',
         alignItems: 'center',
-        gap: '0.4rem',
-        boxShadow: enabled ? '0 0 20px var(--universe-primary)66' : '0 4px 16px rgba(0,0,0,0.4)',
+        justifyContent: 'center',
+        boxShadow: enabled ? '0 0 20px var(--universe-primary)77' : '0 4px 16px rgba(0,0,0,0.4)',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
       }}
     >
-      <span style={{ fontSize: '1rem' }}>{enabled ? '🔊' : '🔇'}</span>
-      <span style={{ fontSize: '0.65rem', letterSpacing: '0.05em', fontWeight: 600, color: enabled ? 'var(--universe-primary)' : 'var(--color-muted)' }}>
-        {enabled ? 'VOICE ON' : 'AUDIO OFF'}
-      </span>
+      {enabled ? '🔊' : '🔇'}
     </button>
   );
 }

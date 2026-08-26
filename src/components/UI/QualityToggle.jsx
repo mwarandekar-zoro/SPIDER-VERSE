@@ -1,14 +1,15 @@
 const LEVELS = ['low', 'medium', 'high'];
 
 /** Section 37: lets the user override the auto-detected quality
- * tier from utils/deviceQuality.js. */
+ * tier from utils/deviceQuality.js. Positioned cleanly to the left
+ * of the 44px round SoundToggle button. */
 export default function QualityToggle({ quality, onChange }) {
   return (
     <div
       style={{
         position: 'fixed',
         bottom: '1.25rem',
-        right: '5rem',
+        right: '4.75rem',
         zIndex: 40,
         display: 'flex',
         gap: '0.25rem',
@@ -33,7 +34,8 @@ export default function QualityToggle({ quality, onChange }) {
             fontFamily: 'var(--font-mono)',
             textTransform: 'uppercase',
             color: quality === level ? '#08070c' : 'var(--color-web-dim)',
-            background: quality === level ? 'var(--color-rift)' : 'transparent',
+            background: quality === level ? 'var(--universe-primary)' : 'transparent',
+            transition: 'background 0.3s ease, color 0.3s ease',
           }}
         >
           {level[0].toUpperCase()}
