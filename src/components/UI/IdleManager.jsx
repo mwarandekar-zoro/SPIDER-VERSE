@@ -123,7 +123,7 @@ export function IdlePrompt({ isIdle }) {
 
 // ─────────────────────────────────────────────────────────────
 // IdleSwingBy — Spawns an animated Spider-Silhouette swinging across
-// the screen corner when the user remains idle.
+// the screen corner IMMEDIATELY when the user becomes idle.
 // ─────────────────────────────────────────────────────────────
 function IdleSwingBy({ isIdle }) {
   const [swingCount, setSwingCount] = useState(0);
@@ -131,10 +131,13 @@ function IdleSwingBy({ isIdle }) {
   useEffect(() => {
     if (!isIdle) return;
 
-    // Trigger a swing-by every 12s while idle
+    // Swing IMMEDIATELY on idle state enter
+    setSwingCount((prev) => prev + 1);
+
+    // Then repeat every 8s while remaining idle
     const interval = setInterval(() => {
       setSwingCount((prev) => prev + 1);
-    }, 12000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [isIdle]);
@@ -144,51 +147,52 @@ function IdleSwingBy({ isIdle }) {
       {isIdle && (
         <motion.div
           key={`swing-${swingCount}`}
-          initial={{ x: -120, y: 150, rotate: -25, opacity: 0 }}
+          initial={{ x: -160, y: 200, rotate: -35, opacity: 0 }}
           animate={{
-            x: [ -120, window.innerWidth * 0.4, window.innerWidth + 120 ],
-            y: [ 150, 40, 220 ],
-            rotate: [ -30, 0, 40 ],
+            x: [ -160, window.innerWidth * 0.45, window.innerWidth + 160 ],
+            y: [ 200, 50, 300 ],
+            rotate: [ -35, 0, 45 ],
             opacity: [ 0, 1, 0 ],
           }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 3.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 2.8, ease: [0.16, 1, 0.3, 1] }}
           style={{
             position: 'fixed',
             top: 0,
             left: 0,
-            width: '80px',
-            height: '80px',
+            width: '120px',
+            height: '120px',
             pointerEvents: 'none',
-            zIndex: 9980,
+            zIndex: 9999,
           }}
         >
-          {/* Animated Web String */}
+          {/* Animated Glowing Web String */}
           <svg
-            width="300"
-            height="300"
-            style={{ position: 'absolute', top: '-250px', left: '30px', overflow: 'visible' }}
+            width="400"
+            height="400"
+            style={{ position: 'absolute', top: '-350px', left: '40px', overflow: 'visible' }}
           >
             <line
-              x1="30"
-              y1="250"
-              x2="150"
+              x1="40"
+              y1="350"
+              x2="250"
               y2="0"
               stroke="var(--universe-primary, #b026ff)"
-              strokeWidth="2"
-              strokeDasharray="4 3"
-              strokeOpacity="0.8"
+              strokeWidth="3"
+              strokeDasharray="6 3"
+              strokeOpacity="0.95"
+              style={{ filter: 'drop-shadow(0 0 10px var(--universe-primary, #b026ff))' }}
             />
           </svg>
 
-          {/* Spider-Person Silhouette */}
+          {/* Large Spider-Person Silhouette */}
           <svg
             viewBox="0 0 100 100"
             style={{
               width: '100%',
               height: '100%',
               fill: 'var(--universe-primary, #b026ff)',
-              filter: 'drop-shadow(0 0 16px var(--universe-primary, #b026ff))',
+              filter: 'drop-shadow(0 0 25px var(--universe-primary, #b026ff)) drop-shadow(0 0 40px #ffffff)',
             }}
           >
             <path d="M50,15 C45,15 42,20 42,26 C42,32 45,36 50,38 C55,36 58,32 58,26 C58,20 55,15 50,15 Z M50,42 C40,44 32,54 32,66 C32,78 40,86 50,88 C60,86 68,78 68,66 C68,54 60,44 50,42 Z" />
@@ -210,7 +214,7 @@ export default function IdleManager() {
   const [isIdle, setIsIdle] = useState(false);
 
   useIdleDetector({
-    timeout: 10000,
+    timeout: 6000, // 6s idle to trigger prompt + swing-by!
     onIdle: () => setIsIdle(true),
     onActive: () => setIsIdle(false),
   });

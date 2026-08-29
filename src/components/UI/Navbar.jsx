@@ -13,9 +13,15 @@ export default function Navbar({ onLogoFrenzy, onTriggerChaos }) {
 
   function handleLogoClick(e) {
     const now = Date.now();
-    clickTimes.current = [...clickTimes.current.filter((t) => now - t < 1500), now];
+    // Filter clicks in last 1.8s
+    clickTimes.current = [...clickTimes.current.filter((t) => now - t < 1800), now];
 
-    if (clickTimes.current.length >= 5) {
+    // If clicking fast, prevent default navigation
+    if (clickTimes.current.length > 1) {
+      e.preventDefault();
+    }
+
+    if (clickTimes.current.length >= 3) {
       clickTimes.current = [];
       e.preventDefault();
       onLogoFrenzy?.();

@@ -86,19 +86,20 @@ export default function App() {
   const [isChaosActive, setIsChaosActive] = useState(false);
   useKonamiCode(() => setIsChaosActive(true));
 
-  // Phase E: Click logo 5 times fast → Multiverse glitch frenzy cycle
+  // Phase E: Click logo rapidly → Multiverse glitch frenzy cycle
   const handleLogoFrenzy = useCallback(() => {
-    playSound('portal', { volume: 0.8 });
+    playSound('portal', { volume: 0.9 });
     let idx = 0;
     const interval = setInterval(() => {
       if (idx < spiderPeople.length) {
         const char = spiderPeople[idx];
         setSelectedCharacterId(char.id);
+        playSound('web', { volume: 0.5 });
         idx++;
       } else {
         clearInterval(interval);
       }
-    }, 180);
+    }, 150);
   }, []);
 
   // Universe-specific visual identity: maps selectedCharacterId to an
