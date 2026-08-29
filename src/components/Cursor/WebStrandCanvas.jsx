@@ -79,9 +79,9 @@ export default function WebStrandCanvas() {
         const my = (mouse.y + c.y) / 2 + (mouse.x - c.x) * 0.12 * force;
 
         const grad = ctx.createLinearGradient(mouse.x, mouse.y, c.x, c.y);
-        grad.addColorStop(0, primary + '00');
-        grad.addColorStop(0.4, primary + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
-        grad.addColorStop(1, primary + '44');
+        grad.addColorStop(0, 'transparent');
+        grad.addColorStop(0.4, primary);
+        grad.addColorStop(1, primary);
 
         ctx.save();
         ctx.globalAlpha = alpha;
