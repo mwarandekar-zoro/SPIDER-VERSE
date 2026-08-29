@@ -25,7 +25,7 @@ import PortalRip from './components/UI/PortalRip';
 import { useParallaxScroll } from './hooks/useParallaxScroll';
 import { spiderPeople } from './data/spiderPeople';
 import { universes } from './data/universes';
-import { playSound, stopSound, speakVoice } from './utils/audio';
+import { playSound, stopSound, speakVoice, setUniversePitch } from './utils/audio';
 
 // Below-the-fold sections are code-split (section 19: performance /
 // bundle size) — none of them are needed for the first paint of the
@@ -89,19 +89,48 @@ export default function App() {
   // Phase C: Multi-layered 3D scroll parallax
   useParallaxScroll();
 
+  // Phase D: Universe-specific ambient drone pitch-shift
+  useEffect(() => {
+    if (soundEnabled) {
+      const uniId = selectedCharacter?.universeId ?? activeUniverseId ?? 'default';
+      setUniversePitch(uniId);
+    }
+  }, [selectedCharacter?.universeId, activeUniverseId, soundEnabled]);
+
+  // Phase D: Satisfying "whoosh" sound on section transitions during scroll
+  useEffect(() => {
+    if (!soundEnabled) return;
+    const sections = document.querySelectorAll('section[id]');
+    if (!sections || sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playSound('whoosh', { volume: 0.35 });
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
+  }, [soundEnabled]);
+
   // Global button & interactive element click listener — fires synthesized
   // web-shooting "THWIP!" SFX whenever any button or link is clicked
   useEffect(() => {
     function handleGlobalButtonClick(e) {
       const target = e.target.closest('button, a, [role="button"], input, select');
-      if (target && soundEnabled) {
+      if (target) {
         playSound('web', { volume: 0.5 });
       }
     }
 
     window.addEventListener('pointerdown', handleGlobalButtonClick);
     return () => window.removeEventListener('pointerdown', handleGlobalButtonClick);
-  }, [soundEnabled]);
+  }, []);
 
   // Fixed (not re-randomized on every render) set of floating motes —
   // varied positions/sizes/timings so the field reads as organic
@@ -177,7 +206,8 @@ export default function App() {
     setSoundEnabled((prev) => {
       const next = !prev;
       if (next) {
-        playSound('ambience', { volume: 0.25, loop: true });
+        const uniId = selectedCharacter?.universeId ?? activeUniverseId ?? 'default';
+        playSound('ambience', { volume: 0.25, universeId: uniId });
       } else {
         stopSound('ambience');
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
