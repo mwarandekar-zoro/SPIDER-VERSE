@@ -21,6 +21,8 @@ import { useCharacter } from './hooks/useCharacter';
 import { useUniverseTheme } from './hooks/useUniverseTheme';
 import { useUniverseAesthetic } from './hooks/useUniverseAesthetic';
 import UniverseOverlay from './components/UI/UniverseOverlay';
+import PortalRip from './components/UI/PortalRip';
+import { useParallaxScroll } from './hooks/useParallaxScroll';
 import { spiderPeople } from './data/spiderPeople';
 import { universes } from './data/universes';
 import { playSound, stopSound, speakVoice } from './utils/audio';
@@ -83,6 +85,9 @@ export default function App() {
   // aesthetic mode (punk/cartoon/noir/hud/india/default), applies it
   // as data-aesthetic on <html>, and returns the name for UniverseOverlay.
   const aesthetic = useUniverseAesthetic(selectedCharacterId);
+
+  // Phase C: Multi-layered 3D scroll parallax
+  useParallaxScroll();
 
   // Global button & interactive element click listener — fires synthesized
   // web-shooting "THWIP!" SFX whenever any button or link is clicked
@@ -246,6 +251,7 @@ export default function App() {
       {!isTouch && <CustomCursor />}
       {!isTouch && <WebStrandCanvas />}
       <UniverseOverlay aesthetic={aesthetic} />
+      <PortalRip triggerKey={selectedCharacterId} primaryColor={activeTheme?.primary ?? '#b026ff'} />
       <SoundToggle enabled={soundEnabled} onToggle={handleToggleSound} />
       <QualityToggle quality={quality} onChange={setQuality} />
       <IdleManager />

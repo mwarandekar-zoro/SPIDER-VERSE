@@ -87,7 +87,7 @@ export default function MultiverseScene({
 
       <Suspense fallback={null}>
         <SpiderWebBurst suitTheme={selectedCharacterSuitTheme} trigger={focusTrigger} />
-        <PlaceholderCore />
+        <PlaceholderCore suitTheme={selectedCharacterSuitTheme} />
         <Particles quality={quality} />
         <WebSystem quality={quality} />
         <FloatingObjects quality={quality} />
