@@ -1,5 +1,9 @@
 # 🕷️ SPIDER-VERSE | Interactive Multiverse Experience
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-brightgreen?style=for-the-badge&logo=vercel)](https://spider-verse-jade.vercel.app/)
+
+> 🚀 **Live Production Deployment**: [https://spider-verse-jade.vercel.app/](https://spider-verse-jade.vercel.app/)
+
 An immersive, high-performance web application exploring the Spider-Verse multiverse. Built with **React 19**, **Three.js / React Three Fiber (R3F)**, **Framer Motion**, and **Vite**, featuring interactive 3D dimensions, 20 Spider-People profiles, official Marvel comic reading guides, Sony Pictures film appearances, Sony Imageworks VFX breakdowns, and live suit-themed UI shifts.
 
 ---
