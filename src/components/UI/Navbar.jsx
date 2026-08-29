@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useCursor } from '../Cursor/CursorContext';
 
 const LINKS = [
@@ -6,16 +7,20 @@ const LINKS = [
   { href: '#compare', label: 'Compare' },
 ];
 
-/** Section 48: kept minimal — a wordmark and a few section links.
- * The bar itself has pointer-events: none so it never blocks the
- * 3D scene beneath it; only its own children re-enable pointer events.
- *
- * The wordmark's underline glow reads var(--universe-primary), so
- * when a character is selected in CharacterDetail (which pushes its
- * universe's colors onto :root via useUniverseTheme), the nav itself
- * visibly shifts too — not just the profile panel. */
-export default function Navbar() {
+export default function Navbar({ onLogoFrenzy }) {
   const { setCursor } = useCursor();
+  const clickTimes = useRef([]);
+
+  function handleLogoClick(e) {
+    const now = Date.now();
+    clickTimes.current = [...clickTimes.current.filter((t) => now - t < 1500), now];
+
+    if (clickTimes.current.length >= 5) {
+      clickTimes.current = [];
+      e.preventDefault();
+      onLogoFrenzy?.();
+    }
+  }
 
   return (
     <nav
@@ -35,6 +40,7 @@ export default function Navbar() {
     >
       <a
         href="#hero"
+        onClick={handleLogoClick}
         style={{
           fontFamily: 'var(--font-display)',
           fontWeight: 700,
@@ -45,7 +51,7 @@ export default function Navbar() {
           pointerEvents: 'auto',
           transition: 'text-shadow 1.1s var(--ease-signature)',
         }}
-        onPointerEnter={() => setCursor('button', '→')}
+        onPointerEnter={() => setCursor('button', 'GLITCH')}
         onPointerLeave={() => setCursor('default')}
       >
         SPIDER-VERSE

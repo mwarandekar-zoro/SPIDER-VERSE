@@ -23,6 +23,7 @@ import { useUniverseAesthetic } from './hooks/useUniverseAesthetic';
 import UniverseOverlay from './components/UI/UniverseOverlay';
 import PortalRip from './components/UI/PortalRip';
 import { useParallaxScroll } from './hooks/useParallaxScroll';
+import ChaosModeOverlay, { useKonamiCode } from './components/UI/ChaosModeOverlay';
 import { spiderPeople } from './data/spiderPeople';
 import { universes } from './data/universes';
 import { playSound, stopSound, speakVoice, setUniversePitch } from './utils/audio';
@@ -80,6 +81,25 @@ export default function App() {
   const selectedCharacter = useCharacter(selectedCharacterId);
   const activeTheme = selectedCharacter?.suitTheme ?? selectedCharacter?.universe?.theme ?? null;
   useUniverseTheme(activeTheme);
+
+  // Phase E: Konami Code & Chaos Mode easter egg
+  const [isChaosActive, setIsChaosActive] = useState(false);
+  useKonamiCode(() => setIsChaosActive(true));
+
+  // Phase E: Click logo 5 times fast → Multiverse glitch frenzy cycle
+  const handleLogoFrenzy = useCallback(() => {
+    playSound('portal', { volume: 0.8 });
+    let idx = 0;
+    const interval = setInterval(() => {
+      if (idx < spiderPeople.length) {
+        const char = spiderPeople[idx];
+        setSelectedCharacterId(char.id);
+        idx++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 180);
+  }, []);
 
   // Universe-specific visual identity: maps selectedCharacterId to an
   // aesthetic mode (punk/cartoon/noir/hud/india/default), applies it
@@ -277,11 +297,12 @@ export default function App() {
         />
       ))}
 
-      <Navbar />
+      <Navbar onLogoFrenzy={handleLogoFrenzy} />
       {!isTouch && <CustomCursor />}
       {!isTouch && <WebStrandCanvas />}
       <UniverseOverlay aesthetic={aesthetic} />
       <PortalRip triggerKey={selectedCharacterId} primaryColor={activeTheme?.primary ?? '#b026ff'} />
+      <ChaosModeOverlay active={isChaosActive} onClose={() => setIsChaosActive(false)} />
       <SoundToggle enabled={soundEnabled} onToggle={handleToggleSound} />
       <QualityToggle quality={quality} onChange={setQuality} />
       <IdleManager />

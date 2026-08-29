@@ -122,16 +122,103 @@ export function IdlePrompt({ isIdle }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// IdleManager — drop this into App. Owns idle state + prompt.
+// IdleSwingBy — Spawns an animated Spider-Silhouette swinging across
+// the screen corner when the user remains idle.
+// ─────────────────────────────────────────────────────────────
+function IdleSwingBy({ isIdle }) {
+  const [swingCount, setSwingCount] = useState(0);
+
+  useEffect(() => {
+    if (!isIdle) return;
+
+    // Trigger a swing-by every 12s while idle
+    const interval = setInterval(() => {
+      setSwingCount((prev) => prev + 1);
+    }, 12000);
+
+    return () => clearInterval(interval);
+  }, [isIdle]);
+
+  return (
+    <AnimatePresence>
+      {isIdle && (
+        <motion.div
+          key={`swing-${swingCount}`}
+          initial={{ x: -120, y: 150, rotate: -25, opacity: 0 }}
+          animate={{
+            x: [ -120, window.innerWidth * 0.4, window.innerWidth + 120 ],
+            y: [ 150, 40, 220 ],
+            rotate: [ -30, 0, 40 ],
+            opacity: [ 0, 1, 0 ],
+          }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 3.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '80px',
+            height: '80px',
+            pointerEvents: 'none',
+            zIndex: 9980,
+          }}
+        >
+          {/* Animated Web String */}
+          <svg
+            width="300"
+            height="300"
+            style={{ position: 'absolute', top: '-250px', left: '30px', overflow: 'visible' }}
+          >
+            <line
+              x1="30"
+              y1="250"
+              x2="150"
+              y2="0"
+              stroke="var(--universe-primary, #b026ff)"
+              strokeWidth="2"
+              strokeDasharray="4 3"
+              strokeOpacity="0.8"
+            />
+          </svg>
+
+          {/* Spider-Person Silhouette */}
+          <svg
+            viewBox="0 0 100 100"
+            style={{
+              width: '100%',
+              height: '100%',
+              fill: 'var(--universe-primary, #b026ff)',
+              filter: 'drop-shadow(0 0 16px var(--universe-primary, #b026ff))',
+            }}
+          >
+            <path d="M50,15 C45,15 42,20 42,26 C42,32 45,36 50,38 C55,36 58,32 58,26 C58,20 55,15 50,15 Z M50,42 C40,44 32,54 32,66 C32,78 40,86 50,88 C60,86 68,78 68,66 C68,54 60,44 50,42 Z" />
+            <path d="M42,26 Q20,10 10,25 Q30,35 42,36" stroke="var(--universe-primary, #b026ff)" strokeWidth="3" fill="none" />
+            <path d="M58,26 Q80,10 90,25 Q70,35 58,36" stroke="var(--universe-primary, #b026ff)" strokeWidth="3" fill="none" />
+            <path d="M38,48 Q10,40 5,60 Q25,62 36,58" stroke="var(--universe-primary, #b026ff)" strokeWidth="3" fill="none" />
+            <path d="M62,48 Q90,40 95,60 Q75,62 64,58" stroke="var(--universe-primary, #b026ff)" strokeWidth="3" fill="none" />
+          </svg>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// IdleManager — drop this into App. Owns idle state + prompt + swing.
 // ─────────────────────────────────────────────────────────────
 export default function IdleManager() {
   const [isIdle, setIsIdle] = useState(false);
 
   useIdleDetector({
-    timeout: 8000,
+    timeout: 10000,
     onIdle: () => setIsIdle(true),
     onActive: () => setIsIdle(false),
   });
 
-  return <IdlePrompt isIdle={isIdle} />;
+  return (
+    <>
+      <IdlePrompt isIdle={isIdle} />
+      <IdleSwingBy isIdle={isIdle} />
+    </>
+  );
 }
