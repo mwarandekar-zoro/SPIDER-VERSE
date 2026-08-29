@@ -245,7 +245,7 @@ export default function UniverseOverlay({ aesthetic }) {
     let raf;
 
     // Per-aesthetic setup
-    if (aesthetic === 'india') {
+    if (['india', 'ghostspider', 'silk', 'mystic'].includes(aesthetic)) {
       stateRef.current.particles = Array.from({ length: INDIA_PARTICLE_COUNT }, () => ({
         x: rand(0, canvas.width),
         y: rand(0, canvas.height),
@@ -285,12 +285,40 @@ export default function UniverseOverlay({ aesthetic }) {
       const w = canvas.width, h = canvas.height;
 
       switch (aesthetic) {
-        case 'punk':    renderPunk(ctx, w, h, frame); break;
-        case 'noir':    renderNoir(ctx, w, h); break;
-        case 'hud':     renderHUD(ctx, w, h, frame, stateRef.current.hudState); break;
-        case 'cartoon': renderCartoon(ctx, w, h, frame, stateRef.current); break;
-        case 'india':   renderIndia(ctx, w, h, frame, stateRef.current.particles); break;
-        default: ctx.clearRect(0, 0, w, h);
+        case 'punk':
+        case 'brooklyn':
+        case 'scarlet':
+        case 'haunted':
+          renderPunk(ctx, w, h, frame);
+          break;
+        case 'noir':
+        case 'wildwest':
+        case 'dadspider':
+          renderNoir(ctx, w, h);
+          break;
+        case 'hud':
+        case 'cyber':
+        case 'cybernetic':
+        case 'superior':
+        case 'spycraft':
+          renderHUD(ctx, w, h, frame, stateRef.current.hudState);
+          break;
+        case 'cartoon':
+        case 'tokusatsu':
+        case 'retro':
+        case 'prehistoric':
+          renderCartoon(ctx, w, h, frame, stateRef.current);
+          break;
+        case 'india':
+        case 'ghostspider':
+        case 'silk':
+        case 'mystic':
+          if (stateRef.current.particles) {
+            renderIndia(ctx, w, h, frame, stateRef.current.particles);
+          }
+          break;
+        default:
+          ctx.clearRect(0, 0, w, h);
       }
 
       raf = requestAnimationFrame(tick);

@@ -425,6 +425,132 @@ html {
   box-shadow: 0 0 10px var(--india-gold) !important;
 }
 
+/* ================================================================
+   6. BROOKLYN — Miles Morales (Earth-1610)
+   ================================================================ */
+[data-aesthetic="brooklyn"] h1,
+[data-aesthetic="brooklyn"] h2,
+[data-aesthetic="brooklyn"] h3 {
+  text-shadow: 0 0 15px rgba(255, 34, 34, 0.7), 2px 2px 0 #000;
+  letter-spacing: 0.04em !important;
+}
+
+/* ================================================================
+   7. GHOSTSPIDER — Gwen Stacy (Earth-65)
+   ================================================================ */
+[data-aesthetic="ghostspider"] h1,
+[data-aesthetic="ghostspider"] h2,
+[data-aesthetic="ghostspider"] h3 {
+  text-shadow: 0 0 15px rgba(255, 111, 216, 0.8), 0 0 25px rgba(0, 240, 255, 0.5);
+}
+
+/* ================================================================
+   8. DADSPIDER — Peter B. Parker (Earth-616)
+   ================================================================ */
+[data-aesthetic="dadspider"] h1,
+[data-aesthetic="dadspider"] h2,
+[data-aesthetic="dadspider"] h3 {
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* ================================================================
+   9. SPYCRAFT — Jessica Drew (Earth-616)
+   ================================================================ */
+[data-aesthetic="spycraft"] section,
+[data-aesthetic="spycraft"] [class*="card"] {
+  border: 1px solid rgba(230, 57, 70, 0.4) !important;
+  box-shadow: 0 0 15px rgba(230, 57, 70, 0.2) !important;
+}
+
+/* ================================================================
+   10. SILK — Cindy Moon (Earth-616)
+   ================================================================ */
+[data-aesthetic="silk"] h1,
+[data-aesthetic="silk"] h2,
+[data-aesthetic="silk"] h3 {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+/* ================================================================
+   11. SCARLET — Ben Reilly (Earth-616)
+   ================================================================ */
+[data-aesthetic="scarlet"] button:not([class*="toggle"]) {
+  border-color: #e63946 !important;
+}
+
+/* ================================================================
+   12. HAUNTED — Kaine Parker (Earth-616)
+   ================================================================ */
+[data-aesthetic="haunted"] body {
+  filter: contrast(1.15) brightness(0.92);
+}
+
+/* ================================================================
+   13. WILDWEST — Patrick O'Hara / Web-Slinger (Earth-31913)
+   ================================================================ */
+[data-aesthetic="wildwest"] body {
+  filter: sepia(0.25) contrast(1.05);
+}
+
+/* ================================================================
+   14. RETRO — Mayday Parker / Spider-Girl (Earth-982)
+   ================================================================ */
+[data-aesthetic="retro"] h1,
+[data-aesthetic="retro"] h2 {
+  text-shadow: 0 0 10px #ee9b00;
+}
+
+/* ================================================================
+   15. SUPERIOR — Otto Octavius / Superior (Earth-616)
+   ================================================================ */
+[data-aesthetic="superior"] h1,
+[data-aesthetic="superior"] h2,
+[data-aesthetic="superior"] h3 {
+  text-shadow: 0 0 15px rgba(155, 93, 229, 0.8);
+}
+
+/* ================================================================
+   16. CYBER — Margo Kess / Spider-Byte (Earth-22191)
+   ================================================================ */
+[data-aesthetic="cyber"] h1,
+[data-aesthetic="cyber"] h2,
+[data-aesthetic="cyber"] h3 {
+  text-shadow: 0 0 15px #00f5d4, 0 0 30px #f15bb5;
+  font-family: 'Share Tech Mono', monospace !important;
+}
+
+/* ================================================================
+   17. PREHISTORIC — Spider-Rex (Earth-66)
+   ================================================================ */
+[data-aesthetic="prehistoric"] body {
+  filter: saturate(1.25) contrast(1.1);
+}
+
+/* ================================================================
+   18. TOKUSATSU — Takuya Yamashiro (Earth-51778)
+   ================================================================ */
+[data-aesthetic="tokusatsu"] h1,
+[data-aesthetic="tokusatsu"] h2,
+[data-aesthetic="tokusatsu"] h3 {
+  font-family: 'Bangers', sans-serif !important;
+  text-shadow: 3px 3px 0 #000, -2px -2px 0 #cc0000;
+}
+
+/* ================================================================
+   19. CYBERNETIC — Cyborg Spider-Man (Earth-15)
+   ================================================================ */
+[data-aesthetic="cybernetic"] section {
+  border: 1px solid rgba(0, 204, 255, 0.4) !important;
+}
+
+/* ================================================================
+   20. MYSTIC — Anya Corazon (Earth-616)
+   ================================================================ */
+[data-aesthetic="mystic"] h1,
+[data-aesthetic="mystic"] h2,
+[data-aesthetic="mystic"] h3 {
+  text-shadow: 0 0 18px rgba(251, 86, 7, 0.85);
+}
 
 /* ================================================================
    REDUCED MOTION overrides — disable all aesthetic animations
