@@ -1,0 +1,458 @@
+/* ================================================================
+   AESTHETICS.CSS — Universe-Specific Visual Identity
+   ================================================================
+   All rules are scoped under [data-aesthetic="X"] on <html> so
+   they cascade globally. The hook useUniverseAesthetic.js sets
+   this attribute; UniverseOverlay.jsx handles canvas-drawn effects
+   that CSS alone can't produce.
+
+   Google Fonts loaded here for aesthetic-specific typefaces.
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Boogaloo&family=Share+Tech+Mono&family=Playfair+Display:ital@1&display=swap');
+
+/* ── Shared transition for aesthetic entering / leaving ── */
+html {
+  transition: filter 0.7s ease;
+}
+
+/* ================================================================
+   1. PUNK — Earth-138 (Hobie Brown / Spider-Punk)
+   Torn-poster, harsh grain, RGB glitch, anarchist zine vibe.
+   ================================================================ */
+
+[data-aesthetic="punk"] {
+  --punk-yellow: #ffdd00;
+  --punk-black:  #0a0a0a;
+  --punk-red:    #ff2200;
+}
+
+/* Override universe colors to Hobie's palette */
+[data-aesthetic="punk"] body {
+  --universe-primary:   var(--punk-yellow);
+  --universe-secondary: var(--punk-red);
+  /* Harsh texture via SVG noise filter */
+  filter: contrast(1.08) saturate(1.15);
+}
+
+/* Headings: Bangers font, jittery animation */
+[data-aesthetic="punk"] h1,
+[data-aesthetic="punk"] h2,
+[data-aesthetic="punk"] h3 {
+  font-family: 'Bangers', 'Space Grotesk', cursive !important;
+  letter-spacing: 0.05em !important;
+  animation: punk-jitter 0.12s steps(1) infinite;
+  text-shadow:
+    2px 0   0 rgba(255,0,0,0.55),
+   -2px 0   0 rgba(0,200,255,0.45),
+    0   0   12px rgba(255,221,0,0.3);
+}
+
+@keyframes punk-jitter {
+  0%   { transform: translate(0,     0); }
+  20%  { transform: translate(-1px,  1px); }
+  40%  { transform: translate(1px,  -1px); }
+  60%  { transform: translate(-1px, -1px); }
+  80%  { transform: translate(2px,   1px); }
+  100% { transform: translate(0,     0); }
+}
+
+/* Eyebrow labels: torn uppercase */
+[data-aesthetic="punk"] .eyebrow {
+  font-family: 'Bangers', monospace !important;
+  letter-spacing: 0.2em !important;
+  color: var(--punk-yellow) !important;
+  font-size: 0.95rem !important;
+}
+
+/* Card/section borders: jagged, high-contrast */
+[data-aesthetic="punk"] section,
+[data-aesthetic="punk"] article,
+[data-aesthetic="punk"] [class*="card"] {
+  border-color: var(--punk-yellow) !important;
+  outline: 2px solid var(--punk-red);
+  outline-offset: 3px;
+}
+
+/* Buttons: hard punk style */
+[data-aesthetic="punk"] button:not([class*="toggle"]) {
+  border: 2px solid var(--punk-yellow) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Bangers', sans-serif !important;
+}
+
+/* Scrollbar goes punk yellow */
+[data-aesthetic="punk"] ::-webkit-scrollbar-thumb {
+  background: var(--punk-yellow) !important;
+  box-shadow: 0 0 10px var(--punk-yellow) !important;
+}
+
+/* Occasional RGB channel split on inline text */
+[data-aesthetic="punk"] p {
+  text-shadow: 1px 0 0 rgba(255,0,100,0.18), -1px 0 0 rgba(0,100,255,0.18);
+}
+
+
+/* ================================================================
+   2. CARTOON — Earth-8311 (Peter Porker / Spider-Ham)
+   Halftone dot BG, bouncy spring timing, comic border boldness.
+   ================================================================ */
+
+[data-aesthetic="cartoon"] {
+  --toon-orange: #ff6644;
+  --toon-cream:  #fffde7;
+  --toon-ink:    #1a0a00;
+}
+
+[data-aesthetic="cartoon"] body {
+  /* Halftone dot pattern behind everything */
+  background-image:
+    radial-gradient(circle, rgba(255,180,100,0.12) 1.5px, transparent 1.5px),
+    radial-gradient(ellipse 80% 60% at 15% -10%, color-mix(in srgb, var(--universe-primary) 22%, transparent), transparent 60%),
+    radial-gradient(ellipse 70% 55% at 100% 110%, color-mix(in srgb, var(--universe-secondary) 20%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--color-void) 0%, var(--color-void-soft) 100%);
+  background-size: 24px 24px, auto, auto, auto;
+}
+
+/* Bounce all transitions with spring overshoot */
+[data-aesthetic="cartoon"] *,
+[data-aesthetic="cartoon"] *::before,
+[data-aesthetic="cartoon"] *::after {
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Comic-panel borders: thick, dark ink */
+[data-aesthetic="cartoon"] section {
+  border: 3px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+}
+
+/* Headings: bubbly and chunky */
+[data-aesthetic="cartoon"] h1,
+[data-aesthetic="cartoon"] h2,
+[data-aesthetic="cartoon"] h3 {
+  font-family: 'Boogaloo', 'Space Grotesk', cursive !important;
+  letter-spacing: 0.02em !important;
+  -webkit-text-stroke: 0.5px rgba(0,0,0,0.3);
+  animation: cartoon-bounce 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
+}
+
+@keyframes cartoon-bounce {
+  0%   { transform: scaleY(1)   scaleX(1); }
+  50%  { transform: scaleY(1.01) scaleX(0.99); }
+  100% { transform: scaleY(0.99) scaleX(1.01); }
+}
+
+/* Eyebrow: bold and fun */
+[data-aesthetic="cartoon"] .eyebrow {
+  font-family: 'Boogaloo', sans-serif !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* Speech-bubble style on button hover */
+[data-aesthetic="cartoon"] button:not([class*="toggle"]):hover {
+  transform: scale(1.08) rotate(-1deg) !important;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.35) !important;
+  border-radius: 999px;
+}
+
+/* Impact lines on cards — subtle */
+[data-aesthetic="cartoon"] [class*="card"],
+[data-aesthetic="cartoon"] article {
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.4) !important;
+}
+
+
+/* ================================================================
+   3. NOIR — Earth-90214 (Spider-Man Noir)
+   Black & white, sepia shadows, film grain, heavy vignette.
+   ================================================================ */
+
+[data-aesthetic="noir"] body {
+  filter: grayscale(1) contrast(1.08) brightness(0.88) sepia(0.15);
+  transition: filter 0.9s ease;
+}
+
+/* All colors collapse to grayscale via filter above — but we also
+   override the custom props so glows / shadows match the mood */
+[data-aesthetic="noir"] {
+  --universe-primary:   #c8c8c8;
+  --universe-secondary: #555555;
+}
+
+/* Headings: Playfair italic — classic 1930s newspaper */
+[data-aesthetic="noir"] h1,
+[data-aesthetic="noir"] h2,
+[data-aesthetic="noir"] h3 {
+  font-family: 'Playfair Display', 'Space Grotesk', serif !important;
+  font-style: italic !important;
+  font-weight: 700;
+  letter-spacing: 0.01em !important;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+
+/* Eyebrow: typewriter feel */
+[data-aesthetic="noir"] .eyebrow {
+  font-family: 'Share Tech Mono', monospace !important;
+  color: #999 !important;
+  letter-spacing: 0.18em !important;
+}
+
+/* Borders: thin, white */
+[data-aesthetic="noir"] section,
+[data-aesthetic="noir"] article,
+[data-aesthetic="noir"] [class*="card"] {
+  border-color: rgba(200,200,200,0.2) !important;
+}
+
+/* Buttons: muted, no glow */
+[data-aesthetic="noir"] button:not([class*="toggle"]) {
+  filter: grayscale(1);
+}
+
+/* Scrollbar goes monochrome */
+[data-aesthetic="noir"] ::-webkit-scrollbar-thumb {
+  background: #999 !important;
+  box-shadow: none !important;
+}
+
+
+/* ================================================================
+   4. HUD — Earth-928 (Miguel O'Hara / Spider-Man 2099)
+   Holographic scanlines, flicker, cyan wireframe, mono font.
+   ================================================================ */
+
+[data-aesthetic="hud"] {
+  --hud-cyan:  #00f0ff;
+  --hud-red:   #ff2020;
+  --hud-dark:  #000a14;
+}
+
+/* Scanlines via repeating linear gradient on body pseudo */
+[data-aesthetic="hud"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9500;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.08) 0px,
+    rgba(0,0,0,0.08) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Hologram color wash */
+[data-aesthetic="hud"] body {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 15% -10%, rgba(0, 60, 255, 0.20), transparent 60%),
+    radial-gradient(ellipse 70% 55% at 100% 110%, rgba(255, 32, 32, 0.18), transparent 60%),
+    linear-gradient(180deg, var(--color-void) 0%, var(--color-void-soft) 100%);
+}
+
+/* All headings: HUD mono font with flicker */
+[data-aesthetic="hud"] h1,
+[data-aesthetic="hud"] h2,
+[data-aesthetic="hud"] h3 {
+  font-family: 'Share Tech Mono', 'JetBrains Mono', monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: var(--hud-cyan) !important;
+  text-shadow:
+    0 0 10px var(--hud-cyan),
+    0 0 30px rgba(0,240,255,0.3);
+  animation: hud-flicker 4s ease-in-out infinite;
+}
+
+@keyframes hud-flicker {
+  0%, 100%  { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.4; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.6; }
+  97%       { opacity: 1; }
+}
+
+/* Eyebrow: HUD label */
+[data-aesthetic="hud"] .eyebrow {
+  font-family: 'Share Tech Mono', monospace !important;
+  color: var(--hud-cyan) !important;
+  letter-spacing: 0.25em !important;
+  font-size: 0.7rem !important;
+}
+
+/* Wireframe borders: cyan glow */
+[data-aesthetic="hud"] section,
+[data-aesthetic="hud"] article,
+[data-aesthetic="hud"] [class*="card"] {
+  border: 1px solid rgba(0,240,255,0.25) !important;
+  box-shadow: 0 0 12px rgba(0,240,255,0.08), inset 0 0 8px rgba(0,240,255,0.03) !important;
+}
+
+/* Corner bracket accent on cards */
+[data-aesthetic="hud"] [class*="card"]::before,
+[data-aesthetic="hud"] [class*="card"]::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--hud-cyan);
+  border-style: solid;
+  pointer-events: none;
+}
+[data-aesthetic="hud"] [class*="card"]::before {
+  top: 4px; left: 4px;
+  border-width: 1px 0 0 1px;
+}
+[data-aesthetic="hud"] [class*="card"]::after {
+  bottom: 4px; right: 4px;
+  border-width: 0 1px 1px 0;
+}
+
+/* Body text: slight cyan tint */
+[data-aesthetic="hud"] p,
+[data-aesthetic="hud"] span:not(.eyebrow) {
+  color: rgba(200, 240, 255, 0.85) !important;
+}
+
+/* Scrollbar: HUD cyan */
+[data-aesthetic="hud"] ::-webkit-scrollbar-thumb {
+  background: var(--hud-cyan) !important;
+  box-shadow: 0 0 10px var(--hud-cyan) !important;
+}
+
+/* Buttons: wireframe style */
+[data-aesthetic="hud"] button:not([class*="toggle"]) {
+  border: 1px solid var(--hud-cyan) !important;
+  color: var(--hud-cyan) !important;
+  font-family: 'Share Tech Mono', monospace !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(0,240,255,0.2), inset 0 0 10px rgba(0,240,255,0.04) !important;
+}
+
+[data-aesthetic="hud"] button:not([class*="toggle"]):hover {
+  background: rgba(0,240,255,0.08) !important;
+  box-shadow: 0 0 20px rgba(0,240,255,0.4), inset 0 0 15px rgba(0,240,255,0.08) !important;
+}
+
+
+/* ================================================================
+   5. INDIA — Earth-50101 (Pavitr Prabhakar / Spider-Man India)
+   Warm gold particles, rangoli dot-pattern, rich saturated warmth.
+   ================================================================ */
+
+[data-aesthetic="india"] {
+  --india-gold:   #ffb300;
+  --india-saffron:#ff6d00;
+  --india-indigo: #1a237e;
+}
+
+/* Warm golden overlay tint */
+[data-aesthetic="india"] body {
+  filter: saturate(1.2) warm(0.05);
+  background-image:
+    /* Rangoli dot ring pattern */
+    radial-gradient(circle, rgba(255,179,0,0.07) 1px, transparent 1px),
+    radial-gradient(ellipse 80% 60% at 15% -10%, rgba(255,149,0,0.22), transparent 60%),
+    radial-gradient(ellipse 70% 55% at 100% 110%, rgba(26,35,126,0.22), transparent 60%),
+    linear-gradient(180deg, var(--color-void) 0%, var(--color-void-soft) 100%);
+  background-size: 32px 32px, auto, auto, auto;
+}
+
+/* Headings: golden shimmer */
+[data-aesthetic="india"] h1,
+[data-aesthetic="india"] h2,
+[data-aesthetic="india"] h3 {
+  background: linear-gradient(135deg, var(--india-gold) 0%, var(--india-saffron) 50%, var(--india-gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: india-shimmer 3s linear infinite;
+  font-weight: 700 !important;
+}
+
+@keyframes india-shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Eyebrow: golden label */
+[data-aesthetic="india"] .eyebrow {
+  color: var(--india-gold) !important;
+  letter-spacing: 0.18em !important;
+}
+
+/* Borders: gold accent */
+[data-aesthetic="india"] section,
+[data-aesthetic="india"] article,
+[data-aesthetic="india"] [class*="card"] {
+  border-color: rgba(255,179,0,0.25) !important;
+  box-shadow: 0 0 20px rgba(255,149,0,0.08) !important;
+}
+
+/* Decorative dividers: rangoli dot chain */
+[data-aesthetic="india"] section::before {
+  content: '◆ ·  · ◆ ·  · ◆ ·  · ◆ ·  · ◆';
+  display: block;
+  text-align: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: rgba(255,179,0,0.3);
+  padding: 0.5rem 0;
+  pointer-events: none;
+}
+
+/* Buttons: warm gold */
+[data-aesthetic="india"] button:not([class*="toggle"]) {
+  border-color: var(--india-gold) !important;
+  box-shadow: 0 0 15px rgba(255,179,0,0.25) !important;
+}
+
+[data-aesthetic="india"] button:not([class*="toggle"]):hover {
+  box-shadow: 0 0 25px rgba(255,179,0,0.5) !important;
+  background: rgba(255,179,0,0.1) !important;
+}
+
+/* Scrollbar: gold */
+[data-aesthetic="india"] ::-webkit-scrollbar-thumb {
+  background: var(--india-gold) !important;
+  box-shadow: 0 0 10px var(--india-gold) !important;
+}
+
+
+/* ================================================================
+   REDUCED MOTION overrides — disable all aesthetic animations
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  [data-aesthetic="punk"] h1,
+  [data-aesthetic="punk"] h2,
+  [data-aesthetic="punk"] h3 {
+    animation: none !important;
+    text-shadow: none !important;
+  }
+  [data-aesthetic="hud"] h1,
+  [data-aesthetic="hud"] h2,
+  [data-aesthetic="hud"] h3 {
+    animation: none !important;
+  }
+  [data-aesthetic="cartoon"] h1,
+  [data-aesthetic="cartoon"] h2,
+  [data-aesthetic="cartoon"] h3 {
+    animation: none !important;
+  }
+  [data-aesthetic="india"] h1,
+  [data-aesthetic="india"] h2,
+  [data-aesthetic="india"] h3 {
+    animation: none !important;
+    -webkit-text-fill-color: var(--india-gold) !important;
+  }
+  [data-aesthetic="cartoon"] * {
+    transition-timing-function: ease !important;
+  }
+}
