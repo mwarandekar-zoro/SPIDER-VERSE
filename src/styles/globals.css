@@ -402,3 +402,50 @@ button {
   );
   filter: blur(20px);
 }
+
+/* ─────────────────────────────────────────────────────────────
+   PHASE A — MOTION & MICRO-INTERACTIONS
+   ───────────────────────────────────────────────────────────── */
+
+/* ── 1. Custom Glowing Scrollbar ── */
+/* Chromium / Edge */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--universe-primary);
+  border-radius: 999px;
+  box-shadow: 0 0 8px var(--universe-primary), 0 0 16px var(--universe-primary);
+  transition: background 0.6s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--universe-secondary);
+  box-shadow: 0 0 12px var(--universe-secondary), 0 0 24px var(--universe-secondary);
+}
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--universe-primary) var(--color-void);
+}
+
+/* ── 2. Magnetic button transition helper ── */
+.magnetic-target {
+  will-change: transform;
+  transition: box-shadow 0.3s ease;
+}
+
+/* ── 3. Scroll skew section ── */
+.scroll-skew-section {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* ── 4. Text scramble heading ── */
+.scramble-heading {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}

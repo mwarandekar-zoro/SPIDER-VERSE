@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import TextScramble from '../components/UI/TextScramble';
+import ScrollSkewSection from '../components/UI/ScrollSkewSection';
 
 // ─────────────────────────────────────────────────────────────
 // Lore Intro — short blurb between Hero and Multiverse
@@ -41,6 +43,7 @@ export default function LoreIntro() {
   const lineInView = useInView(lineRef, { once: true, margin: '-60px' });
 
   return (
+    <ScrollSkewSection>
     <section
       id="lore"
       style={{
@@ -51,15 +54,13 @@ export default function LoreIntro() {
       }}
     >
       {/* ── Header ── */}
-      <motion.span
-        className="eyebrow"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        WHAT IS THE SPIDER-VERSE?
-      </motion.span>
+      <TextScramble
+        text="WHAT IS THE SPIDER-VERSE?"
+        as="span"
+        className="eyebrow scramble-heading"
+        speed={32}
+        delay={150}
+      />
 
       {/* ── Expanding divider line ── */}
       <div ref={lineRef} style={{ position: 'relative', height: '2px', margin: '1.5rem auto', maxWidth: '500px', overflow: 'visible' }}>
@@ -116,5 +117,6 @@ export default function LoreIntro() {
         <circle cx="50" cy="50" r="7" fill="var(--universe-primary)" />
       </svg>
     </section>
+    </ScrollSkewSection>
   );
 }

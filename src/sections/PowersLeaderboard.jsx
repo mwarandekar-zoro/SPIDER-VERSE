@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { spiderPeople } from '../data/spiderPeople';
+import TextScramble from '../components/UI/TextScramble';
+import ScrollSkewSection from '../components/UI/ScrollSkewSection';
 
 // ─────────────────────────────────────────────────────────────
 // Powers Leaderboard
@@ -125,6 +127,7 @@ export default function PowersLeaderboard() {
   const statInfo = STATS.find((s) => s.key === activeStat);
 
   return (
+    <ScrollSkewSection>
     <section
       id="leaderboard"
       style={{
@@ -137,13 +140,13 @@ export default function PowersLeaderboard() {
     >
       {/* ── Header ── */}
       <div ref={titleRef} style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <motion.span
-          className="eyebrow"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-        >
-          POWERS LEADERBOARD
-        </motion.span>
+        <TextScramble
+          text="POWERS LEADERBOARD"
+          as="span"
+          className="eyebrow scramble-heading"
+          speed={30}
+          delay={100}
+        />
         <motion.h2
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -224,5 +227,7 @@ export default function PowersLeaderboard() {
         </a>
       </motion.p>
     </section>
+    </ScrollSkewSection>
   );
 }
+

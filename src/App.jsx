@@ -8,6 +8,7 @@ import LoadingScreen from './components/UI/LoadingScreen';
 import IdleManager from './components/UI/IdleManager';
 import { CursorProvider } from './components/Cursor/CursorContext';
 import CustomCursor from './components/Cursor/CustomCursor';
+import WebStrandCanvas from './components/Cursor/WebStrandCanvas';
 import Hero from './sections/Hero';
 import Multiverse from './sections/Multiverse';
 import LoreIntro from './sections/LoreIntro';
@@ -236,6 +237,7 @@ export default function App() {
 
       <Navbar />
       {!isTouch && <CustomCursor />}
+      {!isTouch && <WebStrandCanvas />}
       <SoundToggle enabled={soundEnabled} onToggle={handleToggleSound} />
       <QualityToggle quality={quality} onChange={setQuality} />
       <IdleManager />
