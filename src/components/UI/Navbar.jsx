@@ -7,7 +7,7 @@ const LINKS = [
   { href: '#compare', label: 'Compare' },
 ];
 
-export default function Navbar({ onLogoFrenzy }) {
+export default function Navbar({ onLogoFrenzy, onTriggerChaos }) {
   const { setCursor } = useCursor();
   const clickTimes = useRef([]);
 
@@ -41,6 +41,7 @@ export default function Navbar({ onLogoFrenzy }) {
       <a
         href="#hero"
         onClick={handleLogoClick}
+        title="5 quick clicks = Multiverse Glitch Frenzy!"
         style={{
           fontFamily: 'var(--font-display)',
           fontWeight: 700,
@@ -57,7 +58,7 @@ export default function Navbar({ onLogoFrenzy }) {
         SPIDER-VERSE
       </a>
 
-      <ul style={{ display: 'flex', gap: '1.4rem', listStyle: 'none', flexWrap: 'wrap', pointerEvents: 'auto' }}>
+      <ul style={{ display: 'flex', gap: '1.2rem', alignItems: 'center', listStyle: 'none', flexWrap: 'wrap', pointerEvents: 'auto' }}>
         {LINKS.map((link) => (
           <li key={link.href}>
             <a
@@ -71,6 +72,31 @@ export default function Navbar({ onLogoFrenzy }) {
             </a>
           </li>
         ))}
+
+        <li>
+          <button
+            onClick={onTriggerChaos}
+            title="Trigger Spider-Verse Chaos Mode (or press ↑↑↓↓←→←→BA or type 'spider')"
+            style={{
+              padding: '0.25rem 0.6rem',
+              borderRadius: '999px',
+              border: '1px solid var(--universe-primary)',
+              background: 'rgba(255,0,85,0.15)',
+              color: '#fff',
+              fontSize: '0.65rem',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 700,
+              cursor: 'pointer',
+              letterSpacing: '0.08em',
+              boxShadow: '0 0 10px rgba(255,0,85,0.4)',
+              transition: 'all 0.25s ease',
+            }}
+            onPointerEnter={() => setCursor('button', 'CHAOS')}
+            onPointerLeave={() => setCursor('default')}
+          >
+            CHAOS 💥
+          </button>
+        </li>
       </ul>
     </nav>
   );

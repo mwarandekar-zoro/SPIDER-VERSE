@@ -297,7 +297,7 @@ export default function App() {
         />
       ))}
 
-      <Navbar onLogoFrenzy={handleLogoFrenzy} />
+      <Navbar onLogoFrenzy={handleLogoFrenzy} onTriggerChaos={() => setIsChaosActive(true)} />
       {!isTouch && <CustomCursor />}
       {!isTouch && <WebStrandCanvas />}
       <UniverseOverlay aesthetic={aesthetic} />

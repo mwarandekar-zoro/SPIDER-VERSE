@@ -10,37 +10,53 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { playSound } from '../../utils/audio';
 
 const KONAMI_CODE = [
-  'ArrowUp', 'ArrowUp',
-  'ArrowDown', 'ArrowDown',
-  'ArrowLeft', 'ArrowRight',
-  'ArrowLeft', 'ArrowRight',
+  'arrowup', 'arrowup',
+  'arrowdown', 'arrowdown',
+  'arrowleft', 'arrowright',
+  'arrowleft', 'arrowright',
   'b', 'a'
 ];
 
+const SPIDER_CODE = ['s', 'p', 'i', 'd', 'e', 'r'];
+
 export function useKonamiCode(onUnlock) {
-  const [inputIndex, setInputIndex] = useState(0);
+  const [konamiIdx, setKonamiIdx] = useState(0);
+  const [spiderIdx, setSpiderIdx] = useState(0);
 
   useEffect(() => {
     function handleKeyDown(e) {
-      const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-      const expected = KONAMI_CODE[inputIndex].toLowerCase();
+      const key = e.key.toLowerCase();
 
-      if (key === expected) {
-        const next = inputIndex + 1;
+      // Check Konami Code
+      if (key === KONAMI_CODE[konamiIdx]) {
+        const next = konamiIdx + 1;
         if (next === KONAMI_CODE.length) {
           onUnlock();
-          setInputIndex(0);
+          setKonamiIdx(0);
         } else {
-          setInputIndex(next);
+          setKonamiIdx(next);
         }
       } else {
-        setInputIndex(0);
+        setKonamiIdx(key === KONAMI_CODE[0] ? 1 : 0);
+      }
+
+      // Check 'SPIDER' typing
+      if (key === SPIDER_CODE[spiderIdx]) {
+        const nextSp = spiderIdx + 1;
+        if (nextSp === SPIDER_CODE.length) {
+          onUnlock();
+          setSpiderIdx(0);
+        } else {
+          setSpiderIdx(nextSp);
+        }
+      } else {
+        setSpiderIdx(key === SPIDER_CODE[0] ? 1 : 0);
       }
     }
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [inputIndex, onUnlock]);
+  }, [konamiIdx, spiderIdx, onUnlock]);
 }
 
 export default function ChaosModeOverlay({ active, onClose }) {
