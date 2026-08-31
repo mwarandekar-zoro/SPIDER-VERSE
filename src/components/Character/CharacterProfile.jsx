@@ -79,46 +79,69 @@ export default function CharacterProfile({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '280px 1fr',
+          gridTemplateColumns: 'clamp(320px, 38vw, 420px) 1fr',
           gap: 0,
           position: 'relative',
           zIndex: 1,
         }}
       >
         {/* Portrait column */}
-        <div style={{ position: 'relative', minHeight: '400px', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', minHeight: '440px', overflow: 'hidden', background: 'rgba(8,7,12,0.95)' }}>
           {showImage ? (
             <>
+              {/* Blurred background image layer to fill edges seamlessly */}
+              <img
+                src={character.image}
+                alt=""
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'blur(24px) brightness(0.35) saturate(1.4)',
+                  transform: 'scale(1.2)',
+                }}
+              />
+              {/* Main FULL image — un-cropped, 100% visible */}
               <img
                 src={character.image}
                 alt={character.name}
                 onError={() => setImageError(true)}
                 style={{
+                  position: 'relative',
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'top center',
+                  maxHeight: '520px',
+                  objectFit: 'contain',
+                  objectPosition: 'center',
                   display: 'block',
+                  zIndex: 1,
+                  filter: `drop-shadow(0 0 25px ${primary}66)`,
                 }}
               />
-              {/* Gradient fade to content panel */}
+              {/* Subtle edge vignette overlay — no heavy black covering face */}
               <div
                 aria-hidden="true"
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  background: `linear-gradient(to right, transparent 50%, rgba(15,13,23,0.95) 100%),
-                               linear-gradient(to top, ${secondary}cc 0%, transparent 60%)`,
+                  background: `linear-gradient(to right, transparent 75%, rgba(15,13,23,0.95) 100%),
+                               linear-gradient(to top, rgba(15,13,23,0.8) 0%, transparent 35%)`,
+                  zIndex: 2,
+                  pointerEvents: 'none',
                 }}
               />
-              {/* Suit color tint layer */}
+              {/* Suit color glow accent */}
               <div
                 aria-hidden="true"
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  background: `linear-gradient(160deg, ${primary}22, transparent 60%)`,
-                  mixBlendMode: 'screen',
+                  background: `radial-gradient(circle at 30% 30%, ${primary}18, transparent 70%)`,
+                  zIndex: 2,
+                  pointerEvents: 'none',
                 }}
               />
             </>

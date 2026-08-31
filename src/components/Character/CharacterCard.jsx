@@ -83,19 +83,36 @@ function CharacterCard({ characterId, onSelect }) {
       >
         {/* --- REAL IMAGE (if available) --- */}
         {showImage && (
-          <img
-            src={character.image}
-            alt={character.name}
-            onError={() => setImageError(true)}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'top center',
-            }}
-          />
+          <>
+            <img
+              src={character.image}
+              alt=""
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                filter: 'blur(16px) brightness(0.4) saturate(1.3)',
+                transform: 'scale(1.15)',
+              }}
+            />
+            <img
+              src={character.image}
+              alt={character.name}
+              onError={() => setImageError(true)}
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                objectPosition: 'center',
+                zIndex: 1,
+                filter: `drop-shadow(0 0 12px ${primary}44)`,
+              }}
+            />
+          </>
         )}
 
         {/* --- GENERATIVE ART CARD (when no image) --- */}
