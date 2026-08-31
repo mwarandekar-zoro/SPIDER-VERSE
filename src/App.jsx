@@ -183,7 +183,7 @@ export default function App() {
         playSound('web', { volume: 0.5 });
         const char = spiderPeople.find((c) => c.id === characterId);
         if (char) {
-          speakVoice(`${char.name}, ${char.alias}`);
+          speakVoice(char.name);
         }
       }
     },
@@ -198,10 +198,6 @@ export default function App() {
       setSelectedUniverseId(id);
       if (soundEnabled) {
         playSound('portal', { volume: 0.5 });
-        const uni = universes.find((u) => u.id === id);
-        if (uni) {
-          speakVoice(`Entering ${uni.name}, ${uni.title}`);
-        }
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
