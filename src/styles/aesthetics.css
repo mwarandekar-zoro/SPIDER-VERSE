@@ -12,7 +12,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Boogaloo&family=Share+Tech+Mono&family=Playfair+Display:ital@1&display=swap');
 
 /* ── Shared transition for aesthetic entering / leaving ── */
-html {
+.content-layer {
   transition: filter 0.7s ease;
 }
 
@@ -31,6 +31,8 @@ html {
 [data-aesthetic="punk"] body {
   --universe-primary:   var(--punk-yellow);
   --universe-secondary: var(--punk-red);
+}
+[data-aesthetic="punk"] .content-layer {
   /* Harsh texture via SVG noise filter */
   filter: contrast(1.08) saturate(1.15);
 }
@@ -170,7 +172,7 @@ html {
    Black & white, sepia shadows, film grain, heavy vignette.
    ================================================================ */
 
-[data-aesthetic="noir"] body {
+[data-aesthetic="noir"] .content-layer {
   filter: grayscale(1) contrast(1.08) brightness(0.88) sepia(0.15);
   transition: filter 0.9s ease;
 }
@@ -353,8 +355,10 @@ html {
 }
 
 /* Warm golden overlay tint */
+[data-aesthetic="india"] .content-layer {
+  filter: saturate(1.2);
+}
 [data-aesthetic="india"] body {
-  filter: saturate(1.2) warm(0.05);
   background-image:
     /* Rangoli dot ring pattern */
     radial-gradient(circle, rgba(255,179,0,0.07) 1px, transparent 1px),
@@ -481,14 +485,14 @@ html {
 /* ================================================================
    12. HAUNTED — Kaine Parker (Earth-616)
    ================================================================ */
-[data-aesthetic="haunted"] body {
+[data-aesthetic="haunted"] .content-layer {
   filter: contrast(1.15) brightness(0.92);
 }
 
 /* ================================================================
    13. WILDWEST — Patrick O'Hara / Web-Slinger (Earth-31913)
    ================================================================ */
-[data-aesthetic="wildwest"] body {
+[data-aesthetic="wildwest"] .content-layer {
   filter: sepia(0.25) contrast(1.05);
 }
 
@@ -522,7 +526,7 @@ html {
 /* ================================================================
    17. PREHISTORIC — Spider-Rex (Earth-66)
    ================================================================ */
-[data-aesthetic="prehistoric"] body {
+[data-aesthetic="prehistoric"] .content-layer {
   filter: saturate(1.25) contrast(1.1);
 }
 
