@@ -275,13 +275,14 @@ button {
    except form controls (which need a visible text/select cursor),
    and styles the dot/ring/trail elements rendered by CustomCursor.jsx */
 @media (hover: hover) and (pointer: fine) {
-  body.custom-cursor-active {
-    cursor: none;
+  body.custom-cursor-active,
+  body.custom-cursor-active * {
+    cursor: none !important;
   }
   body.custom-cursor-active input,
   body.custom-cursor-active select,
   body.custom-cursor-active textarea {
-    cursor: auto;
+    cursor: auto !important;
   }
 }
 
@@ -293,10 +294,10 @@ button {
   height: 30px;
   margin: -15px 0 0 -15px;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 100000;
   will-change: transform;
   filter: drop-shadow(0 0 6px var(--universe-primary));
-  transition: filter 0.3s ease;
+  transition: filter 0.3s ease, opacity 0.2s ease;
 }
 
 .custom-cursor-spider-sense {
@@ -319,8 +320,9 @@ button {
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 99999;
   will-change: transform;
+  transition: opacity 0.2s ease;
 }
 
 .custom-cursor-ring {
@@ -336,6 +338,21 @@ button {
   justify-content: center;
   box-shadow: 0 0 12px var(--universe-primary);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-cursor-trail-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--universe-primary);
+  box-shadow: 0 0 8px var(--universe-primary);
+  pointer-events: none;
+  z-index: 99997;
+  will-change: transform;
 }
 
 .custom-cursor-label {

@@ -177,9 +177,27 @@ export default function CustomCursor() {
     function handleMove(e) {
       target.current.x = e.clientX;
       target.current.y = e.clientY;
+      if (spiderRef.current) spiderRef.current.style.opacity = '1';
+      if (ringWrapperRef.current) ringWrapperRef.current.style.opacity = '1';
     }
+    function handleLeave() {
+      if (spiderRef.current) spiderRef.current.style.opacity = '0';
+      if (ringWrapperRef.current) ringWrapperRef.current.style.opacity = '0';
+    }
+    function handleEnter() {
+      if (spiderRef.current) spiderRef.current.style.opacity = '1';
+      if (ringWrapperRef.current) ringWrapperRef.current.style.opacity = '1';
+    }
+
     window.addEventListener('pointermove', handleMove, { passive: true });
-    return () => window.removeEventListener('pointermove', handleMove);
+    document.documentElement.addEventListener('mouseleave', handleLeave);
+    document.documentElement.addEventListener('mouseenter', handleEnter);
+
+    return () => {
+      window.removeEventListener('pointermove', handleMove);
+      document.documentElement.removeEventListener('mouseleave', handleLeave);
+      document.documentElement.removeEventListener('mouseenter', handleEnter);
+    };
   }, []);
 
   useEffect(() => {
