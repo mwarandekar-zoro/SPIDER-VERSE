@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { useCursor } from '../Cursor/CursorContext';
 
 const LINKS = [
