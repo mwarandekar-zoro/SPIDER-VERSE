@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { initHeroScrollFade } from '../animations/scrollAnimations';
 import { spiderPeople } from '../data/spiderPeople';
+import CrazySpiderVerseTitle from '../components/UI/CrazySpiderVerseTitle';
 
 // ─────────────────────────────────────────────────────────────
 // Picks one Spider-Person that stays constant for this session.
@@ -678,19 +679,14 @@ export default function Hero({ onSelectCharacter }) {
       </motion.span>
 
       {/* ── Main Title ── */}
-      <motion.h1
+      <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1,  y: 0  }}
         transition={{ delay: 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          fontSize: 'var(--fs-hero)',
-          color: 'var(--color-web)',
-          position: 'relative',
-          zIndex: 1,
-        }}
+        style={{ position: 'relative', zIndex: 1 }}
       >
-        SPIDER-VERSE
-      </motion.h1>
+        <CrazySpiderVerseTitle text="SPIDER-VERSE" as="h1" fontSize="var(--fs-hero)" />
+      </motion.div>
 
       {/* ── Subtitle ── */}
       <motion.p
