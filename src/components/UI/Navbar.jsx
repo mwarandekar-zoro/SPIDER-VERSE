@@ -67,27 +67,31 @@ export default function Navbar({ onLogoFrenzy, onTriggerChaos }) {
       <ul style={{ display: 'flex', gap: '1.2rem', alignItems: 'center', listStyle: 'none', flexWrap: 'wrap', pointerEvents: 'auto' }}>
         {LINKS.map((link) => (
           <li key={link.href}>
-            <a
+            <motion.a
               href={link.href}
               className="eyebrow"
-              style={{ color: 'var(--color-web-dim)' }}
+              whileHover={{ scale: 1.1, color: '#ffffff', textShadow: '0 0 10px var(--universe-primary)' }}
+              transition={{ duration: 0.2 }}
+              style={{ color: 'var(--color-web-dim)', display: 'inline-block' }}
               onPointerEnter={() => setCursor('button', '→')}
               onPointerLeave={() => setCursor('default')}
             >
               {link.label}
-            </a>
+            </motion.a>
           </li>
         ))}
 
         <li>
-          <button
+          <motion.button
             onClick={onTriggerChaos}
             title="Trigger Spider-Verse Chaos Mode (or press ↑↑↓↓←→←→BA or type 'spider')"
+            whileHover={{ scale: 1.12, boxShadow: '0 0 20px rgba(255,0,85,0.85), 0 0 35px var(--universe-primary)' }}
+            whileTap={{ scale: 0.95 }}
             style={{
-              padding: '0.25rem 0.6rem',
+              padding: '0.25rem 0.65rem',
               borderRadius: '999px',
               border: '1px solid var(--universe-primary)',
-              background: 'rgba(255,0,85,0.15)',
+              background: 'rgba(255,0,85,0.2)',
               color: '#fff',
               fontSize: '0.65rem',
               fontFamily: 'var(--font-mono)',
@@ -101,7 +105,7 @@ export default function Navbar({ onLogoFrenzy, onTriggerChaos }) {
             onPointerLeave={() => setCursor('default')}
           >
             CHAOS 💥
-          </button>
+          </motion.button>
         </li>
       </ul>
     </nav>

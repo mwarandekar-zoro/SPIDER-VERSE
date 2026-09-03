@@ -30,7 +30,14 @@ function LeaderboardRow({ character, rank, value, max, index, activeStat }) {
       ref={ref}
       initial={{ opacity: 0, x: -30 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{
+        x: 6,
+        scale: 1.015,
+        backgroundColor: `${primary}22`,
+        borderColor: primary,
+        boxShadow: `0 0 20px ${primary}33`,
+      }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
       style={{
         display: 'grid',
         gridTemplateColumns: '2rem 50px 1fr auto',
@@ -39,9 +46,10 @@ function LeaderboardRow({ character, rank, value, max, index, activeStat }) {
         padding: '0.6rem 0.9rem',
         borderRadius: 'var(--radius-sm)',
         background: rank === 1 ? `${primary}18` : 'rgba(255,255,255,0.025)',
-        border: rank === 1 ? `1px solid ${primary}44` : '1px solid transparent',
+        border: rank === 1 ? `1px solid ${primary}44` : '1px solid rgba(255,255,255,0.05)',
         position: 'relative',
         overflow: 'hidden',
+        cursor: 'pointer',
       }}
     >
       {/* Rank Medal / Number */}

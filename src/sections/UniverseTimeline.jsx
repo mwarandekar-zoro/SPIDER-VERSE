@@ -49,7 +49,8 @@ function FactionCard({ faction, data, delay }) {
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -6, scale: 1.025, boxShadow: `0 0 35px ${data.color}55, inset 0 0 15px ${data.color}22`, borderColor: data.color }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
       style={{
         flex: '1 1 260px',
         padding: '1.25rem',
@@ -59,6 +60,7 @@ function FactionCard({ faction, data, delay }) {
         boxShadow: `0 0 24px ${data.color}22`,
         position: 'relative',
         overflow: 'hidden',
+        cursor: 'default',
       }}
     >
       {/* Top accent */}
@@ -72,10 +74,15 @@ function FactionCard({ faction, data, delay }) {
       </p>
       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
         {data.members.map((m) => (
-          <li key={m} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--color-web-dim)' }}>
+          <motion.li
+            key={m}
+            whileHover={{ x: 4, color: '#ffffff' }}
+            transition={{ duration: 0.2 }}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--color-web-dim)', cursor: 'default' }}
+          >
             <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: data.color, flexShrink: 0, boxShadow: `0 0 6px ${data.color}` }} />
             {m}
-          </li>
+          </motion.li>
         ))}
       </ul>
     </motion.div>
@@ -93,7 +100,8 @@ function TimelineEvent({ event, index, isLast }) {
         <motion.div
           initial={{ scale: 0 }}
           animate={inView ? { scale: 1 } : {}}
-          transition={{ duration: 0.4, delay: index * 0.08 }}
+          whileHover={{ scale: 1.5, boxShadow: `0 0 16px ${event.color}` }}
+          transition={{ duration: 0.3 }}
           style={{
             width: '12px',
             height: '12px',
@@ -102,6 +110,7 @@ function TimelineEvent({ event, index, isLast }) {
             boxShadow: `0 0 10px ${event.color}`,
             flexShrink: 0,
             marginTop: '0.25rem',
+            cursor: 'pointer',
           }}
         />
         {!isLast && (
@@ -118,8 +127,9 @@ function TimelineEvent({ event, index, isLast }) {
       <motion.div
         initial={{ opacity: 0, x: -16 }}
         animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.5, delay: index * 0.08 + 0.05 }}
-        style={{ paddingBottom: isLast ? 0 : '1rem' }}
+        whileHover={{ x: 6, scale: 1.01 }}
+        transition={{ duration: 0.25 }}
+        style={{ paddingBottom: isLast ? 0 : '1rem', cursor: 'default' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem' }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: event.color, fontWeight: 700 }}>{event.year}</span>

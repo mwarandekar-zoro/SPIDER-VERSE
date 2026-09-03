@@ -489,7 +489,12 @@ export default function Multiverse({ hoveredUniverseId, selectedUniverseId, onSe
                 key={u.id}
                 data-universe-id={u.id}
                 onClick={() => onSelectUniverse?.(u.id)}
-                whileHover={{ scale: 1.08, y: -2 }}
+                whileHover={{
+                  scale: 1.12,
+                  y: -3,
+                  boxShadow: `0 0 25px ${primary}, 0 0 45px ${primary}66`,
+                  borderColor: primary,
+                }}
                 whileTap={{ scale: 0.95 }}
                 style={{
                   padding: '0.45rem 1rem',

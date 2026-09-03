@@ -36,6 +36,8 @@ export default function Button({ children, onClick, style, ...props }) {
       onPointerLeave={handlePointerLeave}
       onPointerEnter={() => setCursor('button', '→')}
       onClick={onClick}
+      whileHover={{ scale: 1.065 }}
+      whileTap={{ scale: 0.96 }}
       style={{ x: springX, y: springY, ...style }}
       {...props}
     >

@@ -17,6 +17,7 @@ function CharacterCard({ characterId, onSelect }) {
   const cardRef = useRef(null);
   const { setCursor } = useCursor();
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -36,10 +37,12 @@ function CharacterCard({ characterId, onSelect }) {
   }
 
   function handlePointerEnter() {
+    setIsHovered(true);
     setCursor('character', 'EXPLORE');
   }
 
   function handlePointerLeave() {
+    setIsHovered(false);
     x.set(0);
     y.set(0);
     setCursor('default');
@@ -66,7 +69,7 @@ function CharacterCard({ characterId, onSelect }) {
         transformStyle: 'preserve-3d',
         perspective: 900,
       }}
-      whileHover={{ scale: 1.04 }}
+      whileHover={{ scale: 1.045 }}
       whileTap={{ scale: 0.97 }}
       className="character-card"
     >
@@ -77,10 +80,59 @@ function CharacterCard({ characterId, onSelect }) {
           aspectRatio: '3 / 4',
           borderRadius: 'var(--radius-md)',
           overflow: 'hidden',
-          border: `1px solid ${primary}55`,
+          border: `1px solid ${isHovered ? primary : `${primary}55`}`,
           background: `linear-gradient(160deg, ${primary}22, var(--color-void) 70%)`,
+          boxShadow: isHovered
+            ? `0 0 30px ${primary}88, 0 0 60px ${secondary}44, inset 0 0 25px ${primary}44`
+            : `0 0 15px ${primary}22`,
+          transition: 'border-color 0.3s ease, box-shadow 0.35s ease',
         }}
       >
+        {/* --- HOLOGRAPHIC LIGHT SHIMMER SWEEP ON HOVER --- */}
+        <motion.div
+          animate={{
+            x: isHovered ? ['-100%', '200%'] : '-100%',
+          }}
+          transition={{
+            duration: 0.8,
+            ease: 'easeInOut',
+            repeat: isHovered ? Infinity : 0,
+            repeatDelay: 1.2,
+          }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '60%',
+            height: '100%',
+            background: `linear-gradient(105deg, transparent 20%, ${primary}44 40%, rgba(255,255,255,0.4) 50%, ${secondary}44 60%, transparent 80%)`,
+            zIndex: 4,
+            pointerEvents: 'none',
+            transform: 'skewX(-20deg)',
+          }}
+        />
+
+        {/* --- SPIDER-SENSE HOVER WARNING ARCS --- */}
+        <motion.div
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            scale: isHovered ? [1, 1.25, 1] : 0.8,
+          }}
+          transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0 }}
+          style={{
+            position: 'absolute',
+            top: '12px',
+            right: '12px',
+            zIndex: 5,
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '3px',
+          }}
+        >
+          <span style={{ fontSize: '0.8rem', color: primary, textShadow: `0 0 8px ${primary}` }}>⚡</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: '#fff', letterSpacing: '0.1em', fontWeight: 700 }}>SENSE</span>
+        </motion.div>
+
         {/* --- REAL IMAGE (if available) --- */}
         {showImage && (
           <>
@@ -95,7 +147,8 @@ function CharacterCard({ characterId, onSelect }) {
                 height: '100%',
                 objectFit: 'cover',
                 filter: 'blur(16px) brightness(0.4) saturate(1.3)',
-                transform: 'scale(1.15)',
+                transform: isHovered ? 'scale(1.25)' : 'scale(1.15)',
+                transition: 'transform 0.4s ease',
               }}
             />
             <img
@@ -109,7 +162,11 @@ function CharacterCard({ characterId, onSelect }) {
                 objectFit: 'contain',
                 objectPosition: 'center',
                 zIndex: 1,
-                filter: `drop-shadow(0 0 12px ${primary}44)`,
+                transform: isHovered ? 'scale(1.08)' : 'scale(1)',
+                filter: isHovered
+                  ? `drop-shadow(0 0 20px ${primary}) saturate(1.2)`
+                  : `drop-shadow(0 0 12px ${primary}44)`,
+                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease',
               }}
             />
           </>
