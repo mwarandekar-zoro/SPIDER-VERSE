@@ -466,3 +466,41 @@ button {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
 }
+
+/* ── 5. Rich Text Hover Micro-Interactions ── */
+h1, h2, h3, h4, .eyebrow {
+  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 0.3s ease;
+}
+
+h1:hover, h2:hover, h3:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 18px var(--universe-primary), 0 0 36px var(--universe-secondary);
+}
+
+.eyebrow:hover {
+  color: var(--universe-primary) !important;
+  text-shadow: 0 0 14px var(--universe-primary);
+}
+
+.hover-text-glow {
+  display: inline-block;
+  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-text-glow:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 16px var(--universe-primary), 0 0 32px var(--universe-secondary) !important;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.hover-glitch-text {
+  display: inline-block;
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.hover-glitch-text:hover {
+  text-shadow: 2px 0 0 var(--universe-primary), -2px 0 0 var(--universe-secondary), 0 0 14px var(--universe-primary);
+  transform: scale(1.04);
+}
